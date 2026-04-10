@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Studies — Simple Solutions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --navy: #0f1a2e; --navy-light: #1a2744; --gray-900: #111827;
+      --gray-700: #374151; --gray-500: #6b7280; --gray-300: #d1d5db;
+      --gray-100: #f5f3f0; --white: #ffffff; --accent: #3b82f6;
+      --bg: #faf9f7; --bg-alt: #f0eee9; --green: #22c55e; --blue: #3b82f6;
+    }
+    body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); background: var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(250,249,247,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--bg-alt); padding: 0 2rem; }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .logo { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; }
+    .logo-icon { height: 36px; width: auto; }
+    .logo-text { font-size: 1.2rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; line-height: 1.1; }
+    .logo-text span { color: var(--gray-500); }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--gray-700); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--navy); }
+    .btn-nav { background: #3b82f6; color: var(--white); padding: 0.6rem 1.4rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+    .btn-nav:hover { background: #2563eb; transform: translateY(-1px); }
+
+    /* HERO */
+    .cs-hero { padding: 9rem 2rem 4rem; background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%); }
+    .cs-hero-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+    .section-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 0.75rem; }
+    .cs-hero h1 { font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 800; color: var(--navy); letter-spacing: -0.03em; margin-bottom: 1rem; line-height: 1.15; }
+    .cs-hero h1 em { font-style: normal; color: var(--gray-500); }
+    .cs-hero p { font-size: 1.1rem; color: var(--gray-500); line-height: 1.7; max-width: 650px; margin: 0 auto; }
+
+    /* TOP STATS */
+    .top-stats { padding: 0 2rem 4rem; background: var(--bg-alt); }
+    .top-stats-inner { max-width: 900px; margin: 0 auto; }
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+    .stat-box { background: var(--white); border: 1px solid var(--bg-alt); border-radius: 14px; padding: 1.6rem 1.2rem; text-align: center; transition: transform 0.2s; }
+    .stat-box:hover { transform: translateY(-2px); }
+    .stat-big { font-size: 2rem; font-weight: 800; color: var(--navy); line-height: 1; margin-bottom: 0.3rem; }
+    .stat-desc { font-size: 0.78rem; color: var(--gray-500); line-height: 1.4; margin-bottom: 0.25rem; }
+    .stat-source { font-size: 0.65rem; color: var(--gray-300); font-style: italic; }
+
+    /* CASE STUDIES GRID */
+    .cs-results { padding: 5rem 2rem; background: var(--bg); }
+    .cs-results-inner { max-width: 1000px; margin: 0 auto; }
+    .cs-results h2 { font-size: 1.6rem; font-weight: 800; color: var(--navy); margin-bottom: 2.5rem; }
+    .cs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+
+    .cs-card { background: var(--white); border: 1px solid var(--bg-alt); border-radius: 16px; padding: 2rem; transition: transform 0.2s, box-shadow 0.2s; }
+    .cs-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+    .cs-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+    .cs-company { font-size: 1.05rem; font-weight: 700; color: var(--navy); }
+    .cs-industry { font-size: 0.78rem; color: var(--gray-500); margin-top: 0.15rem; }
+    .cs-icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .cs-icon svg { width: 18px; height: 18px; }
+    .cs-icon.green { background: #dcfce7; color: #16a34a; }
+    .cs-icon.blue { background: #dbeafe; color: #2563eb; }
+    .cs-icon.purple { background: #ede9fe; color: #7c3aed; }
+    .cs-icon.orange { background: #ffedd5; color: #ea580c; }
+
+    .cs-headline { font-size: 1.35rem; font-weight: 800; color: var(--navy); margin-bottom: 0.75rem; line-height: 1.3; }
+    .cs-body { font-size: 0.88rem; color: var(--gray-500); line-height: 1.65; margin-bottom: 1.5rem; }
+    .cs-metrics { display: flex; gap: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--bg-alt); }
+    .cs-metric-val { font-size: 1.2rem; font-weight: 800; color: var(--navy); line-height: 1; margin-bottom: 0.2rem; }
+    .cs-metric-label { font-size: 0.7rem; color: var(--gray-500); }
+    .cs-source { font-size: 0.65rem; color: var(--gray-300); font-style: italic; margin-top: 1rem; }
+
+    /* BENCHMARKS */
+    .benchmarks { padding: 5rem 2rem; background: var(--bg-alt); }
+    .benchmarks-inner { max-width: 1000px; margin: 0 auto; }
+    .benchmarks h2 { font-size: 1.6rem; font-weight: 800; color: var(--navy); margin-bottom: 2.5rem; }
+    .bench-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .bench-item { background: var(--white); border: 1px solid var(--bg-alt); border-radius: 12px; padding: 1.3rem 1.5rem; display: flex; align-items: center; gap: 1rem; transition: transform 0.2s; }
+    .bench-item:hover { transform: translateY(-2px); }
+    .bench-icon { width: 32px; height: 32px; border-radius: 50%; background: #dcfce7; color: #16a34a; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .bench-icon svg { width: 16px; height: 16px; }
+    .bench-text { font-size: 0.88rem; color: var(--gray-700); line-height: 1.4; }
+    .bench-text strong { font-weight: 800; color: var(--navy); font-size: 1rem; }
+    .bench-sources { text-align: center; margin-top: 2rem; font-size: 0.7rem; color: var(--gray-300); font-style: italic; }
+
+    /* CTA */
+    .cs-cta { padding: 5rem 2rem; background: var(--navy); text-align: center; }
+    .cs-cta h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; color: var(--white); margin-bottom: 1rem; }
+    .cs-cta p { font-size: 1rem; color: rgba(255,255,255,0.6); margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .cs-cta-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--white); color: var(--navy); padding: 0.9rem 2rem; border-radius: 10px; font-size: 1rem; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+    .cs-cta-btn:hover { background: var(--bg); transform: translateY(-2px); }
+    .cs-cta-btn svg { width: 18px; height: 18px; }
+
+    /* FOOTER */
+    footer { padding: 3rem 2rem; background: var(--navy); }
+    .footer-inner { max-width: 1200px; margin: 0 auto; width: 100%; display: flex; justify-content: space-between; align-items: center; }
+    .footer-logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+    .footer-logo .logo-icon-footer { height: 28px; width: auto; }
+    .footer-logo-text { font-size: 1.1rem; font-weight: 800; color: var(--white); }
+    .footer-logo-text span { color: rgba(255,255,255,0.5); }
+    footer p { color: rgba(255,255,255,0.5); font-size: 0.85rem; }
+    footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+    footer a:hover { color: var(--white); }
+
+    @media (max-width: 900px) { .cs-grid, .bench-grid { grid-template-columns: 1fr; } .stats-row { grid-template-columns: repeat(2, 1fr); } .nav-links a:not(.btn-nav) { display: none; } }
+    @media (max-width: 600px) { .cs-hero { padding: 8rem 1.2rem 3rem; } .stats-row { grid-template-columns: 1fr; } .cs-metrics { flex-wrap: wrap; } .footer-inner { flex-direction: column; gap: 0.75rem; text-align: center; } }
+  </style>
+  <link rel="stylesheet" href="chatbot.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 180 80" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="50" height="64" rx="8" fill="#0f1a2e"/><text x="25" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">S</text><rect x="58" y="0" width="50" height="64" rx="8" fill="#374151"/><text x="83" y="44" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">S</text><rect x="116" y="8" width="50" height="64" rx="8" fill="#0f1a2e"/><text x="141" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">C</text></svg>
+      <div class="logo-text">Simple <span>Solutions</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#how">How it works</a>
+      <a href="index.html#services">Services</a>
+      <a href="case-studies.html">Case Studies</a>
+      <a href="contact.html">Contact</a>
+      <a href="contact.html" class="btn-nav">Get in touch</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="cs-hero">
+  <div class="cs-hero-inner">
+    <div class="section-label">Case Studies &amp; Research</div>
+    <h1>The numbers behind <em>AI automation.</em></h1>
+    <p>Real results from real businesses. The data is clear — AI automation delivers measurable ROI across every industry, including service businesses just like yours.</p>
+  </div>
+</section>
+
+<!-- TOP STATS -->
+<section class="top-stats">
+  <div class="top-stats-inner">
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-big">$3.70</div>
+        <div class="stat-desc">Returned per $1 invested</div>
+        <div class="stat-source">Garf Growth Partners</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-big">248%</div>
+        <div class="stat-desc">3-year ROI</div>
+        <div class="stat-source">Forrester / Microsoft</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-big">200 hrs</div>
+        <div class="stat-desc">Saved per employee annually</div>
+        <div class="stat-source">Forrester / Microsoft</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-big">&lt; 6 mo</div>
+        <div class="stat-desc">Average payback period</div>
+        <div class="stat-source">Forrester / Microsoft</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REAL-WORLD RESULTS -->
+<section class="cs-results">
+  <div class="cs-results-inner">
+    <h2>Real-world results</h2>
+    <div class="cs-grid">
+
+      <!-- Lumen Technologies -->
+      <div class="cs-card">
+        <div class="cs-card-header">
+          <div>
+            <div class="cs-company">Lumen Technologies</div>
+            <div class="cs-industry">Enterprise Sales</div>
+          </div>
+          <div class="cs-icon green"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"/></svg></div>
+        </div>
+        <div class="cs-headline">93.75% reduction in sales process time</div>
+        <div class="cs-body">Reduced a manual sales workflow from 4 hours to just 15 minutes using AI automation — translating to $50M in annual savings value.</div>
+        <div class="cs-metrics">
+          <div><div class="cs-metric-val">4 hours</div><div class="cs-metric-label">Before</div></div>
+          <div><div class="cs-metric-val">15 minutes</div><div class="cs-metric-label">After</div></div>
+          <div><div class="cs-metric-val">$50M</div><div class="cs-metric-label">Annual value</div></div>
+        </div>
+        <div class="cs-source">Source: Garf Growth Partners</div>
+      </div>
+
+      <!-- American Express -->
+      <div class="cs-card">
+        <div class="cs-card-header">
+          <div>
+            <div class="cs-company">American Express</div>
+            <div class="cs-industry">Finance</div>
+          </div>
+          <div class="cs-icon blue"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+        </div>
+        <div class="cs-headline">500+ hours freed in finance annually</div>
+        <div class="cs-body">Payment automation eliminated 500+ hours of manual finance work per year, with 93% of CFOs in their industry reporting faster invoice processing after adopting similar tools.</div>
+        <div class="cs-metrics">
+          <div><div class="cs-metric-val">500+/yr</div><div class="cs-metric-label">Hours freed</div></div>
+          <div><div class="cs-metric-val">93%</div><div class="cs-metric-label">CFOs reporting gains</div></div>
+          <div><div class="cs-metric-val">Up to 30%</div><div class="cs-metric-label">Cost reduction</div></div>
+        </div>
+        <div class="cs-source">Source: Garf Growth Partners</div>
+      </div>
+
+      <!-- U.S. Bank -->
+      <div class="cs-card">
+        <div class="cs-card-header">
+          <div>
+            <div class="cs-company">U.S. Bank</div>
+            <div class="cs-industry">Financial Services</div>
+          </div>
+          <div class="cs-icon purple"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg></div>
+        </div>
+        <div class="cs-headline">260% increase in lead conversions</div>
+        <div class="cs-body">Implementing AI-powered lead scoring through Einstein AI led to a 260% lift in conversions and 25% faster deal closure — with no additional headcount.</div>
+        <div class="cs-metrics">
+          <div><div class="cs-metric-val">+260%</div><div class="cs-metric-label">Conversion lift</div></div>
+          <div><div class="cs-metric-val">25%</div><div class="cs-metric-label">Faster deal closure</div></div>
+          <div><div class="cs-metric-val">0</div><div class="cs-metric-label">Extra hires needed</div></div>
+        </div>
+        <div class="cs-source">Source: Garf Growth Partners</div>
+      </div>
+
+      <!-- Toyota of Orlando -->
+      <div class="cs-card">
+        <div class="cs-card-header">
+          <div>
+            <div class="cs-company">Toyota of Orlando</div>
+            <div class="cs-industry">Automotive / Service</div>
+          </div>
+          <div class="cs-icon green"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+        </div>
+        <div class="cs-headline">20+ hours saved weekly with zero lead loss</div>
+        <div class="cs-body">Using Zapier-based automation to maintain lead flow during CRM outages and eliminate repetitive admin tasks, saving over 20 hours every week.</div>
+        <div class="cs-metrics">
+          <div><div class="cs-metric-val">20+</div><div class="cs-metric-label">Weekly hours saved</div></div>
+          <div><div class="cs-metric-val">0</div><div class="cs-metric-label">Lead loss during outages</div></div>
+          <div><div class="cs-metric-val">None</div><div class="cs-metric-label">Tools replaced</div></div>
+        </div>
+        <div class="cs-source">Source: Garf Growth Partners / Zapier</div>
+      </div>
+
+      <!-- Pharmaceutical Org -->
+      <div class="cs-card">
+        <div class="cs-card-header">
+          <div>
+            <div class="cs-company">Pharmaceutical Org (anonymous)</div>
+            <div class="cs-industry">Healthcare / Operations</div>
+          </div>
+          <div class="cs-icon orange"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg></div>
+        </div>
+        <div class="cs-headline">11,000 hours saved from 72 automations</div>
+        <div class="cs-body">By running 72 RPA automations across operations, this organization reclaimed 11,000 hours per year — without adding a single new team member.</div>
+        <div class="cs-metrics">
+          <div><div class="cs-metric-val">11,000/yr</div><div class="cs-metric-label">Hours saved</div></div>
+          <div><div class="cs-metric-val">72</div><div class="cs-metric-label">Automations deployed</div></div>
+          <div><div class="cs-metric-val">None</div><div class="cs-metric-label">Headcount increase</div></div>
+        </div>
+        <div class="cs-source">Source: Forrester / Microsoft Power Automate</div>
+      </div>
+
+      <!-- Financial Services Firm -->
+      <div class="cs-card">
+        <div class="cs-card-header">
+          <div>
+            <div class="cs-company">Financial Services Firm (anonymous)</div>
+            <div class="cs-industry">Financial Services</div>
+          </div>
+          <div class="cs-icon blue"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"/></svg></div>
+        </div>
+        <div class="cs-headline">1 million manual hours saved in a single year</div>
+        <div class="cs-body">"For RPA overall last year, we saved a million manual hours. This year, we would like to automate $30M worth of work with just Power Automate RPA." — Automation Leader</div>
+        <div class="cs-metrics">
+          <div><div class="cs-metric-val">1M/yr</div><div class="cs-metric-label">Manual hours saved</div></div>
+          <div><div class="cs-metric-val">$30M</div><div class="cs-metric-label">Target automation value</div></div>
+          <div><div class="cs-metric-val">Power Automate</div><div class="cs-metric-label">Platform</div></div>
+        </div>
+        <div class="cs-source">Source: Forrester / Microsoft Power Automate</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRY BENCHMARKS -->
+<section class="benchmarks">
+  <div class="benchmarks-inner">
+    <h2>Industry benchmarks</h2>
+    <div class="bench-grid">
+      <div class="bench-item">
+        <div class="bench-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+        <div class="bench-text"><strong>78%</strong> of organizations now use AI in at least one function</div>
+      </div>
+      <div class="bench-item">
+        <div class="bench-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+        <div class="bench-text"><strong>74%</strong> of businesses implementing AI report positive ROI</div>
+      </div>
+      <div class="bench-item">
+        <div class="bench-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+        <div class="bench-text"><strong>1 hr/day</strong> average time saved per worker per day with AI tools</div>
+      </div>
+      <div class="bench-item">
+        <div class="bench-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+        <div class="bench-text"><strong>80%</strong> of manual work in finance can be automated</div>
+      </div>
+      <div class="bench-item">
+        <div class="bench-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"/></svg></div>
+        <div class="bench-text"><strong>2.5x</strong> revenue growth advantage for AI-led businesses</div>
+      </div>
+      <div class="bench-item">
+        <div class="bench-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+        <div class="bench-text"><strong>83%</strong> of IT leaders say automation is necessary for digital transformation</div>
+      </div>
+    </div>
+    <div class="bench-sources">Sources: McKinsey Global AI Survey, Forrester Research, AuditNet Automation Report 2024, Garf Growth Partners</div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cs-cta">
+  <h2>Ready to see these results in your business?</h2>
+  <p>Book a free 30-minute audit and we'll map out where AI automation fits into your operation.</p>
+  <a href="contact.html" class="cs-cta-btn">Get started <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg></a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo">
+      <svg class="logo-icon-footer" viewBox="0 0 180 80" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="50" height="64" rx="8" fill="#ffffff"/><text x="25" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#0f1a2e">S</text><rect x="58" y="0" width="50" height="64" rx="8" fill="rgba(255,255,255,0.5)"/><text x="83" y="44" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#0f1a2e">S</text><rect x="116" y="8" width="50" height="64" rx="8" fill="#ffffff"/><text x="141" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#0f1a2e">C</text></svg>
+      <div class="footer-logo-text">Simple <span>Solutions</span></div>
+    </a>
+    <p>&copy; 2026 Simple Solutions &middot; <a href="mailto:deasimplesolutions@gmail.com">deasimplesolutions@gmail.com</a></p>
+  </div>
+</footer>
+
+<script src="chatbot.js"></script>
+</body>
+</html>

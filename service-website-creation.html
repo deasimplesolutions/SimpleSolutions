@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Creation Through a Modern Lens — Simple Solutions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --navy: #0f1a2e; --navy-light: #1a2744; --gray-900: #111827;
+      --gray-700: #374151; --gray-500: #6b7280; --gray-300: #d1d5db;
+      --gray-100: #f5f3f0; --white: #ffffff; --accent: #3b82f6;
+      --bg: #faf9f7; --bg-alt: #f0eee9;
+    }
+    body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); background: var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(250,249,247,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--bg-alt); padding: 0 2rem; }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .logo { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; }
+    .logo-icon { height: 36px; width: auto; }
+    .logo-text { font-size: 1.2rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; line-height: 1.1; }
+    .logo-text span { color: var(--gray-500); }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--gray-700); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--navy); }
+    .btn-nav { background: var(--navy); color: var(--white); padding: 0.6rem 1.4rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+    .btn-nav:hover { background: var(--navy-light); transform: translateY(-1px); }
+
+    /* HERO */
+    .srv-hero { padding: 9rem 2rem 4rem; background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%); }
+    .srv-hero-inner { max-width: 720px; margin: 0 auto; text-align: center; }
+    .srv-badge { display: inline-block; background: var(--navy); color: var(--white); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.35rem 0.9rem; border-radius: 50px; margin-bottom: 1.5rem; }
+    .srv-hero h1 { font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 800; color: var(--navy); letter-spacing: -0.03em; margin-bottom: 1rem; line-height: 1.15; }
+    .srv-hero p { font-size: 1.1rem; color: var(--gray-500); line-height: 1.7; max-width: 600px; margin: 0 auto; }
+
+    /* FEATURES */
+    .srv-features { padding: 5rem 2rem; background: var(--bg); }
+    .srv-features-inner { max-width: 1000px; margin: 0 auto; }
+    .srv-features h2 { font-size: 1.6rem; font-weight: 800; color: var(--navy); margin-bottom: 2.5rem; text-align: center; }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .feature-card { background: var(--white); border: 1px solid var(--bg-alt); border-radius: 16px; padding: 2rem 1.5rem; transition: transform 0.2s, box-shadow 0.2s; }
+    .feature-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+    .feature-icon { width: 44px; height: 44px; background: var(--navy); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+    .feature-icon svg { width: 22px; height: 22px; color: var(--white); }
+    .feature-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 0.5rem; }
+    .feature-card p { font-size: 0.9rem; color: var(--gray-500); line-height: 1.6; }
+
+    /* HOW IT WORKS */
+    .srv-how { padding: 5rem 2rem; background: var(--bg-alt); }
+    .srv-how-inner { max-width: 800px; margin: 0 auto; }
+    .srv-how h2 { font-size: 1.6rem; font-weight: 800; color: var(--navy); margin-bottom: 2.5rem; text-align: center; }
+    .how-step { display: flex; gap: 1.5rem; margin-bottom: 2rem; align-items: flex-start; }
+    .step-circle { flex-shrink: 0; width: 48px; height: 48px; background: var(--navy); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.1rem; }
+    .how-step h3 { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 0.3rem; }
+    .how-step p { font-size: 0.9rem; color: var(--gray-500); line-height: 1.6; }
+
+    /* CTA */
+    .srv-cta { padding: 5rem 2rem; background: var(--navy); text-align: center; }
+    .srv-cta h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; color: var(--white); margin-bottom: 1rem; }
+    .srv-cta p { font-size: 1rem; color: rgba(255,255,255,0.6); margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .srv-cta-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--white); color: var(--navy); padding: 0.9rem 2rem; border-radius: 10px; font-size: 1rem; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+    .srv-cta-btn:hover { background: var(--bg); transform: translateY(-2px); }
+    .srv-cta-btn svg { width: 18px; height: 18px; }
+
+    /* FOOTER */
+    footer { padding: 3rem 2rem; background: var(--navy); }
+    .footer-inner { max-width: 1200px; margin: 0 auto; width: 100%; display: flex; justify-content: space-between; align-items: center; }
+    .footer-logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+    .footer-logo .logo-icon-footer { height: 28px; width: auto; }
+    .footer-logo-text { font-size: 1.1rem; font-weight: 800; color: var(--white); }
+    .footer-logo-text span { color: rgba(255,255,255,0.5); }
+    footer p { color: rgba(255,255,255,0.5); font-size: 0.85rem; }
+    footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+    footer a:hover { color: var(--white); }
+
+    @media (max-width: 900px) { .features-grid { grid-template-columns: 1fr; } .nav-links a:not(.btn-nav) { display: none; } }
+    @media (max-width: 600px) { .srv-hero { padding: 8rem 1.2rem 3rem; } .footer-inner { flex-direction: column; gap: 0.75rem; text-align: center; } }
+  </style>
+  <link rel="stylesheet" href="chatbot.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 180 80" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="50" height="64" rx="8" fill="#0f1a2e"/><text x="25" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">S</text><rect x="58" y="0" width="50" height="64" rx="8" fill="#374151"/><text x="83" y="44" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">S</text><rect x="116" y="8" width="50" height="64" rx="8" fill="#0f1a2e"/><text x="141" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">C</text></svg>
+      <div class="logo-text">Simple <span>Solutions</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#how">How it works</a>
+      <a href="index.html#services">Services</a>
+      <a href="case-studies.html">Case Studies</a>
+      <a href="contact.html">Contact</a>
+      <a href="contact.html" class="btn-nav">Get in touch</a>
+    </div>
+  </div>
+</nav>
+
+<section class="srv-hero">
+  <div class="srv-hero-inner">
+    <div class="srv-badge">06 — Web Presence</div>
+    <h1>Website Creation Through a Modern Lens</h1>
+    <p>Your website should work as hard as your sales team. We build clean, fast, conversion-focused websites that integrate directly with your CRM and automation stack.</p>
+  </div>
+</section>
+
+<section class="srv-features">
+  <div class="srv-features-inner">
+    <h2>What's included</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"/></svg></div>
+        <h3>Clean, conversion-focused design</h3>
+        <p>Every page is designed to drive action — clear messaging, strong calls to action, and layouts proven to convert visitors into leads.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"/></svg></div>
+        <h3>Mobile-first &amp; fast-loading</h3>
+        <p>Built for speed and responsiveness from the ground up — because most of your visitors are on their phone and won't wait for a slow site.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"/></svg></div>
+        <h3>Integrated with your CRM &amp; tools</h3>
+        <p>Your website doesn't live in isolation — forms, chat, and tracking all feed directly into your CRM and automation workflows.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="srv-how">
+  <div class="srv-how-inner">
+    <h2>How we set it up</h2>
+    <div class="how-step">
+      <div class="step-circle">1</div>
+      <div><h3>Understand your business &amp; goals</h3><p>We learn what you sell, who you sell to, and what action you want visitors to take — then plan a site built around those outcomes.</p></div>
+    </div>
+    <div class="how-step">
+      <div class="step-circle">2</div>
+      <div><h3>Design &amp; build</h3><p>We create a modern, mobile-first site with clear messaging, fast load times, and CRM integration — no bloated templates or generic themes.</p></div>
+    </div>
+    <div class="how-step">
+      <div class="step-circle">3</div>
+      <div><h3>Launch &amp; connect to your stack</h3><p>Your site goes live with forms, tracking, and chat all wired into your existing tools. Leads flow straight into your pipeline from day one.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="srv-cta">
+  <h2>Ready for a website that actually drives business?</h2>
+  <p>Book a free 30-minute audit and we'll show you exactly where the gaps are.</p>
+  <a href="contact.html" class="srv-cta-btn">Get started <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg></a>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo">
+      <svg class="logo-icon-footer" viewBox="0 0 180 80" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="50" height="64" rx="8" fill="#ffffff"/><text x="25" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#0f1a2e">S</text><rect x="58" y="0" width="50" height="64" rx="8" fill="rgba(255,255,255,0.5)"/><text x="83" y="44" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#0f1a2e">S</text><rect x="116" y="8" width="50" height="64" rx="8" fill="#ffffff"/><text x="141" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#0f1a2e">C</text></svg>
+      <div class="footer-logo-text">Simple <span>Solutions</span></div>
+    </a>
+    <p>&copy; 2026 Simple Solutions &middot; <a href="mailto:deasimplesolutions@gmail.com">deasimplesolutions@gmail.com</a></p>
+  </div>
+</footer>
+
+<script src="chatbot.js"></script>
+</body>
+</html>
