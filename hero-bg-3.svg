@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 700" width="1440" height="700">
+  <defs>
+    <filter id="s1" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur in="SourceGraphic" stdDeviation="50"/></filter>
+    <filter id="s2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur in="SourceGraphic" stdDeviation="35"/></filter>
+    <filter id="s3" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur in="SourceGraphic" stdDeviation="90"/></filter>
+    <linearGradient id="bg3" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fdfcfa"/>
+      <stop offset="100%" stop-color="#f0eee9"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Warm base -->
+  <rect width="1440" height="700" fill="url(#bg3)"/>
+
+  <!-- Large blue-to-teal gradient sphere — right side focal point -->
+  <circle cx="1080" cy="300" r="280" fill="#3b82f6" opacity="0.11" filter="url(#s1)"/>
+  <circle cx="1120" cy="280" r="200" fill="#06b6d4" opacity="0.09" filter="url(#s2)"/>
+
+  <!-- Navy anchor — bottom left -->
+  <ellipse cx="250" cy="600" rx="350" ry="200" fill="#0f1a2e" opacity="0.08" filter="url(#s3)"/>
+
+  <!-- Bright emerald — top left -->
+  <circle cx="200" cy="150" r="170" fill="#10b981" opacity="0.09" filter="url(#s1)"/>
+
+  <!-- Rose pink — center-left -->
+  <circle cx="500" cy="380" r="130" fill="#fb7185" opacity="0.07" filter="url(#s2)"/>
+
+  <!-- Amber — top center -->
+  <circle cx="700" cy="80" r="140" fill="#fbbf24" opacity="0.07" filter="url(#s1)"/>
+
+  <!-- Indigo — bottom right -->
+  <circle cx="1300" cy="600" r="150" fill="#6366f1" opacity="0.07" filter="url(#s1)"/>
+
+  <!-- Floating ring shapes for depth -->
+  <circle cx="400" cy="200" r="80" fill="none" stroke="#3b82f6" stroke-width="20" opacity="0.04" filter="url(#s2)"/>
+  <circle cx="900" cy="500" r="60" fill="none" stroke="#10b981" stroke-width="16" opacity="0.04" filter="url(#s2)"/>
+  <circle cx="1200" cy="150" r="50" fill="none" stroke="#f59e0b" stroke-width="14" opacity="0.04" filter="url(#s2)"/>
+
+  <!-- Subtle dot grid -->
+  <pattern id="dotgrid" x="0" y="0" width="48" height="48" patternUnits="userSpaceOnUse">
+    <circle cx="24" cy="24" r="1" fill="#374151" opacity="0.05"/>
+  </pattern>
+  <rect width="1440" height="700" fill="url(#dotgrid)"/>
+</svg>
