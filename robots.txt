@@ -1,4 +1,4 @@
-# robots.txt for simeplesolutions-c.com
+# robots.txt for simplesolutions-c.com
 
 User-agent: *
 Allow: /
@@ -7,4 +7,4 @@ Allow: /
 Disallow: /server/
 
 # Sitemap location
-Sitemap: https://simeplesolutions-c.com/sitemap.xml
+Sitemap: https://simplesolutions-c.com/sitemap.xml
