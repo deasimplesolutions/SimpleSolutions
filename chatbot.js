@@ -140,8 +140,16 @@ const WELCOME_MESSAGE = "Hi there! How can I help you today?";
       conversationHistory.push({ role: "assistant", content: reply });
     } catch (err) {
       removeTypingIndicator();
-      const errorMsg =
-        err.message || "Something went wrong. Please try again.";
+      // Show a friendly message for overloaded/transient errors
+      let errorMsg;
+      const rawMsg = (err.message || "").toLowerCase();
+      if (rawMsg.includes("overload") || rawMsg.includes("busy") || rawMsg.includes("529")) {
+        errorMsg = "I'm a little busy right now — please try again in a moment!";
+      } else if (rawMsg.includes("failed to fetch") || rawMsg.includes("network")) {
+        errorMsg = "It looks like there's a connection issue. Please check your internet and try again.";
+      } else {
+        errorMsg = err.message || "Something went wrong. Please try again.";
+      }
       appendMessage("assistant", `⚠ ${errorMsg}`);
       // Remove the failed user message from history so the conversation stays clean
       conversationHistory.pop();
