@@ -1,0 +1,10 @@
+# robots.txt for simeplesolutions-c.com
+
+User-agent: *
+Allow: /
+
+# Block assets that don't need indexing
+Disallow: /server/
+
+# Sitemap location
+Sitemap: https://simeplesolutions-c.com/sitemap.xml
