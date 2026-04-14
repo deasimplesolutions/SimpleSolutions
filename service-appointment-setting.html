@@ -32,8 +32,8 @@
     .nav-links { display: flex; align-items: center; gap: 2rem; }
     .nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--gray-700); text-decoration: none; transition: color 0.2s; }
     .nav-links a:hover { color: var(--navy); }
-    .btn-nav { background: var(--navy); color: var(--white); padding: 0.6rem 1.4rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.15s; }
-    .btn-nav:hover { background: var(--navy-light); transform: translateY(-1px); }
+    .nav-links a.btn-nav { background: var(--navy); color: #ffffff !important; padding: 0.6rem 1.4rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+    .nav-links a.btn-nav:hover { background: var(--navy-light); color: #ffffff !important; transform: translateY(-1px); }
 
     /* HERO */
     .srv-hero { padding: 9rem 2rem 4rem; background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%); }
@@ -82,7 +82,101 @@
     footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
     footer a:hover { color: var(--white); }
 
-    @media (max-width: 900px) { .features-grid { grid-template-columns: 1fr; } .nav-links a:not(.btn-nav) { display: none; } }
+    /* ========== AUTOMATION FLOW ANIMATION ========== */
+    .automation-flow { padding: 4rem 2rem; background: var(--bg); overflow: hidden; }
+    .automation-flow h2 { font-size: 1.6rem; font-weight: 800; color: var(--navy); margin-bottom: 0.6rem; text-align: center; }
+    .flow-subtitle { font-size: 1rem; color: var(--gray-500); text-align: center; max-width: 520px; margin: 0 auto 2.5rem; line-height: 1.6; }
+
+    .flow-container {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      min-height: 340px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 20px; padding: 48px 32px; position: relative; overflow: hidden;
+      max-width: 700px; margin: 0 auto;
+    }
+    .flow-container::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.03) 1px, transparent 0);
+      background-size: 32px 32px;
+    }
+
+    .flow-pipeline { display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; }
+
+    .flow-node { display: flex; flex-direction: column; align-items: center; gap: 0.7rem; opacity: 0; transform: translateY(28px) scale(0.92); }
+    .flow-node.visible { animation: nodeAppear 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    .flow-node:nth-child(1).visible { animation-delay: 0.2s; }
+    .flow-node:nth-child(3).visible { animation-delay: 0.7s; }
+    .flow-node:nth-child(5).visible { animation-delay: 1.2s; }
+    @keyframes nodeAppear { to { opacity: 1; transform: translateY(0) scale(1); } }
+
+    .node-icon-wrap { width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; transition: transform 0.3s, box-shadow 0.3s; cursor: default; }
+    .node-icon-wrap:hover { transform: translateY(-5px); }
+    .node-1 .node-icon-wrap { background: rgba(59,130,246,0.15); border: 2px solid rgba(59,130,246,0.4); }
+    .node-2 .node-icon-wrap { background: rgba(168,85,247,0.15); border: 2px solid rgba(168,85,247,0.4); }
+    .node-3 .node-icon-wrap { background: rgba(34,197,94,0.15); border: 2px solid rgba(34,197,94,0.4); }
+    .node-1 .node-icon-wrap svg { width: 32px; height: 32px; color: #60a5fa; }
+    .node-2 .node-icon-wrap svg { width: 32px; height: 32px; color: #c084fc; }
+    .node-3 .node-icon-wrap svg { width: 32px; height: 32px; color: #4ade80; }
+    .node-label { font-size: 13px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: rgba(255,255,255,0.85); white-space: nowrap; }
+    .node-desc { font-size: 0.75rem; color: rgba(255,255,255,0.4); max-width: 145px; line-height: 1.45; }
+
+    .node-icon-wrap::after { content: ''; position: absolute; inset: -7px; border-radius: 50%; border: 2px solid transparent; pointer-events: none; }
+    .node-1 .node-icon-wrap::after { border-color: rgba(59,130,246,0.3); animation: pulseRing 2.8s ease-out infinite 0.5s; }
+    .node-2 .node-icon-wrap::after { border-color: rgba(168,85,247,0.25); animation: pulseRing 2.8s ease-out infinite 1.0s; }
+    .node-3 .node-icon-wrap::after { border-color: rgba(34,197,94,0.3); animation: pulseRing 2.8s ease-out infinite 1.5s; }
+    @keyframes pulseRing { 0% { transform: scale(1); opacity: 1; } 60% { transform: scale(1.25); opacity: 0; } 100% { transform: scale(1.25); opacity: 0; } }
+
+    .flow-connector { width: 60px; display: flex; align-items: center; justify-content: center; position: relative; opacity: 0; margin-bottom: 28px; }
+    .flow-connector.visible { animation: connectorAppear 0.5s ease forwards; }
+    .flow-connector:nth-child(2).visible { animation-delay: 0.5s; }
+    .flow-connector:nth-child(4).visible { animation-delay: 1.0s; }
+    @keyframes connectorAppear { to { opacity: 1; } }
+
+    .connector-track { width: 100%; height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px; position: relative; overflow: hidden; }
+    .connector-track::after { content: ''; position: absolute; left: -60%; top: 0; width: 60%; height: 100%; border-radius: 2px; }
+    .flow-connector:nth-child(2) .connector-track::after { background: linear-gradient(90deg, transparent, #3b82f6, transparent); animation: lineFlow 2.4s ease-in-out infinite 0.8s; }
+    .flow-connector:nth-child(4) .connector-track::after { background: linear-gradient(90deg, transparent, #22c55e, transparent); animation: lineFlow 2.4s ease-in-out infinite 1.3s; }
+    @keyframes lineFlow { 0% { left: -60%; } 100% { left: 100%; } }
+
+    .flow-connector .particle { position: absolute; border-radius: 50%; top: 50%; transform: translateY(-50%); opacity: 0; }
+    .flow-connector .p1 { width: 7px; height: 7px; }
+    .flow-connector .p2 { width: 5px; height: 5px; }
+    .flow-connector:nth-child(2) .p1 { background: #60a5fa; animation: particleMove 2s ease-in-out infinite 0.8s; }
+    .flow-connector:nth-child(2) .p2 { background: #3b82f6; animation: particleMove 2s ease-in-out infinite 1.6s; }
+    .flow-connector:nth-child(4) .p1 { background: #4ade80; animation: particleMove 2s ease-in-out infinite 1.2s; }
+    .flow-connector:nth-child(4) .p2 { background: #22c55e; animation: particleMove 2s ease-in-out infinite 2.0s; }
+    @keyframes particleMove { 0% { left: 0; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { left: calc(100% - 7px); opacity: 0; } }
+
+    .connector-arrow { position: absolute; right: -3px; width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 7px solid rgba(255,255,255,0.2); }
+
+    .flow-status { display: flex; justify-content: center; gap: 0.8rem; margin-top: 2rem; flex-wrap: wrap; position: relative; z-index: 1; }
+    .status-tag { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 13px; font-weight: 600; padding: 10px 24px; border-radius: 100px; letter-spacing: 0.3px; opacity: 0; transform: translateY(10px); }
+    .status-tag.visible { animation: tagAppear 0.4s ease forwards; }
+    .status-tag:nth-child(1).visible { animation-delay: 1.6s; }
+    .status-tag:nth-child(2).visible { animation-delay: 1.85s; }
+    .status-tag:nth-child(3).visible { animation-delay: 2.1s; }
+    @keyframes tagAppear { to { opacity: 1; transform: translateY(0); } }
+    .status-tag .dot { width: 7px; height: 7px; border-radius: 50%; }
+    .tag-capture { background: rgba(59,130,246,0.15); color: #93c5fd; border: 1px solid rgba(59,130,246,0.3); }
+    .tag-capture .dot { background: #60a5fa; animation: dotPulse 2s ease infinite; }
+    .tag-book { background: rgba(168,85,247,0.15); color: #d8b4fe; border: 1px solid rgba(168,85,247,0.3); }
+    .tag-book .dot { background: #c084fc; animation: dotPulse 2s ease infinite 0.4s; }
+    .tag-notify { background: rgba(34,197,94,0.15); color: #86efac; border: 1px solid rgba(34,197,94,0.3); }
+    .tag-notify .dot { background: #4ade80; animation: dotPulse 2s ease infinite 0.8s; }
+    @keyframes dotPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.5); } }
+
+    @media (max-width: 900px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .nav-links a:not(.btn-nav) { display: none; }
+      .flow-container { padding: 36px 20px; }
+      .flow-pipeline { flex-direction: column; gap: 0.5rem; }
+      .flow-connector { width: 3px; height: 55px; flex-direction: column; margin-bottom: 0; }
+      .connector-track { width: 3px; height: 100%; }
+      .connector-track::after { width: 100%; height: 60%; left: 0; top: -60%; animation-name: lineFlowV !important; }
+      .connector-arrow { right: auto; bottom: -4px; top: auto; left: 50%; transform: translateX(-50%); border-top: 7px solid var(--navy); border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: none; }
+      .flow-connector .particle { left: 50% !important; top: 0; transform: translateX(-50%); animation-name: particleMoveV !important; }
+    }
+    @keyframes lineFlowV { 0% { top: -60%; } 100% { top: 100%; } }
+    @keyframes particleMoveV { 0% { top: 0; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: calc(100% - 7px); opacity: 0; } }
     @media (max-width: 600px) { .srv-hero { padding: 8rem 1.2rem 3rem; } .footer-inner { flex-direction: column; gap: 0.75rem; text-align: center; } }
   </style>
   <link rel="stylesheet" href="chatbot.css">
@@ -109,11 +203,71 @@
 
 <section class="srv-hero">
   <div class="srv-hero-inner">
-    <div class="srv-badge">03 — Enterprise</div>
+    <div class="srv-badge">02 — Enterprise</div>
     <h1>Appointment Setting</h1>
     <p>Fill your calendar without lifting a finger. We build AI-driven appointment setting workflows that book qualified meetings around the clock — across email, SMS, and chat.</p>
   </div>
 </section>
+
+<!-- ========== AUTOMATION FLOW ANIMATION ========== -->
+<section class="automation-flow" id="automation-flow">
+  <h2>The Automation in Action</h2>
+  <p class="flow-subtitle">From first touch to booked meeting to team alert — every step runs on autopilot.</p>
+
+  <div class="flow-container">
+    <div class="flow-pipeline">
+      <!-- Node 1: Lead Captured -->
+      <div class="flow-node node-1" data-animate>
+        <div class="node-icon-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+        </div>
+        <div class="node-label">Lead Captured</div>
+        <div class="node-desc">AI qualifies prospects from ads, forms, or chat in real time</div>
+      </div>
+
+      <!-- Connector 1→2 -->
+      <div class="flow-connector" data-animate>
+        <div class="connector-track"></div>
+        <div class="particle p1"></div>
+        <div class="particle p2"></div>
+        <div class="connector-arrow"></div>
+      </div>
+
+      <!-- Node 2: Booked on Software -->
+      <div class="flow-node node-2" data-animate>
+        <div class="node-icon-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z"/></svg>
+        </div>
+        <div class="node-label">Booked Automatically</div>
+        <div class="node-desc">Appointment lands directly in your scheduling software</div>
+      </div>
+
+      <!-- Connector 2→3 -->
+      <div class="flow-connector" data-animate>
+        <div class="connector-track"></div>
+        <div class="particle p1"></div>
+        <div class="particle p2"></div>
+        <div class="connector-arrow"></div>
+      </div>
+
+      <!-- Node 3: Team Notified -->
+      <div class="flow-node node-3" data-animate>
+        <div class="node-icon-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/></svg>
+        </div>
+        <div class="node-label">Team Notified</div>
+        <div class="node-desc">Your team gets instant alerts with all the meeting details</div>
+      </div>
+    </div>
+
+    <div class="flow-status">
+      <div class="status-tag tag-capture" data-animate><span class="dot"></span> Capturing leads 24/7</div>
+      <div class="status-tag tag-book" data-animate><span class="dot"></span> Auto-booking confirmed</div>
+      <div class="status-tag tag-notify" data-animate><span class="dot"></span> Notifications sent</div>
+    </div>
+  </div>
+</section>
+
 
 <section class="srv-features">
   <div class="srv-features-inner">
@@ -172,6 +326,18 @@
   </div>
 </footer>
 
+<script>
+(function() {
+  var items = document.querySelectorAll('[data-animate]');
+  if (!items.length) return;
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.15 });
+  items.forEach(function(el) { observer.observe(el); });
+})();
+</script>
 <script src="chatbot.js"></script>
 </body>
 </html>

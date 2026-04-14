@@ -32,8 +32,8 @@
     .nav-links { display: flex; align-items: center; gap: 2rem; }
     .nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--gray-700); text-decoration: none; transition: color 0.2s; }
     .nav-links a:hover { color: var(--navy); }
-    .btn-nav { background: var(--navy); color: var(--white); padding: 0.6rem 1.4rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.15s; }
-    .btn-nav:hover { background: var(--navy-light); transform: translateY(-1px); }
+    .nav-links a.btn-nav { background: var(--navy); color: #ffffff !important; padding: 0.6rem 1.4rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+    .nav-links a.btn-nav:hover { background: var(--navy-light); color: #ffffff !important; transform: translateY(-1px); }
 
     /* HERO */
     .srv-hero { padding: 9rem 2rem 4rem; background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%); }
@@ -82,7 +82,101 @@
     footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
     footer a:hover { color: var(--white); }
 
-    @media (max-width: 900px) { .features-grid { grid-template-columns: 1fr; } .nav-links a:not(.btn-nav) { display: none; } }
+    /* ========== WEBSITE BUILD FLOW ANIMATION ========== */
+    .web-flow { padding: 4rem 2rem; background: var(--bg); overflow: hidden; }
+    .web-flow h2 { font-size: 1.6rem; font-weight: 800; color: var(--navy); margin-bottom: 0.6rem; text-align: center; }
+    .web-flow-sub { font-size: 1rem; color: var(--gray-500); text-align: center; max-width: 520px; margin: 0 auto 2.5rem; line-height: 1.6; }
+
+    .web-container {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      min-height: 340px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 20px; padding: 48px 32px; position: relative; overflow: hidden;
+      max-width: 700px; margin: 0 auto;
+    }
+    .web-container::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.03) 1px, transparent 0);
+      background-size: 32px 32px;
+    }
+
+    .web-pipeline { display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; }
+
+    .web-node { display: flex; flex-direction: column; align-items: center; gap: 0.7rem; opacity: 0; transform: translateY(28px) scale(0.92); }
+    .web-node.visible { animation: webNodeAppear 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    .web-node:nth-child(1).visible { animation-delay: 0.2s; }
+    .web-node:nth-child(3).visible { animation-delay: 0.7s; }
+    .web-node:nth-child(5).visible { animation-delay: 1.2s; }
+    @keyframes webNodeAppear { to { opacity: 1; transform: translateY(0) scale(1); } }
+
+    .web-icon-wrap { width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; transition: transform 0.3s, box-shadow 0.3s; cursor: default; }
+    .web-icon-wrap:hover { transform: translateY(-5px); }
+    .wn-1 .web-icon-wrap { background: rgba(59,130,246,0.15); border: 2px solid rgba(59,130,246,0.4); }
+    .wn-2 .web-icon-wrap { background: rgba(168,85,247,0.15); border: 2px solid rgba(168,85,247,0.4); }
+    .wn-3 .web-icon-wrap { background: rgba(34,197,94,0.15); border: 2px solid rgba(34,197,94,0.4); }
+    .wn-1 .web-icon-wrap svg { width: 32px; height: 32px; color: #60a5fa; }
+    .wn-2 .web-icon-wrap svg { width: 32px; height: 32px; color: #c084fc; }
+    .wn-3 .web-icon-wrap svg { width: 32px; height: 32px; color: #4ade80; }
+    .web-label { font-size: 13px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: rgba(255,255,255,0.85); white-space: nowrap; }
+    .web-desc { font-size: 0.75rem; color: rgba(255,255,255,0.4); max-width: 145px; line-height: 1.45; text-align: center; }
+
+    .web-icon-wrap::after { content: ''; position: absolute; inset: -7px; border-radius: 50%; border: 2px solid transparent; pointer-events: none; }
+    .wn-1 .web-icon-wrap::after { border-color: rgba(59,130,246,0.3); animation: webPulseRing 2.8s ease-out infinite 0.5s; }
+    .wn-2 .web-icon-wrap::after { border-color: rgba(168,85,247,0.25); animation: webPulseRing 2.8s ease-out infinite 1.0s; }
+    .wn-3 .web-icon-wrap::after { border-color: rgba(34,197,94,0.3); animation: webPulseRing 2.8s ease-out infinite 1.5s; }
+    @keyframes webPulseRing { 0% { transform: scale(1); opacity: 1; } 60% { transform: scale(1.25); opacity: 0; } 100% { transform: scale(1.25); opacity: 0; } }
+
+    .web-connector { width: 60px; display: flex; align-items: center; justify-content: center; position: relative; opacity: 0; margin-bottom: 28px; }
+    .web-connector.visible { animation: webConnAppear 0.5s ease forwards; }
+    .web-connector:nth-child(2).visible { animation-delay: 0.5s; }
+    .web-connector:nth-child(4).visible { animation-delay: 1.0s; }
+    @keyframes webConnAppear { to { opacity: 1; } }
+
+    .web-conn-track { width: 100%; height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px; position: relative; overflow: hidden; }
+    .web-conn-track::after { content: ''; position: absolute; left: -60%; top: 0; width: 60%; height: 100%; border-radius: 2px; }
+    .web-connector:nth-child(2) .web-conn-track::after { background: linear-gradient(90deg, transparent, #3b82f6, transparent); animation: webLineFlow 2.4s ease-in-out infinite 0.8s; }
+    .web-connector:nth-child(4) .web-conn-track::after { background: linear-gradient(90deg, transparent, #22c55e, transparent); animation: webLineFlow 2.4s ease-in-out infinite 1.3s; }
+    @keyframes webLineFlow { 0% { left: -60%; } 100% { left: 100%; } }
+
+    .web-connector .wpar { position: absolute; border-radius: 50%; top: 50%; transform: translateY(-50%); opacity: 0; }
+    .web-connector .wp1 { width: 7px; height: 7px; }
+    .web-connector .wp2 { width: 5px; height: 5px; }
+    .web-connector:nth-child(2) .wp1 { background: #60a5fa; animation: webParticle 2s ease-in-out infinite 0.8s; }
+    .web-connector:nth-child(2) .wp2 { background: #3b82f6; animation: webParticle 2s ease-in-out infinite 1.6s; }
+    .web-connector:nth-child(4) .wp1 { background: #4ade80; animation: webParticle 2s ease-in-out infinite 1.2s; }
+    .web-connector:nth-child(4) .wp2 { background: #22c55e; animation: webParticle 2s ease-in-out infinite 2.0s; }
+    @keyframes webParticle { 0% { left: 0; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { left: calc(100% - 7px); opacity: 0; } }
+
+    .web-conn-arrow { position: absolute; right: -3px; width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 7px solid rgba(255,255,255,0.2); }
+
+    .web-status { display: flex; justify-content: center; gap: 0.8rem; margin-top: 2rem; flex-wrap: wrap; position: relative; z-index: 1; }
+    .web-tag { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 13px; font-weight: 600; padding: 10px 24px; border-radius: 100px; letter-spacing: 0.3px; opacity: 0; transform: translateY(10px); }
+    .web-tag.visible { animation: webTagAppear 0.4s ease forwards; }
+    .web-tag:nth-child(1).visible { animation-delay: 1.6s; }
+    .web-tag:nth-child(2).visible { animation-delay: 1.85s; }
+    .web-tag:nth-child(3).visible { animation-delay: 2.1s; }
+    @keyframes webTagAppear { to { opacity: 1; transform: translateY(0); } }
+    .web-tag .wdot { width: 7px; height: 7px; border-radius: 50%; }
+    .wtag-design { background: rgba(59,130,246,0.15); color: #93c5fd; border: 1px solid rgba(59,130,246,0.3); }
+    .wtag-design .wdot { background: #60a5fa; animation: webDotPulse 2s ease infinite; }
+    .wtag-build { background: rgba(168,85,247,0.15); color: #d8b4fe; border: 1px solid rgba(168,85,247,0.3); }
+    .wtag-build .wdot { background: #c084fc; animation: webDotPulse 2s ease infinite 0.4s; }
+    .wtag-live { background: rgba(34,197,94,0.15); color: #86efac; border: 1px solid rgba(34,197,94,0.3); }
+    .wtag-live .wdot { background: #4ade80; animation: webDotPulse 2s ease infinite 0.8s; }
+    @keyframes webDotPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.5); } }
+
+    @media (max-width: 900px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .nav-links a:not(.btn-nav) { display: none; }
+      .web-container { padding: 36px 20px; }
+      .web-pipeline { flex-direction: column; gap: 0.5rem; }
+      .web-connector { width: 3px; height: 55px; flex-direction: column; margin-bottom: 0; }
+      .web-conn-track { width: 3px; height: 100%; }
+      .web-conn-track::after { width: 100%; height: 60%; left: 0; top: -60%; animation-name: webLineFlowV !important; }
+      .web-conn-arrow { right: auto; bottom: -4px; top: auto; left: 50%; transform: translateX(-50%); border-top: 7px solid var(--navy); border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: none; }
+      .web-connector .wpar { left: 50% !important; top: 0; transform: translateX(-50%); animation-name: webParticleV !important; }
+    }
+    @keyframes webLineFlowV { 0% { top: -60%; } 100% { top: 100%; } }
+    @keyframes webParticleV { 0% { top: 0; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: calc(100% - 7px); opacity: 0; } }
     @media (max-width: 600px) { .srv-hero { padding: 8rem 1.2rem 3rem; } .footer-inner { flex-direction: column; gap: 0.75rem; text-align: center; } }
   </style>
   <link rel="stylesheet" href="chatbot.css">
@@ -109,9 +203,68 @@
 
 <section class="srv-hero">
   <div class="srv-hero-inner">
-    <div class="srv-badge">06 — Web Presence</div>
+    <div class="srv-badge">04 — Web Presence</div>
     <h1>Website Creation Through a Modern Lens</h1>
     <p>Your website should work as hard as your sales team. We build clean, fast, conversion-focused websites that integrate directly with your CRM and automation stack.</p>
+  </div>
+</section>
+
+<!-- ========== WEBSITE BUILD FLOW ANIMATION ========== -->
+<section class="web-flow" id="web-flow">
+  <h2>From Concept to Conversion</h2>
+  <p class="web-flow-sub">We design, build, and launch your site with every piece wired into your sales stack from day one.</p>
+
+  <div class="web-container">
+    <div class="web-pipeline">
+      <!-- Node 1: Design -->
+      <div class="web-node wn-1" data-animate>
+        <div class="web-icon-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"/></svg>
+        </div>
+        <div class="web-label">Design</div>
+        <div class="web-desc">Clean layouts built to convert visitors into leads</div>
+      </div>
+
+      <!-- Connector 1-2 -->
+      <div class="web-connector" data-animate>
+        <div class="web-conn-track"></div>
+        <div class="wpar wp1"></div>
+        <div class="wpar wp2"></div>
+        <div class="web-conn-arrow"></div>
+      </div>
+
+      <!-- Node 2: Build & Integrate -->
+      <div class="web-node wn-2" data-animate>
+        <div class="web-icon-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"/></svg>
+        </div>
+        <div class="web-label">Build & Integrate</div>
+        <div class="web-desc">Fast code wired into your CRM and automation tools</div>
+      </div>
+
+      <!-- Connector 2-3 -->
+      <div class="web-connector" data-animate>
+        <div class="web-conn-track"></div>
+        <div class="wpar wp1"></div>
+        <div class="wpar wp2"></div>
+        <div class="web-conn-arrow"></div>
+      </div>
+
+      <!-- Node 3: Launch & Convert -->
+      <div class="web-node wn-3" data-animate>
+        <div class="web-icon-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/></svg>
+        </div>
+        <div class="web-label">Launch & Convert</div>
+        <div class="web-desc">Go live with leads flowing straight into your pipeline</div>
+      </div>
+    </div>
+
+    <div class="web-status">
+      <div class="web-tag wtag-design" data-animate><span class="wdot"></span> Conversion-focused design</div>
+      <div class="web-tag wtag-build" data-animate><span class="wdot"></span> CRM integrations live</div>
+      <div class="web-tag wtag-live" data-animate><span class="wdot"></span> Leads flowing in</div>
+    </div>
   </div>
 </section>
 
@@ -172,6 +325,18 @@
   </div>
 </footer>
 
+<script>
+(function() {
+  var items = document.querySelectorAll('[data-animate]');
+  if (!items.length) return;
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.15 });
+  items.forEach(function(el) { observer.observe(el); });
+})();
+</script>
 <script src="chatbot.js"></script>
 </body>
 </html>

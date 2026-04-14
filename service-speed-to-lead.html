@@ -32,8 +32,8 @@
     .nav-links { display: flex; align-items: center; gap: 2rem; }
     .nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--gray-700); text-decoration: none; transition: color 0.2s; }
     .nav-links a:hover { color: var(--navy); }
-    .btn-nav { background: var(--navy); color: var(--white); padding: 0.6rem 1.4rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.15s; }
-    .btn-nav:hover { background: var(--navy-light); transform: translateY(-1px); }
+    .nav-links a.btn-nav { background: var(--navy); color: #ffffff !important; padding: 0.6rem 1.4rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+    .nav-links a.btn-nav:hover { background: var(--navy-light); color: #ffffff !important; transform: translateY(-1px); }
 
     /* HERO */
     .srv-hero { padding: 9rem 2rem 4rem; background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%); }
@@ -82,8 +82,68 @@
     footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
     footer a:hover { color: var(--white); }
 
-    @media (max-width: 900px) { .features-grid { grid-template-columns: 1fr; } .nav-links a:not(.btn-nav) { display: none; } }
-    @media (max-width: 600px) { .srv-hero { padding: 8rem 1.2rem 3rem; } .footer-inner { flex-direction: column; gap: 0.75rem; text-align: center; } }
+    /* SPEED-TO-LEAD DEMO WIDGET */
+    .stl-demo-section { padding: 4rem 2rem; background: var(--bg); }
+    .stl-demo-section h2 { font-size: 1.6rem; font-weight: 800; color: var(--navy); margin-bottom: 0.6rem; text-align: center; }
+    .stl-demo-section .stl-demo-sub { font-size: 1rem; color: var(--gray-500); text-align: center; max-width: 520px; margin: 0 auto 2.5rem; line-height: 1.6; }
+    .stl-container {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      min-height: 480px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 20px; padding: 40px 24px; position: relative; overflow: hidden;
+      max-width: 520px; margin: 0 auto;
+    }
+    .stl-container::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.03) 1px, transparent 0);
+      background-size: 32px 32px;
+    }
+    .stl-timeline { display: flex; align-items: center; gap: 0; position: relative; z-index: 1; margin-bottom: 36px; }
+    .stl-step { display: flex; flex-direction: column; align-items: center; opacity: 0; transform: scale(0.7); transition: opacity 0.5s, transform 0.5s; }
+    .stl-step.active { opacity: 1; transform: scale(1); }
+    .stl-icon-circle { width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; }
+    .stl-connector { width: 60px; height: 3px; background: rgba(255,255,255,0.1); position: relative; overflow: hidden; border-radius: 2px; margin-bottom: 28px; }
+    .stl-connector .stl-fill { position: absolute; inset: 0; background: linear-gradient(90deg, #3b82f6, #60a5fa); transform: scaleX(0); transform-origin: left; transition: transform 0.6s ease; }
+    .stl-connector.filled .stl-fill { transform: scaleX(1); }
+    .stl-ring-circle { background: rgba(59,130,246,0.15); border: 2px solid rgba(59,130,246,0.4); }
+    .stl-ring-circle svg { color: #60a5fa; }
+    @keyframes stl-ring { 0%,100%{transform:rotate(0)} 10%{transform:rotate(14deg)} 20%{transform:rotate(-12deg)} 30%{transform:rotate(10deg)} 40%{transform:rotate(-8deg)} 50%{transform:rotate(4deg)} 60%{transform:rotate(0)} }
+    .stl-ringing svg { animation: stl-ring 0.6s ease-in-out infinite; }
+    @keyframes stl-pulse-ring { 0%{transform:scale(1);opacity:0.5} 100%{transform:scale(1.8);opacity:0} }
+    .stl-pulse { position: absolute; inset: 0; border-radius: 50%; border: 2px solid #3b82f6; opacity: 0; }
+    .stl-ringing .stl-pulse { animation: stl-pulse-ring 1s ease-out infinite; }
+    .stl-ringing .stl-pulse:nth-child(2) { animation-delay: 0.4s; }
+    .stl-noanswer-circle { background: rgba(239,68,68,0.15); border: 2px solid rgba(239,68,68,0.4); }
+    .stl-noanswer-circle svg { color: #f87171; }
+    @keyframes stl-shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 40%{transform:translateX(6px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
+    .stl-no-answer-anim { animation: stl-shake 0.5s ease; }
+    .stl-text-circle { background: rgba(34,197,94,0.15); border: 2px solid rgba(34,197,94,0.4); }
+    .stl-text-circle svg { color: #4ade80; }
+    @keyframes stl-pop { 0%{transform:scale(0.5);opacity:0} 60%{transform:scale(1.15)} 100%{transform:scale(1);opacity:1} }
+    .stl-text-pop { animation: stl-pop 0.5s ease forwards; }
+    .stl-label { margin-top: 14px; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: rgba(255,255,255,0.5); transition: color 0.4s; white-space: nowrap; }
+    .stl-step.active .stl-label { color: rgba(255,255,255,0.85); }
+    .stl-phone { width: 260px; background: #1a1a2e; border-radius: 24px; border: 2px solid rgba(255,255,255,0.08); padding: 20px 16px 16px; opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s; position: relative; z-index: 1; }
+    .stl-phone.visible { opacity: 1; transform: translateY(0); }
+    .stl-phone-header { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .stl-phone-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #22c55e, #16a34a); display: flex; align-items: center; justify-content: center; }
+    .stl-phone-avatar svg { color: white; width: 16px; height: 16px; }
+    .stl-phone-name { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.9); }
+    .stl-phone-sub { font-size: 11px; color: rgba(255,255,255,0.4); }
+    .stl-bubble { background: #22c55e; color: white; padding: 10px 14px; border-radius: 16px 16px 4px 16px; font-size: 13px; line-height: 1.5; max-width: 220px; margin-left: auto; opacity: 0; transform: translateY(10px); transition: opacity 0.4s, transform 0.4s; }
+    .stl-bubble.visible { opacity: 1; transform: translateY(0); }
+    .stl-bubble-time { text-align: right; font-size: 10px; color: rgba(255,255,255,0.35); margin-top: 6px; opacity: 0; transition: opacity 0.3s; }
+    .stl-bubble-time.visible { opacity: 1; }
+    .stl-status { margin-top: 24px; padding: 10px 24px; border-radius: 100px; font-size: 13px; font-weight: 600; letter-spacing: 0.3px; opacity: 0; transform: translateY(10px); transition: opacity 0.5s, transform 0.5s; position: relative; z-index: 1; }
+    .stl-status.visible { opacity: 1; transform: translateY(0); }
+    .stl-status-ringing { background: rgba(59,130,246,0.15); color: #93c5fd; border: 1px solid rgba(59,130,246,0.3); }
+    .stl-status-missed { background: rgba(239,68,68,0.15); color: #fca5a5; border: 1px solid rgba(239,68,68,0.3); }
+    .stl-status-sent { background: rgba(34,197,94,0.15); color: #86efac; border: 1px solid rgba(34,197,94,0.3); }
+    .stl-replay { margin-top: 18px; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.1); padding: 8px 20px; border-radius: 100px; font-size: 12px; font-weight: 600; cursor: pointer; opacity: 0; transition: opacity 0.4s, background 0.2s; position: relative; z-index: 1; letter-spacing: 0.3px; }
+    .stl-replay:hover { background: rgba(255,255,255,0.14); color: rgba(255,255,255,0.85); }
+    .stl-replay.visible { opacity: 1; }
+
+    @media (max-width: 900px) { .features-grid { grid-template-columns: 1fr; } .nav-links a:not(.btn-nav) { display: none; } .stl-timeline { transform: scale(0.85); } }
+    @media (max-width: 600px) { .srv-hero { padding: 8rem 1.2rem 3rem; } .footer-inner { flex-direction: column; gap: 0.75rem; text-align: center; } .stl-timeline { transform: scale(0.7); } .stl-phone { width: 220px; } }
   </style>
   <link rel="stylesheet" href="chatbot.css">
 </head>
@@ -112,6 +172,78 @@
     <div class="srv-badge">01 — Single Workflow</div>
     <h1>Speed to Lead Workflow</h1>
     <p>Respond to every new lead in seconds — not hours. We build instant-response automations that engage prospects the moment they come in, so you never lose a deal to a slow reply.</p>
+  </div>
+</section>
+
+<!-- SPEED-TO-LEAD DEMO ANIMATION -->
+<section class="stl-demo-section">
+  <h2>See It in Action</h2>
+  <p class="stl-demo-sub">When a lead doesn't pick up, our automation kicks in instantly — no missed opportunities.</p>
+
+  <div class="stl-container" id="stlDemo">
+    <div class="stl-timeline">
+      <!-- Step 1: Ringing -->
+      <div class="stl-step" id="stlStep1">
+        <div class="stl-icon-circle stl-ring-circle" id="stlRingIcon">
+          <div class="stl-pulse"></div>
+          <div class="stl-pulse"></div>
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </div>
+        <div class="stl-label">Calling Lead</div>
+      </div>
+
+      <div class="stl-connector" id="stlConn1"><div class="stl-fill"></div></div>
+
+      <!-- Step 2: No Answer -->
+      <div class="stl-step" id="stlStep2">
+        <div class="stl-icon-circle stl-noanswer-circle" id="stlNoAnswerIcon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="1" y1="1" x2="23" y2="23"/>
+            <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/>
+            <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
+            <path d="M10.71 5.05A16 16 0 0 1 22.56 9"/>
+            <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/>
+            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+            <line x1="12" y1="20" x2="12.01" y2="20"/>
+          </svg>
+        </div>
+        <div class="stl-label">No Answer</div>
+      </div>
+
+      <div class="stl-connector" id="stlConn2"><div class="stl-fill"></div></div>
+
+      <!-- Step 3: Auto Text -->
+      <div class="stl-step" id="stlStep3">
+        <div class="stl-icon-circle stl-text-circle" id="stlTextIcon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            <path d="M8 10h8" opacity="0.5"/>
+            <path d="M8 13h5" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="stl-label">Auto Text Sent</div>
+      </div>
+    </div>
+
+    <!-- Phone mockup -->
+    <div class="stl-phone" id="stlPhone">
+      <div class="stl-phone-header">
+        <div class="stl-phone-avatar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <div>
+          <div class="stl-phone-name">Simple Solutions</div>
+          <div class="stl-phone-sub">Automated Message</div>
+        </div>
+      </div>
+      <div class="stl-bubble" id="stlBubble">Hey! We just tried to reach you. We'd love to help — reply here or we'll try again soon!</div>
+      <div class="stl-bubble-time" id="stlTime">Delivered &bull; Just now</div>
+    </div>
+
+    <div class="stl-status" id="stlStatus"></div>
+    <button class="stl-replay" id="stlReplay" onclick="stlRun()">&#8635; Replay</button>
   </div>
 </section>
 
@@ -172,6 +304,31 @@
   </div>
 </footer>
 
+<script>
+(function(){
+  function reset(){
+    ['stlStep1','stlStep2','stlStep3'].forEach(function(id){document.getElementById(id).classList.remove('active')});
+    ['stlConn1','stlConn2'].forEach(function(id){document.getElementById(id).classList.remove('filled')});
+    document.getElementById('stlRingIcon').classList.remove('stl-ringing');
+    document.getElementById('stlNoAnswerIcon').classList.remove('stl-no-answer-anim');
+    document.getElementById('stlTextIcon').classList.remove('stl-text-pop');
+    document.getElementById('stlPhone').classList.remove('visible');
+    document.getElementById('stlBubble').classList.remove('visible');
+    document.getElementById('stlTime').classList.remove('visible');
+    var s=document.getElementById('stlStatus');s.className='stl-status';s.textContent='';
+    document.getElementById('stlReplay').classList.remove('visible');
+  }
+  function showStatus(t,c){var e=document.getElementById('stlStatus');e.className='stl-status '+c;e.textContent=t;void e.offsetWidth;e.classList.add('visible');}
+  window.stlRun=function(){
+    reset();
+    setTimeout(function(){document.getElementById('stlStep1').classList.add('active');document.getElementById('stlRingIcon').classList.add('stl-ringing');showStatus('Calling lead...','stl-status-ringing');},300);
+    setTimeout(function(){document.getElementById('stlRingIcon').classList.remove('stl-ringing');document.getElementById('stlConn1').classList.add('filled');setTimeout(function(){document.getElementById('stlStep2').classList.add('active');document.getElementById('stlNoAnswerIcon').classList.add('stl-no-answer-anim');showStatus('No answer \u2014 triggering automation','stl-status-missed');},400);},2300);
+    setTimeout(function(){document.getElementById('stlConn2').classList.add('filled');setTimeout(function(){document.getElementById('stlStep3').classList.add('active');document.getElementById('stlTextIcon').classList.add('stl-text-pop');showStatus('Text message sent automatically','stl-status-sent');},400);setTimeout(function(){document.getElementById('stlPhone').classList.add('visible');},800);setTimeout(function(){document.getElementById('stlBubble').classList.add('visible');},1300);setTimeout(function(){document.getElementById('stlTime').classList.add('visible');},1700);setTimeout(function(){document.getElementById('stlReplay').classList.add('visible');},2200);},4000);
+  };
+  var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){stlRun();obs.disconnect();}});},{threshold:0.5});
+  obs.observe(document.getElementById('stlDemo'));
+})();
+</script>
 <script src="chatbot.js"></script>
 </body>
 </html>

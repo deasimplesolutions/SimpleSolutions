@@ -32,8 +32,8 @@
     .nav-links { display: flex; align-items: center; gap: 2rem; }
     .nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--gray-700); text-decoration: none; transition: color 0.2s; }
     .nav-links a:hover { color: var(--navy); }
-    .btn-nav { background: var(--navy); color: var(--white); padding: 0.6rem 1.4rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.15s; }
-    .btn-nav:hover { background: var(--navy-light); transform: translateY(-1px); }
+    .nav-links a.btn-nav { background: var(--navy); color: #ffffff !important; padding: 0.6rem 1.4rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+    .nav-links a.btn-nav:hover { background: var(--navy-light); color: #ffffff !important; transform: translateY(-1px); }
 
     /* HERO */
     .srv-hero { padding: 9rem 2rem 4rem; background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%); }
@@ -82,8 +82,181 @@
     footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
     footer a:hover { color: var(--white); }
 
-    @media (max-width: 900px) { .features-grid { grid-template-columns: 1fr; } .nav-links a:not(.btn-nav) { display: none; } }
-    @media (max-width: 600px) { .srv-hero { padding: 8rem 1.2rem 3rem; } .footer-inner { flex-direction: column; gap: 0.75rem; text-align: center; } }
+    /* ========== CHATBOT DEMO ANIMATION ========== */
+    .chatbot-demo-section { padding: 4rem 2rem; background: var(--bg); overflow: hidden; }
+    .chatbot-demo-section h2 { font-size: 1.6rem; font-weight: 800; color: var(--navy); margin-bottom: 0.6rem; text-align: center; }
+    .chatbot-demo-sub { font-size: 1rem; color: var(--gray-500); text-align: center; max-width: 520px; margin: 0 auto 2.5rem; line-height: 1.6; }
+
+    .chatbot-container {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      min-height: 520px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 20px; padding: 40px 24px; position: relative; overflow: hidden;
+      max-width: 700px; margin: 0 auto;
+    }
+    .chatbot-container::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.03) 1px, transparent 0);
+      background-size: 32px 32px;
+    }
+
+    /* Pipeline flow (matching appointment-setting) */
+    .cb-pipeline { display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; margin-bottom: 24px; }
+
+    .cb-node { display: flex; flex-direction: column; align-items: center; gap: 0.7rem; opacity: 0; transform: translateY(28px) scale(0.92); }
+    .cb-node.visible { animation: cbNodeAppear 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    .cb-node:nth-child(1).visible { animation-delay: 0.2s; }
+    .cb-node:nth-child(3).visible { animation-delay: 0.7s; }
+    .cb-node:nth-child(5).visible { animation-delay: 1.2s; }
+    @keyframes cbNodeAppear { to { opacity: 1; transform: translateY(0) scale(1); } }
+
+    .cb-icon-wrap { width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; transition: transform 0.3s, box-shadow 0.3s; cursor: default; }
+    .cb-icon-wrap:hover { transform: translateY(-5px); }
+    .cb-node-1 .cb-icon-wrap { background: rgba(59,130,246,0.15); border: 2px solid rgba(59,130,246,0.4); }
+    .cb-node-2 .cb-icon-wrap { background: rgba(168,85,247,0.15); border: 2px solid rgba(168,85,247,0.4); }
+    .cb-node-3 .cb-icon-wrap { background: rgba(34,197,94,0.15); border: 2px solid rgba(34,197,94,0.4); }
+    .cb-node-1 .cb-icon-wrap svg { width: 32px; height: 32px; color: #60a5fa; }
+    .cb-node-2 .cb-icon-wrap svg { width: 32px; height: 32px; color: #c084fc; }
+    .cb-node-3 .cb-icon-wrap svg { width: 32px; height: 32px; color: #4ade80; }
+    .cb-node-label { font-size: 13px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: rgba(255,255,255,0.85); white-space: nowrap; }
+    .cb-node-desc { font-size: 0.75rem; color: rgba(255,255,255,0.4); max-width: 145px; line-height: 1.45; text-align: center; }
+
+    .cb-icon-wrap::after { content: ''; position: absolute; inset: -7px; border-radius: 50%; border: 2px solid transparent; pointer-events: none; }
+    .cb-node-1 .cb-icon-wrap::after { border-color: rgba(59,130,246,0.3); animation: cbPulseRing 2.8s ease-out infinite 0.5s; }
+    .cb-node-2 .cb-icon-wrap::after { border-color: rgba(168,85,247,0.25); animation: cbPulseRing 2.8s ease-out infinite 1.0s; }
+    .cb-node-3 .cb-icon-wrap::after { border-color: rgba(34,197,94,0.3); animation: cbPulseRing 2.8s ease-out infinite 1.5s; }
+    @keyframes cbPulseRing { 0% { transform: scale(1); opacity: 1; } 60% { transform: scale(1.25); opacity: 0; } 100% { transform: scale(1.25); opacity: 0; } }
+
+    .cb-connector { width: 60px; display: flex; align-items: center; justify-content: center; position: relative; opacity: 0; margin-bottom: 28px; }
+    .cb-connector.visible { animation: cbConnAppear 0.5s ease forwards; }
+    .cb-connector:nth-child(2).visible { animation-delay: 0.5s; }
+    .cb-connector:nth-child(4).visible { animation-delay: 1.0s; }
+    @keyframes cbConnAppear { to { opacity: 1; } }
+
+    .cb-conn-track { width: 100%; height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px; position: relative; overflow: hidden; }
+    .cb-conn-track::after { content: ''; position: absolute; left: -60%; top: 0; width: 60%; height: 100%; border-radius: 2px; }
+    .cb-connector:nth-child(2) .cb-conn-track::after { background: linear-gradient(90deg, transparent, #3b82f6, transparent); animation: cbLineFlow 2.4s ease-in-out infinite 0.8s; }
+    .cb-connector:nth-child(4) .cb-conn-track::after { background: linear-gradient(90deg, transparent, #22c55e, transparent); animation: cbLineFlow 2.4s ease-in-out infinite 1.3s; }
+    @keyframes cbLineFlow { 0% { left: -60%; } 100% { left: 100%; } }
+
+    .cb-connector .cb-particle { position: absolute; border-radius: 50%; top: 50%; transform: translateY(-50%); opacity: 0; }
+    .cb-connector .cb-p1 { width: 7px; height: 7px; }
+    .cb-connector .cb-p2 { width: 5px; height: 5px; }
+    .cb-connector:nth-child(2) .cb-p1 { background: #60a5fa; animation: cbParticle 2s ease-in-out infinite 0.8s; }
+    .cb-connector:nth-child(2) .cb-p2 { background: #3b82f6; animation: cbParticle 2s ease-in-out infinite 1.6s; }
+    .cb-connector:nth-child(4) .cb-p1 { background: #4ade80; animation: cbParticle 2s ease-in-out infinite 1.2s; }
+    .cb-connector:nth-child(4) .cb-p2 { background: #22c55e; animation: cbParticle 2s ease-in-out infinite 2.0s; }
+    @keyframes cbParticle { 0% { left: 0; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { left: calc(100% - 7px); opacity: 0; } }
+
+    .cb-conn-arrow { position: absolute; right: -3px; width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 7px solid rgba(255,255,255,0.2); }
+
+    /* ===== BROWSER MOCKUP WITH EMBEDDED CHAT WIDGET ===== */
+    .cb-browser { width: 100%; max-width: 600px; background: #0d1117; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s; position: relative; z-index: 1; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+    .cb-browser.visible { opacity: 1; transform: translateY(0); }
+
+    /* Browser chrome bar */
+    .cb-browser-bar { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: #161b22; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .cb-browser-dots { display: flex; gap: 6px; }
+    .cb-browser-dots span { width: 10px; height: 10px; border-radius: 50%; }
+    .cb-browser-dots span:nth-child(1) { background: #ff5f57; }
+    .cb-browser-dots span:nth-child(2) { background: #ffbd2e; }
+    .cb-browser-dots span:nth-child(3) { background: #28c840; }
+    .cb-browser-url { flex: 1; background: rgba(255,255,255,0.06); border-radius: 6px; padding: 5px 12px; font-size: 11px; color: rgba(255,255,255,0.45); display: flex; align-items: center; gap: 6px; }
+    .cb-browser-url svg { width: 10px; height: 10px; color: rgba(255,255,255,0.3); flex-shrink: 0; }
+
+    /* Mini website content inside browser */
+    .cb-site { position: relative; min-height: 340px; background: #f8fafc; overflow: hidden; }
+
+    .cb-site-nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background: white; border-bottom: 1px solid #e5e7eb; }
+    .cb-site-logo { font-size: 11px; font-weight: 800; color: #0f1a2e; letter-spacing: -0.02em; }
+    .cb-site-nav-links { display: flex; gap: 12px; }
+    .cb-site-nav-links span { display: block; width: 32px; height: 4px; border-radius: 2px; background: #d1d5db; }
+
+    .cb-site-hero { padding: 28px 20px 20px; text-align: center; }
+    .cb-site-hero-title { font-size: 16px; font-weight: 800; color: #0f1a2e; margin-bottom: 6px; line-height: 1.2; }
+    .cb-site-hero-sub { font-size: 9px; color: #6b7280; line-height: 1.5; max-width: 280px; margin: 0 auto 12px; }
+    .cb-site-hero-btn { display: inline-block; background: #0f1a2e; color: white; font-size: 9px; font-weight: 600; padding: 6px 16px; border-radius: 6px; }
+
+    .cb-site-cards { display: flex; gap: 10px; padding: 0 20px 20px; }
+    .cb-site-card { flex: 1; background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px 10px; }
+    .cb-site-card-icon { width: 20px; height: 20px; border-radius: 4px; background: #0f1a2e; margin-bottom: 6px; }
+    .cb-site-card-line { height: 4px; border-radius: 2px; background: #e5e7eb; margin-bottom: 4px; }
+    .cb-site-card-line:last-child { width: 60%; }
+
+    /* Floating chat bubble (bottom-right of the mini site) */
+    .cb-fab { position: absolute; bottom: 14px; right: 14px; width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #6366f1); display: flex; align-items: center; justify-content: center; cursor: default; box-shadow: 0 4px 16px rgba(59,130,246,0.4); opacity: 0; transform: scale(0); transition: opacity 0.4s, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); z-index: 5; }
+    .cb-fab.visible { opacity: 1; transform: scale(1); }
+    .cb-fab.hidden { opacity: 0; transform: scale(0); pointer-events: none; }
+    .cb-fab svg { width: 22px; height: 22px; color: white; }
+    @keyframes cbFabPulse { 0%, 100% { box-shadow: 0 4px 16px rgba(59,130,246,0.4); } 50% { box-shadow: 0 4px 24px rgba(59,130,246,0.7), 0 0 0 8px rgba(59,130,246,0.1); } }
+    .cb-fab.pulse { animation: cbFabPulse 2s ease infinite; }
+
+    /* Chat widget (opens from the fab) */
+    .cb-widget { position: absolute; bottom: 66px; right: 14px; width: 260px; background: white; border-radius: 14px; box-shadow: 0 8px 30px rgba(0,0,0,0.15); overflow: hidden; opacity: 0; transform: translateY(16px) scale(0.92); transform-origin: bottom right; transition: opacity 0.4s, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); z-index: 5; }
+    .cb-widget.visible { opacity: 1; transform: translateY(0) scale(1); }
+
+    .cb-widget-header { display: flex; align-items: center; gap: 8px; padding: 12px 14px; background: linear-gradient(135deg, #3b82f6, #6366f1); }
+    .cb-widget-avatar { width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; }
+    .cb-widget-avatar svg { color: white; width: 14px; height: 14px; }
+    .cb-widget-name { font-size: 12px; font-weight: 600; color: white; }
+    .cb-widget-status { font-size: 9px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 4px; }
+    .cb-widget-status .cb-online-dot { width: 5px; height: 5px; border-radius: 50%; background: #4ade80; }
+
+    .cb-widget-body { padding: 12px; display: flex; flex-direction: column; gap: 8px; min-height: 140px; max-height: 180px; background: #f9fafb; }
+
+    .cb-msg { padding: 8px 11px; border-radius: 12px; font-size: 11px; line-height: 1.45; max-width: 190px; opacity: 0; transform: translateY(8px); transition: opacity 0.35s, transform 0.35s; }
+    .cb-msg.visible { opacity: 1; transform: translateY(0); }
+    .cb-msg-bot { background: white; color: #1f2937; border: 1px solid #e5e7eb; border-radius: 12px 12px 12px 3px; align-self: flex-start; }
+    .cb-msg-visitor { background: #3b82f6; color: white; border-radius: 12px 12px 3px 12px; align-self: flex-end; }
+
+    .cb-typing { display: flex; align-items: center; gap: 3px; padding: 8px 11px; align-self: flex-start; opacity: 0; transition: opacity 0.3s; }
+    .cb-typing.visible { opacity: 1; }
+    .cb-typing-dot { width: 5px; height: 5px; border-radius: 50%; background: #9ca3af; }
+    .cb-typing-dot:nth-child(1) { animation: cbTypingBounce 1.4s ease-in-out infinite 0s; }
+    .cb-typing-dot:nth-child(2) { animation: cbTypingBounce 1.4s ease-in-out infinite 0.2s; }
+    .cb-typing-dot:nth-child(3) { animation: cbTypingBounce 1.4s ease-in-out infinite 0.4s; }
+    @keyframes cbTypingBounce { 0%,60%,100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-4px); opacity: 1; } }
+
+    .cb-widget-input { display: flex; align-items: center; gap: 6px; padding: 10px 12px; border-top: 1px solid #e5e7eb; background: white; }
+    .cb-widget-input-field { flex: 1; background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 16px; padding: 6px 10px; font-size: 10px; color: #9ca3af; }
+    .cb-widget-input-send { width: 26px; height: 26px; border-radius: 50%; background: #3b82f6; display: flex; align-items: center; justify-content: center; }
+    .cb-widget-input-send svg { width: 11px; height: 11px; color: white; }
+
+    /* Status tags (matching appointment-setting) */
+    .cb-status { display: flex; justify-content: center; gap: 0.8rem; margin-top: 24px; flex-wrap: wrap; position: relative; z-index: 1; }
+    .cb-status-tag { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 13px; font-weight: 600; padding: 10px 24px; border-radius: 100px; letter-spacing: 0.3px; opacity: 0; transform: translateY(10px); }
+    .cb-status-tag.visible { animation: cbTagAppear 0.4s ease forwards; }
+    .cb-status-tag:nth-child(1).visible { animation-delay: 1.6s; }
+    .cb-status-tag:nth-child(2).visible { animation-delay: 1.85s; }
+    .cb-status-tag:nth-child(3).visible { animation-delay: 2.1s; }
+    @keyframes cbTagAppear { to { opacity: 1; transform: translateY(0); } }
+    .cb-status-tag .cb-dot { width: 7px; height: 7px; border-radius: 50%; }
+    .cb-tag-chat { background: rgba(59,130,246,0.15); color: #93c5fd; border: 1px solid rgba(59,130,246,0.3); }
+    .cb-tag-chat .cb-dot { background: #60a5fa; animation: cbDotPulse 2s ease infinite; }
+    .cb-tag-qualify { background: rgba(168,85,247,0.15); color: #d8b4fe; border: 1px solid rgba(168,85,247,0.3); }
+    .cb-tag-qualify .cb-dot { background: #c084fc; animation: cbDotPulse 2s ease infinite 0.4s; }
+    .cb-tag-capture { background: rgba(34,197,94,0.15); color: #86efac; border: 1px solid rgba(34,197,94,0.3); }
+    .cb-tag-capture .cb-dot { background: #4ade80; animation: cbDotPulse 2s ease infinite 0.8s; }
+    @keyframes cbDotPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.5); } }
+
+    /* Replay button (matching speed-to-lead) */
+    .cb-replay { margin-top: 18px; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.1); padding: 8px 20px; border-radius: 100px; font-size: 12px; font-weight: 600; cursor: pointer; opacity: 0; transition: opacity 0.4s, background 0.2s; position: relative; z-index: 1; letter-spacing: 0.3px; }
+    .cb-replay:hover { background: rgba(255,255,255,0.14); color: rgba(255,255,255,0.85); }
+    .cb-replay.visible { opacity: 1; }
+
+    @media (max-width: 900px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .nav-links a:not(.btn-nav) { display: none; }
+      .chatbot-container { padding: 36px 20px; }
+      .cb-pipeline { flex-direction: column; gap: 0.5rem; }
+      .cb-connector { width: 3px; height: 55px; flex-direction: column; margin-bottom: 0; }
+      .cb-conn-track { width: 3px; height: 100%; }
+      .cb-conn-track::after { width: 100%; height: 60%; left: 0; top: -60%; animation-name: cbLineFlowV !important; }
+      .cb-conn-arrow { right: auto; bottom: -4px; top: auto; left: 50%; transform: translateX(-50%); border-top: 7px solid var(--navy); border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: none; }
+      .cb-connector .cb-particle { left: 50% !important; top: 0; transform: translateX(-50%); animation-name: cbParticleMoveV !important; }
+    }
+    @keyframes cbLineFlowV { 0% { top: -60%; } 100% { top: 100%; } }
+    @keyframes cbParticleMoveV { 0% { top: 0; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: calc(100% - 7px); opacity: 0; } }
+    @media (max-width: 600px) { .srv-hero { padding: 8rem 1.2rem 3rem; } .footer-inner { flex-direction: column; gap: 0.75rem; text-align: center; } .cb-browser { max-width: 100%; } .cb-widget { width: 220px; } .cb-site-cards { display: none; } }
   </style>
   <link rel="stylesheet" href="chatbot.css">
 </head>
@@ -109,9 +282,137 @@
 
 <section class="srv-hero">
   <div class="srv-hero-inner">
-    <div class="srv-badge">04 — AI-Powered</div>
+    <div class="srv-badge">03 — AI-Powered</div>
     <h1>Website Chat Bot</h1>
     <p>Turn your website into a 24/7 sales and support machine. We build custom AI chat bots that answer questions, qualify leads, and book appointments — so you never miss a visitor.</p>
+  </div>
+</section>
+
+<!-- ========== CHATBOT DEMO ANIMATION ========== -->
+<section class="chatbot-demo-section" id="chatbot-demo">
+  <h2>See It in Action</h2>
+  <p class="chatbot-demo-sub">Your AI chatbot engages visitors instantly — qualifying leads and capturing info while you focus on closing.</p>
+
+  <div class="chatbot-container" id="cbDemo">
+    <!-- Pipeline nodes -->
+    <div class="cb-pipeline">
+      <!-- Node 1: Visitor Asks -->
+      <div class="cb-node cb-node-1" data-cb-animate>
+        <div class="cb-icon-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+        </div>
+        <div class="cb-node-label">Visitor Asks</div>
+        <div class="cb-node-desc">Customer lands on your site and starts a conversation</div>
+      </div>
+
+      <!-- Connector 1-2 -->
+      <div class="cb-connector" data-cb-animate>
+        <div class="cb-conn-track"></div>
+        <div class="cb-particle cb-p1"></div>
+        <div class="cb-particle cb-p2"></div>
+        <div class="cb-conn-arrow"></div>
+      </div>
+
+      <!-- Node 2: AI Responds -->
+      <div class="cb-node cb-node-2" data-cb-animate>
+        <div class="cb-icon-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"/></svg>
+        </div>
+        <div class="cb-node-label">AI Responds</div>
+        <div class="cb-node-desc">Your chatbot answers instantly with trained knowledge</div>
+      </div>
+
+      <!-- Connector 2-3 -->
+      <div class="cb-connector" data-cb-animate>
+        <div class="cb-conn-track"></div>
+        <div class="cb-particle cb-p1"></div>
+        <div class="cb-particle cb-p2"></div>
+        <div class="cb-conn-arrow"></div>
+      </div>
+
+      <!-- Node 3: Lead Captured -->
+      <div class="cb-node cb-node-3" data-cb-animate>
+        <div class="cb-icon-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.745 3.745 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg>
+        </div>
+        <div class="cb-node-label">Lead Captured</div>
+        <div class="cb-node-desc">Contact info collected and routed to your sales team</div>
+      </div>
+    </div>
+
+    <!-- Browser mockup with embedded chat widget -->
+    <div class="cb-browser" id="cbBrowser">
+      <!-- Browser chrome -->
+      <div class="cb-browser-bar">
+        <div class="cb-browser-dots"><span></span><span></span><span></span></div>
+        <div class="cb-browser-url">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          yourcompany.com
+        </div>
+      </div>
+
+      <!-- Mini website inside browser -->
+      <div class="cb-site">
+        <div class="cb-site-nav">
+          <div class="cb-site-logo">YourCompany</div>
+          <div class="cb-site-nav-links"><span></span><span></span><span></span></div>
+        </div>
+        <div class="cb-site-hero">
+          <div class="cb-site-hero-title">Welcome to Your Business</div>
+          <div class="cb-site-hero-sub">We help companies grow with smart solutions. Explore our services and get started today.</div>
+          <div class="cb-site-hero-btn">Learn More</div>
+        </div>
+        <div class="cb-site-cards">
+          <div class="cb-site-card"><div class="cb-site-card-icon"></div><div class="cb-site-card-line"></div><div class="cb-site-card-line"></div></div>
+          <div class="cb-site-card"><div class="cb-site-card-icon"></div><div class="cb-site-card-line"></div><div class="cb-site-card-line"></div></div>
+          <div class="cb-site-card"><div class="cb-site-card-icon"></div><div class="cb-site-card-line"></div><div class="cb-site-card-line"></div></div>
+        </div>
+
+        <!-- Floating chat bubble -->
+        <div class="cb-fab" id="cbFab">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+
+        <!-- Chat widget panel -->
+        <div class="cb-widget" id="cbWidget">
+          <div class="cb-widget-header">
+            <div class="cb-widget-avatar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <div>
+              <div class="cb-widget-name">AI Assistant</div>
+              <div class="cb-widget-status"><span class="cb-online-dot"></span> Online now</div>
+            </div>
+          </div>
+          <div class="cb-widget-body">
+            <div class="cb-msg cb-msg-bot" id="cbMsg1">Hi there! How can I help you today?</div>
+            <div class="cb-msg cb-msg-visitor" id="cbMsg2">What services do you offer?</div>
+            <div class="cb-typing" id="cbTyping">
+              <div class="cb-typing-dot"></div>
+              <div class="cb-typing-dot"></div>
+              <div class="cb-typing-dot"></div>
+            </div>
+            <div class="cb-msg cb-msg-bot" id="cbMsg3">We specialize in AI automation — speed-to-lead, appointment setting, and chatbots. Want me to book a demo?</div>
+            <div class="cb-msg cb-msg-visitor" id="cbMsg4">Yes! My email is sarah@example.com</div>
+          </div>
+          <div class="cb-widget-input">
+            <div class="cb-widget-input-field">Type a message...</div>
+            <div class="cb-widget-input-send">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Status tags -->
+    <div class="cb-status">
+      <div class="cb-status-tag cb-tag-chat" data-cb-animate><span class="cb-dot"></span> Engaging visitors 24/7</div>
+      <div class="cb-status-tag cb-tag-qualify" data-cb-animate><span class="cb-dot"></span> AI qualifying leads</div>
+      <div class="cb-status-tag cb-tag-capture" data-cb-animate><span class="cb-dot"></span> Contact info captured</div>
+    </div>
+
+    <button class="cb-replay" id="cbReplay" onclick="cbRun()">&#8635; Replay</button>
   </div>
 </section>
 
@@ -172,6 +473,74 @@
   </div>
 </footer>
 
+<script>
+(function(){
+  function cbReset(){
+    document.getElementById('cbBrowser').classList.remove('visible');
+    var fab = document.getElementById('cbFab');
+    fab.classList.remove('visible','pulse','hidden');
+    document.getElementById('cbWidget').classList.remove('visible');
+    ['cbMsg1','cbMsg2','cbMsg3','cbMsg4'].forEach(function(id){ document.getElementById(id).classList.remove('visible'); });
+    document.getElementById('cbTyping').classList.remove('visible');
+    document.getElementById('cbReplay').classList.remove('visible');
+    document.querySelectorAll('[data-cb-animate]').forEach(function(el){ el.classList.remove('visible'); });
+  }
+
+  window.cbRun = function(){
+    cbReset();
+
+    // Animate pipeline nodes + connectors
+    var animItems = document.querySelectorAll('[data-cb-animate]');
+    animItems.forEach(function(el){ el.classList.add('visible'); });
+
+    // Show browser mockup
+    setTimeout(function(){ document.getElementById('cbBrowser').classList.add('visible'); }, 400);
+
+    // Show chat fab bubble with pulse
+    setTimeout(function(){
+      var fab = document.getElementById('cbFab');
+      fab.classList.add('visible','pulse');
+    }, 1200);
+
+    // Open chat widget (fab shrinks, widget opens)
+    setTimeout(function(){
+      var fab = document.getElementById('cbFab');
+      fab.classList.remove('pulse');
+      fab.classList.add('hidden');
+      document.getElementById('cbWidget').classList.add('visible');
+    }, 2200);
+
+    // Bot greeting
+    setTimeout(function(){ document.getElementById('cbMsg1').classList.add('visible'); }, 2800);
+
+    // Visitor question
+    setTimeout(function(){ document.getElementById('cbMsg2').classList.add('visible'); }, 3800);
+
+    // Typing indicator
+    setTimeout(function(){ document.getElementById('cbTyping').classList.add('visible'); }, 4500);
+
+    // Bot response (hide typing, show message)
+    setTimeout(function(){
+      document.getElementById('cbTyping').classList.remove('visible');
+      document.getElementById('cbMsg3').classList.add('visible');
+    }, 5600);
+
+    // Visitor gives email
+    setTimeout(function(){ document.getElementById('cbMsg4').classList.add('visible'); }, 6800);
+
+    // Show replay
+    setTimeout(function(){ document.getElementById('cbReplay').classList.add('visible'); }, 7600);
+  };
+
+  // Trigger on scroll into view
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ cbRun(); obs.disconnect(); }
+    });
+  }, { threshold: 0.3 });
+  obs.observe(document.getElementById('cbDemo'));
+})();
+</script>
 <script src="chatbot.js"></script>
 </body>
 </html>
