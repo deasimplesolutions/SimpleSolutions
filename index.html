@@ -136,6 +136,13 @@
       margin: 0 auto 2.5rem;
       line-height: 1.7;
     }
+    .hero-ctas {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
     .hero-cta {
       display: inline-flex;
       align-items: center;
@@ -156,6 +163,178 @@
       box-shadow: 0 6px 20px rgba(15,26,46,0.3);
     }
     .hero-cta svg { width: 18px; height: 18px; }
+    .hero-cta-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--navy);
+      color: var(--white);
+      padding: 0.9rem 2rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 14px rgba(15,26,46,0.25);
+    }
+    .hero-cta-secondary:hover {
+      background: var(--navy-light);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(15,26,46,0.3);
+    }
+    .hero-cta-secondary svg { width: 18px; height: 18px; }
+
+    /* ── SPEED TO LEAD ANIMATION ── */
+    .speed-to-lead {
+      padding: 4rem 2rem 4.5rem;
+      background: linear-gradient(180deg, var(--bg) 0%, #eef2f7 100%);
+      overflow: hidden;
+    }
+    .stl-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .stl-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #0ea5e9;
+      margin-bottom: 0.6rem;
+    }
+    .stl-inner h2 {
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+      color: var(--navy);
+      font-weight: 800;
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.02em;
+    }
+    .stl-inner p.stl-sub {
+      color: var(--gray-500);
+      max-width: 640px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.6;
+      font-size: 1.02rem;
+    }
+    .stl-track {
+      position: relative;
+      max-width: 880px;
+      margin: 0 auto;
+      background: var(--white);
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 1.8rem 1.8rem 1.2rem;
+      box-shadow: 0 10px 30px rgba(15,26,46,0.08);
+    }
+    .stl-row {
+      display: grid;
+      grid-template-columns: 140px 1fr 90px;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.1rem;
+    }
+    .stl-row:last-of-type { margin-bottom: 0.4rem; }
+    .stl-row-label {
+      text-align: left;
+      font-weight: 600;
+      color: var(--navy);
+      font-size: 0.95rem;
+    }
+    .stl-row-label .stl-sublabel {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--gray-500);
+      margin-top: 2px;
+    }
+    .stl-bar-wrap {
+      position: relative;
+      height: 26px;
+      background: #f1f5f9;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .stl-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      border-radius: 999px;
+      width: 0;
+    }
+    .stl-bar-ss {
+      background: linear-gradient(90deg, #0ea5e9, #0f1a2e);
+      animation: stlFillFast 7s ease-out infinite;
+    }
+    .stl-bar-them {
+      background: linear-gradient(90deg, #cbd5e1, #94a3b8);
+      animation: stlFillSlow 7s linear infinite;
+    }
+    .stl-rocket {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translate(-50%, -50%);
+      font-size: 1.1rem;
+      animation: stlRocket 7s ease-out infinite;
+    }
+    .stl-time {
+      text-align: right;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--navy);
+      font-size: 0.95rem;
+    }
+    .stl-time.slow { color: #94a3b8; }
+    @keyframes stlFillFast {
+      0%   { width: 0; background: linear-gradient(90deg, #0ea5e9, #0f1a2e); box-shadow: none; }
+      20%  { width: 100%; background: linear-gradient(90deg, #0ea5e9, #0f1a2e); box-shadow: none; }
+      26%  { width: 100%; background: linear-gradient(90deg, #22c55e, #16a34a); box-shadow: 0 0 18px rgba(34,197,94,0.75), 0 0 6px rgba(34,197,94,0.9) inset; }
+      97%  { width: 100%; background: linear-gradient(90deg, #22c55e, #16a34a); box-shadow: 0 0 18px rgba(34,197,94,0.75), 0 0 6px rgba(34,197,94,0.9) inset; }
+      100% { width: 100%; background: linear-gradient(90deg, #22c55e, #16a34a); box-shadow: 0 0 10px rgba(34,197,94,0.5); opacity: 0.95; }
+    }
+    @keyframes stlFillSlow {
+      0%   { width: 0; background: linear-gradient(90deg, #cbd5e1, #94a3b8); box-shadow: none; }
+      72%  { width: 72%; background: linear-gradient(90deg, #cbd5e1, #94a3b8); box-shadow: none; }
+      78%  { width: 72%; background: linear-gradient(90deg, #ef4444, #b91c1c); box-shadow: 0 0 18px rgba(239,68,68,0.65), 0 0 6px rgba(239,68,68,0.85) inset; }
+      100% { width: 72%; background: linear-gradient(90deg, #ef4444, #b91c1c); box-shadow: 0 0 18px rgba(239,68,68,0.65), 0 0 6px rgba(239,68,68,0.85) inset; }
+    }
+    @keyframes stlRocket {
+      0%   { left: 0%; opacity: 0; }
+      3%   { opacity: 1; }
+      20%  { left: 100%; opacity: 1; }
+      28%  { left: 100%; opacity: 0; }
+      100% { left: 100%; opacity: 0; }
+    }
+    .stl-stat {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 1.8rem;
+      background: var(--navy);
+      color: var(--white);
+      padding: 0.7rem 1.3rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 8px 22px rgba(15,26,46,0.2);
+    }
+    .stl-stat .stl-pulse {
+      width: 9px; height: 9px;
+      background: #22c55e;
+      border-radius: 50%;
+      animation: stlPulse 1.4s ease-in-out infinite;
+    }
+    @keyframes stlPulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.6); }
+      50%     { box-shadow: 0 0 0 8px rgba(34,197,94,0); }
+    }
+    @media (max-width: 640px) {
+      .stl-row { grid-template-columns: 110px 1fr 70px; gap: 0.6rem; }
+      .stl-row-label { font-size: 0.82rem; }
+      .stl-time { font-size: 0.82rem; }
+    }
 
     /* ── INTEGRATIONS BAR ── */
     .integrations {
@@ -606,10 +785,55 @@
     <div class="hero-badge">AI-Powered Automation</div>
     <h1>Simple Solutions</h1>
     <p>The Build is ours. The Results are yours.</p>
-    <a href="contact.html" class="hero-cta">
-      Get started
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-    </a>
+    <div class="hero-ctas">
+      <a href="contact.html" class="hero-cta">
+        Get started
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+      </a>
+      <a href="#services" class="hero-cta-secondary">
+        See our Services
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── SPEED TO LEAD ANIMATION ── -->
+<section class="speed-to-lead">
+  <div class="stl-inner">
+    <div class="stl-label">⚡ Speed to Lead</div>
+    <h2>The first to respond wins the deal.</h2>
+    <p class="stl-sub">Studies show leads contacted within 5 minutes are <strong>21&times; more likely</strong> to convert. Our AI replies the instant a lead hits your pipeline — while competitors are still checking email.</p>
+
+    <div class="stl-track">
+      <div class="stl-row">
+        <div class="stl-row-label">
+          Simple Solutions
+          <span class="stl-sublabel">AI-powered response</span>
+        </div>
+        <div class="stl-bar-wrap">
+          <div class="stl-bar stl-bar-ss"></div>
+          <div class="stl-rocket">🚀</div>
+        </div>
+        <div class="stl-time">&lt; 60s</div>
+      </div>
+
+      <div class="stl-row">
+        <div class="stl-row-label">
+          Typical competitor
+          <span class="stl-sublabel">Manual follow-up</span>
+        </div>
+        <div class="stl-bar-wrap">
+          <div class="stl-bar stl-bar-them"></div>
+        </div>
+        <div class="stl-time slow">47 min</div>
+      </div>
+
+      <div class="stl-stat">
+        <span class="stl-pulse"></span>
+        Lead contacted &mdash; deal closing faster
+      </div>
+    </div>
   </div>
 </section>
 
