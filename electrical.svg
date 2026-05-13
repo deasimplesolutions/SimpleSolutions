@@ -1,0 +1,307 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="wallE" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ece4d2"/>
+      <stop offset="100%" stop-color="#b4ab98"/>
+    </linearGradient>
+    <linearGradient id="panelE" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8a8a88"/>
+      <stop offset="50%" stop-color="#5a5a58"/>
+      <stop offset="100%" stop-color="#2a2a28"/>
+    </linearGradient>
+    <linearGradient id="doorE" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e0ded8"/>
+      <stop offset="100%" stop-color="#8e8c86"/>
+    </linearGradient>
+    <linearGradient id="breakerE" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a3a38"/>
+      <stop offset="100%" stop-color="#0a0a08"/>
+    </linearGradient>
+    <radialGradient id="ledGreenE" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#aaffaa"/>
+      <stop offset="60%" stop-color="#22cc22"/>
+      <stop offset="100%" stop-color="#117711"/>
+    </radialGradient>
+    <radialGradient id="ledRedE" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffaaaa"/>
+      <stop offset="60%" stop-color="#cc2222"/>
+      <stop offset="100%" stop-color="#771111"/>
+    </radialGradient>
+    <filter id="shadowE">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="500" fill="url(#wallE)"/>
+  <g fill="#a89e88" opacity="0.3">
+    <circle cx="120" cy="80" r="1"/>
+    <circle cx="220" cy="140" r="1.2"/>
+    <circle cx="650" cy="100" r="1"/>
+    <circle cx="720" cy="220" r="1.2"/>
+    <circle cx="80" cy="350" r="1"/>
+    <circle cx="700" cy="420" r="1.2"/>
+    <circle cx="380" cy="65" r="1"/>
+    <circle cx="540" cy="45" r="1.2"/>
+    <circle cx="180" cy="240" r="1"/>
+  </g>
+
+  <ellipse cx="400" cy="470" rx="280" ry="15" fill="#000" opacity="0.3" filter="url(#shadowE)"/>
+
+  <rect x="178" y="58" width="444" height="384" rx="4" fill="url(#panelE)" stroke="#1a1a18" stroke-width="3"/>
+  <rect x="178" y="58" width="444" height="20" fill="#7a7a78"/>
+  <rect x="178" y="58" width="444" height="4" fill="#fff" opacity="0.3"/>
+  <rect x="178" y="438" width="444" height="6" fill="#1a1a18"/>
+
+  <g fill="#1a1a18">
+    <circle cx="186" cy="66" r="2.5"/>
+    <circle cx="614" cy="66" r="2.5"/>
+    <circle cx="186" cy="432" r="2.5"/>
+    <circle cx="614" cy="432" r="2.5"/>
+  </g>
+
+  <rect x="198" y="88" width="186" height="346" fill="url(#doorE)" stroke="#3a3a38" stroke-width="2"/>
+  <rect x="198" y="88" width="186" height="6" fill="#fff" opacity="0.6"/>
+  <line x1="380" y1="88" x2="380" y2="434" stroke="#5a5a58" stroke-width="1"/>
+  <line x1="378" y1="88" x2="378" y2="434" stroke="#fff" stroke-width="0.5" opacity="0.7"/>
+
+  <rect x="208" y="100" width="166" height="22" fill="#f0e8a0" stroke="#8a7820" stroke-width="1.5"/>
+  <rect x="208" y="100" width="166" height="4" fill="#fff" opacity="0.6"/>
+  <text x="291" y="115" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="800" fill="#3a2810">⚠ DANGER — HIGH VOLTAGE</text>
+
+  <rect x="208" y="130" width="166" height="148" fill="#fff" stroke="#aaa" stroke-width="0.5"/>
+  <rect x="208" y="130" width="166" height="16" fill="#dadcd4"/>
+  <text x="291" y="141" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="800" fill="#2a2a2a">CIRCUIT DIRECTORY</text>
+  <g font-family="Arial,sans-serif" font-size="8" fill="#2a2a2a">
+    <text x="213" y="156">1  Kitchen</text>
+    <text x="213" y="168">2  Living Room</text>
+    <text x="213" y="180">3  Bedroom 1</text>
+    <text x="213" y="192">4  Bedroom 2</text>
+    <text x="213" y="204">5  Bath GFCI</text>
+    <text x="213" y="216">6  Dishwasher</text>
+    <text x="213" y="228">7  Disposal</text>
+    <text x="213" y="240">8  Microwave</text>
+    <text x="213" y="252">9  Fridge</text>
+    <text x="213" y="264">10 Washer</text>
+  </g>
+  <line x1="296" y1="148" x2="296" y2="272" stroke="#aaa" stroke-width="0.5"/>
+  <g font-family="Arial,sans-serif" font-size="8" fill="#2a2a2a">
+    <text x="300" y="156">11 Dryer 240V</text>
+    <text x="300" y="168">13 Range 240V</text>
+    <text x="300" y="180">15 HVAC</text>
+    <text x="300" y="192">16 Water Htr</text>
+    <text x="300" y="204">17 Furnace</text>
+    <text x="300" y="216">18 Garage</text>
+    <text x="300" y="228">19 Outdoor</text>
+    <text x="300" y="240">20 Office</text>
+    <text x="300" y="252">21 Pool Pump</text>
+    <text x="300" y="264">22 Spare</text>
+  </g>
+
+  <rect x="208" y="290" width="166" height="138" fill="url(#wallE)"/>
+  <rect x="208" y="290" width="166" height="4" fill="#000" opacity="0.2"/>
+  <circle cx="220" cy="303" r="3.5" fill="#888" stroke="#5a5a58" stroke-width="0.5"/>
+  <circle cx="362" cy="303" r="3.5" fill="#888" stroke="#5a5a58" stroke-width="0.5"/>
+  <text x="291" y="345" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" font-weight="900" fill="#3a3a38">200A</text>
+  <text x="291" y="360" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="700" fill="#3a3a38">MAIN</text>
+  <text x="291" y="385" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" fill="#5a5a58">SQUARE D® HOMELINE</text>
+  <text x="291" y="400" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="#5a5a58">120/240 V — 1Ø — 3W</text>
+  <text x="291" y="416" text-anchor="middle" font-family="Arial,sans-serif" font-size="6" fill="#5a5a58">UL LISTED · NEMA 1 · INDOOR</text>
+
+  <rect x="394" y="88" width="218" height="346" fill="#0e0e0c" stroke="#0a0a08" stroke-width="2"/>
+
+  <rect x="406" y="98" width="194" height="40" fill="url(#breakerE)" stroke="#5a5a58" stroke-width="1" rx="2"/>
+  <rect x="475" y="108" width="50" height="24" fill="#dadcd4" stroke="#1a1a18" stroke-width="1.5" rx="3"/>
+  <rect x="475" y="108" width="50" height="8" fill="#a8a8a6"/>
+  <rect x="475" y="108" width="50" height="2" fill="#fff" opacity="0.6"/>
+  <text x="500" y="125" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="800" fill="#a81818">MAIN</text>
+  <text x="500" y="135" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="800" fill="#a81818">200A</text>
+  <text x="425" y="124" font-family="Arial,sans-serif" font-size="9" font-weight="800" fill="#fff">L1</text>
+  <text x="570" y="124" font-family="Arial,sans-serif" font-size="9" font-weight="800" fill="#fff">L2</text>
+
+  <g font-family="Arial,sans-serif" font-size="7" fill="#9a9a98">
+    <g transform="translate(406 148)">
+      <rect width="94" height="24" fill="url(#breakerE)" stroke="#5a5a58" stroke-width="0.8"/>
+      <rect width="94" height="2" fill="#fff" opacity="0.15"/>
+      <rect x="42" y="6" width="22" height="14" fill="#aaa" stroke="#1a1a18" stroke-width="0.8" rx="1.5"/>
+      <rect x="42" y="6" width="22" height="4" fill="#fff" opacity="0.4"/>
+      <text x="8" y="16">15A</text>
+      <text x="76" y="16">1</text>
+    </g>
+    <g transform="translate(506 148)">
+      <rect width="94" height="24" fill="url(#breakerE)" stroke="#5a5a58" stroke-width="0.8"/>
+      <rect width="94" height="2" fill="#fff" opacity="0.15"/>
+      <rect x="42" y="6" width="22" height="14" fill="#22aa22" stroke="#1a1a18" stroke-width="0.8" rx="1.5"/>
+      <rect x="42" y="6" width="22" height="4" fill="#88dd88" opacity="0.5"/>
+      <text x="8" y="16">20A</text>
+      <text x="76" y="16">2</text>
+    </g>
+    <g transform="translate(406 178)">
+      <rect width="94" height="24" fill="url(#breakerE)" stroke="#5a5a58" stroke-width="0.8"/>
+      <rect width="94" height="2" fill="#fff" opacity="0.15"/>
+      <rect x="42" y="6" width="22" height="14" fill="#aaa" stroke="#1a1a18" stroke-width="0.8" rx="1.5"/>
+      <rect x="42" y="6" width="22" height="4" fill="#fff" opacity="0.4"/>
+      <text x="8" y="16">15A</text>
+      <text x="76" y="16">3</text>
+    </g>
+    <g transform="translate(506 178)">
+      <rect width="94" height="24" fill="url(#breakerE)" stroke="#5a5a58" stroke-width="0.8"/>
+      <rect width="94" height="2" fill="#fff" opacity="0.15"/>
+      <rect x="42" y="6" width="22" height="14" fill="#d4a020" stroke="#1a1a18" stroke-width="0.8" rx="1.5"/>
+      <rect x="42" y="6" width="22" height="4" fill="#fde088" opacity="0.5"/>
+      <text x="8" y="16">20 GFCI</text>
+      <text x="76" y="16">4</text>
+    </g>
+    <g transform="translate(406 208)">
+      <rect width="94" height="24" fill="url(#breakerE)" stroke="#5a5a58" stroke-width="0.8"/>
+      <rect width="94" height="2" fill="#fff" opacity="0.15"/>
+      <rect x="42" y="6" width="22" height="14" fill="#aaa" stroke="#1a1a18" stroke-width="0.8" rx="1.5"/>
+      <text x="8" y="16">15A</text>
+      <text x="76" y="16">5</text>
+    </g>
+    <g transform="translate(506 208)">
+      <rect width="94" height="24" fill="url(#breakerE)" stroke="#5a5a58" stroke-width="0.8"/>
+      <rect width="94" height="2" fill="#fff" opacity="0.15"/>
+      <rect x="38" y="6" width="30" height="14" fill="#aaa" stroke="#1a1a18" stroke-width="0.8" rx="1.5"/>
+      <line x1="53" y1="6" x2="53" y2="20" stroke="#1a1a18" stroke-width="0.5"/>
+      <text x="8" y="16">30 240V</text>
+      <text x="76" y="16">6/8</text>
+    </g>
+    <g transform="translate(406 238)">
+      <rect width="94" height="24" fill="url(#breakerE)" stroke="#5a5a58" stroke-width="0.8"/>
+      <rect width="94" height="2" fill="#fff" opacity="0.15"/>
+      <rect x="42" y="6" width="22" height="14" fill="#aaa" stroke="#1a1a18" stroke-width="0.8" rx="1.5"/>
+      <text x="8" y="16">15A</text>
+      <text x="76" y="16">7</text>
+    </g>
+    <g transform="translate(506 238)">
+      <rect width="94" height="24" fill="url(#breakerE)" stroke="#5a5a58" stroke-width="0.8"/>
+      <rect width="94" height="2" fill="#fff" opacity="0.15"/>
+      <rect x="42" y="6" width="22" height="14" fill="#22aa22" stroke="#1a1a18" stroke-width="0.8" rx="1.5"/>
+      <rect x="42" y="6" width="22" height="4" fill="#88dd88" opacity="0.5"/>
+      <text x="8" y="16">20A</text>
+      <text x="76" y="16">10</text>
+    </g>
+    <g transform="translate(406 268)">
+      <rect width="94" height="24" fill="url(#breakerE)" stroke="#5a5a58" stroke-width="0.8"/>
+      <rect width="94" height="2" fill="#fff" opacity="0.15"/>
+      <rect x="38" y="6" width="30" height="14" fill="#aaa" stroke="#1a1a18" stroke-width="0.8" rx="1.5"/>
+      <line x1="53" y1="6" x2="53" y2="20" stroke="#1a1a18" stroke-width="0.5"/>
+      <text x="8" y="16">50 240V</text>
+      <text x="76" y="16">11/13</text>
+    </g>
+    <g transform="translate(506 268)">
+      <rect width="94" height="24" fill="url(#breakerE)" stroke="#5a5a58" stroke-width="0.8"/>
+      <rect width="94" height="2" fill="#fff" opacity="0.15"/>
+      <rect x="42" y="6" width="22" height="14" fill="#aaa" stroke="#1a1a18" stroke-width="0.8" rx="1.5"/>
+      <text x="8" y="16">30A</text>
+      <text x="76" y="16">15</text>
+    </g>
+    <g transform="translate(406 298)">
+      <rect width="94" height="24" fill="url(#breakerE)" stroke="#5a5a58" stroke-width="0.8"/>
+      <rect width="94" height="2" fill="#fff" opacity="0.15"/>
+      <rect x="42" y="6" width="22" height="14" fill="#aaa" stroke="#1a1a18" stroke-width="0.8" rx="1.5"/>
+      <text x="8" y="16">30A</text>
+      <text x="76" y="16">16</text>
+    </g>
+    <g transform="translate(506 298)">
+      <rect width="94" height="24" fill="url(#breakerE)" stroke="#5a5a58" stroke-width="0.8"/>
+      <rect width="94" height="2" fill="#fff" opacity="0.15"/>
+      <rect x="42" y="6" width="22" height="14" fill="#22aa22" stroke="#1a1a18" stroke-width="0.8" rx="1.5"/>
+      <rect x="42" y="6" width="22" height="4" fill="#88dd88" opacity="0.5"/>
+      <text x="8" y="16">15A</text>
+      <text x="76" y="16">17</text>
+    </g>
+    <g transform="translate(406 328)">
+      <rect width="94" height="24" fill="url(#breakerE)" stroke="#5a5a58" stroke-width="0.8"/>
+      <rect width="94" height="2" fill="#fff" opacity="0.15"/>
+      <rect x="42" y="6" width="22" height="14" fill="#aaa" stroke="#1a1a18" stroke-width="0.8" rx="1.5"/>
+      <text x="8" y="16">15A</text>
+      <text x="76" y="16">18</text>
+    </g>
+    <g transform="translate(506 328)">
+      <rect width="94" height="24" fill="url(#breakerE)" stroke="#5a5a58" stroke-width="0.8"/>
+      <rect width="94" height="2" fill="#fff" opacity="0.15"/>
+      <rect x="42" y="6" width="22" height="14" fill="#d4a020" stroke="#1a1a18" stroke-width="0.8" rx="1.5"/>
+      <rect x="42" y="6" width="22" height="4" fill="#fde088" opacity="0.5"/>
+      <text x="8" y="16">20 GFCI</text>
+      <text x="76" y="16">19</text>
+    </g>
+    <g transform="translate(406 358)">
+      <rect width="94" height="24" fill="url(#breakerE)" stroke="#5a5a58" stroke-width="0.8"/>
+      <rect width="94" height="2" fill="#fff" opacity="0.15"/>
+      <rect x="42" y="6" width="22" height="14" fill="#aaa" stroke="#1a1a18" stroke-width="0.8" rx="1.5"/>
+      <text x="8" y="16">15A</text>
+      <text x="76" y="16">20</text>
+    </g>
+    <g transform="translate(506 358)">
+      <rect width="94" height="24" fill="url(#breakerE)" stroke="#5a5a58" stroke-width="0.8"/>
+      <rect width="94" height="2" fill="#fff" opacity="0.15"/>
+      <rect x="38" y="6" width="30" height="14" fill="#aaa" stroke="#1a1a18" stroke-width="0.8" rx="1.5"/>
+      <line x1="53" y1="6" x2="53" y2="20" stroke="#1a1a18" stroke-width="0.5"/>
+      <text x="8" y="16">30 240V</text>
+      <text x="76" y="16">21/X</text>
+    </g>
+  </g>
+
+  <rect x="446" y="392" width="108" height="42" fill="#7a7a78" stroke="#1a1a18" stroke-width="1.5"/>
+  <rect x="450" y="396" width="100" height="6" fill="#5a5a58"/>
+  <rect x="450" y="396" width="100" height="2" fill="#fff" opacity="0.3"/>
+  <circle cx="465" cy="416" r="6" fill="#3a3a38" stroke="#1a1a18" stroke-width="0.8"/>
+  <circle cx="500" cy="416" r="6" fill="#3a3a38" stroke="#1a1a18" stroke-width="0.8"/>
+  <circle cx="535" cy="416" r="6" fill="#3a3a38" stroke="#1a1a18" stroke-width="0.8"/>
+  <text x="500" y="430" text-anchor="middle" font-family="Arial,sans-serif" font-size="6" fill="#1a1a18">NEUTRAL · GROUND</text>
+
+  <g fill="none" stroke-width="6" stroke-linecap="round">
+    <path d="M 595 56 Q 660 80, 720 56" stroke="#1a1a18"/>
+    <path d="M 588 60 Q 655 82, 712 60" stroke="#f8f8f8"/>
+    <path d="M 600 58 Q 668 75, 728 50" stroke="#d4a020"/>
+    <path d="M 580 56 Q 645 70, 700 50" stroke="#22aa22"/>
+    <path d="M 612 60 Q 678 80, 740 56" stroke="#b81010"/>
+  </g>
+  <rect x="582" y="46" width="160" height="14" rx="3" fill="#3a3a38" stroke="#1a1a18" stroke-width="1"/>
+  <rect x="582" y="46" width="160" height="3" fill="#5a5a58"/>
+
+  <g transform="translate(85 75)">
+    <circle cx="0" cy="0" r="48" fill="#dadcd4" stroke="#1a1a18" stroke-width="2"/>
+    <circle cx="0" cy="0" r="44" fill="none" stroke="#888" stroke-width="0.8"/>
+    <circle cx="0" cy="0" r="40" fill="#fff"/>
+    <circle cx="0" cy="0" r="40" fill="none" stroke="#5a5a58" stroke-width="0.5"/>
+    <rect x="-26" y="-18" width="52" height="20" fill="#1a1a18"/>
+    <rect x="-26" y="-18" width="52" height="3" fill="#3a3a38"/>
+    <text x="0" y="-3" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#22ff22">04827.6</text>
+    <text x="0" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-size="6" fill="#3a3a38">kWh</text>
+    <text x="0" y="26" text-anchor="middle" font-family="Arial,sans-serif" font-size="5" fill="#888">SmartMeter v3</text>
+    <circle cx="-20" cy="-30" r="3" fill="url(#ledGreenE)"/>
+    <circle cx="20" cy="-30" r="3" fill="url(#ledRedE)"/>
+  </g>
+  <g fill="none" stroke="#1a1a18" stroke-width="10">
+    <path d="M 85 124 Q 85 160, 130 160 L 178 160"/>
+  </g>
+  <g fill="none" stroke="#6a6a68" stroke-width="9">
+    <path d="M 85 124 Q 85 160, 130 160 L 178 160"/>
+  </g>
+  <g fill="none" stroke="#fff" stroke-width="0.6" opacity="0.4">
+    <path d="M 85 124 Q 85 160, 130 160 L 178 160"/>
+  </g>
+  <g stroke="#3a3a38" stroke-width="1.5">
+    <line x1="100" y1="125" x2="100" y2="135"/>
+    <line x1="100" y1="155" x2="100" y2="165"/>
+    <line x1="115" y1="158" x2="115" y2="168"/>
+    <line x1="135" y1="158" x2="135" y2="168"/>
+    <line x1="155" y1="158" x2="155" y2="168"/>
+  </g>
+
+  <g fill="#fff" opacity="0.15">
+    <rect x="178" y="58" width="6" height="384"/>
+    <rect x="178" y="58" width="444" height="3"/>
+  </g>
+  <g fill="#000" opacity="0.3">
+    <rect x="616" y="58" width="6" height="384"/>
+    <rect x="178" y="439" width="444" height="3"/>
+  </g>
+
+  <g opacity="0.15" stroke="#fff" stroke-width="1" fill="none">
+    <path d="M 220 90 L 245 90"/>
+    <path d="M 220 100 L 235 100"/>
+  </g>
+</svg>

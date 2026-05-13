@@ -1,0 +1,208 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ceilingPa" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8f6ee"/>
+      <stop offset="100%" stop-color="#e0dcc8"/>
+    </linearGradient>
+    <linearGradient id="oldWallPa" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f0e8d4"/>
+      <stop offset="100%" stop-color="#c0b89a"/>
+    </linearGradient>
+    <linearGradient id="newWallPa" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5a89a8"/>
+      <stop offset="100%" stop-color="#284a6a"/>
+    </linearGradient>
+    <linearGradient id="floorPa" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7a5a3a"/>
+      <stop offset="100%" stop-color="#3a2818"/>
+    </linearGradient>
+    <linearGradient id="rollerPa" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fafafa"/>
+      <stop offset="100%" stop-color="#a89e88"/>
+    </linearGradient>
+    <linearGradient id="dropClothPa" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#dcd2b0"/>
+      <stop offset="100%" stop-color="#a89a78"/>
+    </linearGradient>
+    <linearGradient id="metalPa" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#dadad6"/>
+      <stop offset="50%" stop-color="#9a9a96"/>
+      <stop offset="100%" stop-color="#5a5a58"/>
+    </linearGradient>
+    <linearGradient id="paintCanPa" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d8d6d0"/>
+      <stop offset="50%" stop-color="#8a8884"/>
+      <stop offset="100%" stop-color="#dadcd6"/>
+    </linearGradient>
+    <filter id="shadowPa">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+    <pattern id="clothTexPa" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="6" fill="url(#dropClothPa)"/>
+      <line x1="0" y1="3" x2="6" y2="3" stroke="#9a8c66" stroke-width="0.2" opacity="0.4"/>
+      <line x1="3" y1="0" x2="3" y2="6" stroke="#9a8c66" stroke-width="0.2" opacity="0.4"/>
+    </pattern>
+  </defs>
+
+  <rect width="800" height="360" fill="url(#oldWallPa)"/>
+
+  <rect x="0" y="0" width="800" height="40" fill="url(#ceilingPa)"/>
+  <rect x="0" y="38" width="800" height="6" fill="#3a3026"/>
+  <rect x="0" y="40" width="800" height="3" fill="#fff" opacity="0.4"/>
+
+  <rect x="0" y="0" width="500" height="360" fill="url(#newWallPa)"/>
+  <g fill="#1a3a5a" opacity="0.6">
+    <ellipse cx="60" cy="200" rx="3" ry="2"/>
+    <ellipse cx="150" cy="300" rx="2" ry="1.5"/>
+    <ellipse cx="290" cy="160" rx="3" ry="2"/>
+    <ellipse cx="380" cy="250" rx="2" ry="1.5"/>
+    <ellipse cx="180" cy="100" rx="3" ry="2"/>
+    <ellipse cx="400" cy="80" rx="2" ry="1.5"/>
+  </g>
+
+  <path d="M 488 60 Q 495 130, 498 200 Q 502 280, 498 360 L 510 360 Q 510 280, 506 200 Q 502 130, 510 60 Z" fill="#5a89a8" opacity="0.85"/>
+  <g fill="#5a89a8" opacity="0.7">
+    <ellipse cx="498" cy="120" rx="2" ry="6"/>
+    <ellipse cx="500" cy="200" rx="2" ry="6"/>
+    <ellipse cx="497" cy="280" rx="2" ry="6"/>
+  </g>
+  <path d="M 500 360 L 508 388 L 504 410 L 498 388 Z" fill="#284a6a"/>
+  <ellipse cx="500" cy="412" rx="14" ry="3" fill="#1a3a5a" opacity="0.5"/>
+
+  <g transform="translate(490 200) rotate(-22)">
+    <rect x="-4" y="-180" width="14" height="180" fill="#7a4810"/>
+    <rect x="-4" y="-180" width="14" height="6" fill="#a06820"/>
+    <rect x="-4" y="-180" width="3" height="180" fill="#fff" opacity="0.3"/>
+    <ellipse cx="3" cy="-180" rx="9" ry="3" fill="#5a3010"/>
+    <path d="M -8 -200 L 14 -200 L 16 -184 L -10 -184 Z" fill="url(#metalPa)" stroke="#3a3a38" stroke-width="1.5"/>
+    <rect x="-8" y="-200" width="22" height="4" fill="#fff" opacity="0.4"/>
+    <rect x="-30" y="-228" width="62" height="32" rx="10" fill="url(#rollerPa)" stroke="#3a3a38" stroke-width="2"/>
+    <rect x="-30" y="-228" width="62" height="6" fill="#5a89a8"/>
+    <rect x="-30" y="-222" width="62" height="4" fill="#fff" opacity="0.3"/>
+    <ellipse cx="-30" cy="-212" rx="3" ry="8" fill="#3a3a38"/>
+    <ellipse cx="32" cy="-212" rx="3" ry="8" fill="#3a3a38"/>
+    <rect x="-30" y="-228" width="62" height="32" fill="#5a89a8" opacity="0.4"/>
+    <g fill="#284a6a" opacity="0.85">
+      <rect x="-26" y="-228" width="3" height="32"/>
+      <rect x="-18" y="-228" width="3" height="32"/>
+      <rect x="-10" y="-228" width="3" height="32"/>
+      <rect x="-2" y="-228" width="3" height="32"/>
+      <rect x="6" y="-228" width="3" height="32"/>
+      <rect x="14" y="-228" width="3" height="32"/>
+      <rect x="22" y="-228" width="3" height="32"/>
+    </g>
+  </g>
+
+  <rect x="0" y="360" width="800" height="140" fill="url(#floorPa)"/>
+  <g stroke="#1a0e06" stroke-width="0.8" opacity="0.7" fill="none">
+    <path d="M 0 375 Q 200 373, 400 375 T 800 375"/>
+    <path d="M 0 395 Q 200 397, 400 395 T 800 395"/>
+    <path d="M 0 415 Q 200 413, 400 415 T 800 415"/>
+    <path d="M 0 440 Q 200 442, 400 440 T 800 440"/>
+    <path d="M 0 465 Q 200 463, 400 465 T 800 465"/>
+    <path d="M 100 360 Q 102 420, 100 500"/>
+    <path d="M 280 360 Q 282 420, 280 500"/>
+    <path d="M 460 360 Q 458 420, 460 500"/>
+    <path d="M 620 360 Q 622 420, 620 500"/>
+  </g>
+
+  <path d="M 100 360 L 600 360 L 700 500 L 60 500 Z" fill="url(#clothTexPa)"/>
+  <g fill="none" stroke="#9a8c66" stroke-width="0.5" opacity="0.5">
+    <path d="M 120 380 Q 320 376, 580 384"/>
+    <path d="M 100 410 Q 320 406, 600 414"/>
+    <path d="M 90 450 Q 340 444, 640 458"/>
+  </g>
+  <g fill="#5a89a8" opacity="0.7">
+    <ellipse cx="200" cy="400" rx="8" ry="3"/>
+    <circle cx="280" cy="420" r="2"/>
+    <ellipse cx="340" cy="440" rx="14" ry="4"/>
+    <circle cx="380" cy="380" r="3"/>
+    <ellipse cx="450" cy="470" rx="20" ry="5"/>
+    <circle cx="500" cy="395" r="2"/>
+  </g>
+  <g fill="#284a6a" opacity="0.6">
+    <ellipse cx="200" cy="400" rx="4" ry="1.5"/>
+    <ellipse cx="340" cy="440" rx="8" ry="2"/>
+    <ellipse cx="450" cy="470" rx="12" ry="3"/>
+  </g>
+
+  <g transform="translate(160 392)">
+    <ellipse cx="0" cy="60" rx="50" ry="6" fill="#000" opacity="0.4" filter="url(#shadowPa)"/>
+    <ellipse cx="0" cy="40" rx="44" ry="10" fill="#7a7670"/>
+    <rect x="-44" y="-30" width="88" height="70" fill="url(#paintCanPa)"/>
+    <ellipse cx="0" cy="-30" rx="44" ry="10" fill="#aaa6a0"/>
+    <ellipse cx="0" cy="-30" rx="40" ry="8" fill="#5a89a8"/>
+    <ellipse cx="0" cy="-32" rx="38" ry="6" fill="#284a6a" opacity="0.5"/>
+    <rect x="-44" y="-30" width="88" height="3" fill="#3a3a38" opacity="0.5"/>
+    <rect x="-44" y="38" width="88" height="3" fill="#3a3a38" opacity="0.5"/>
+    <rect x="-40" y="-26" width="2" height="64" fill="#fff" opacity="0.4"/>
+    <rect x="-44" y="-10" width="88" height="20" fill="#fff"/>
+    <rect x="-44" y="-10" width="88" height="2" fill="#aaa"/>
+    <rect x="-44" y="8" width="88" height="2" fill="#aaa"/>
+    <text x="0" y="3" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="800" fill="#284a6a">OCEAN BLUE</text>
+    <path d="M -44 35 Q -50 30, -54 40 L -54 -25 Q -50 -35, -44 -30" fill="none" stroke="#3a3a38" stroke-width="2"/>
+    <path d="M -54 -25 Q -56 -28, -55 -32" fill="none" stroke="#fff" stroke-width="0.5" opacity="0.5"/>
+    <path d="M 36 -32 Q 40 -38, 50 -36 Q 60 -32, 60 -22 Q 60 -10, 50 -10" fill="none" stroke="url(#metalPa)" stroke-width="3"/>
+    <ellipse cx="60" cy="-20" rx="3" ry="6" fill="#5a89a8"/>
+    <path d="M 50 -10 Q 50 -3, 55 0" fill="none" stroke="#5a89a8" stroke-width="3"/>
+  </g>
+
+  <g transform="translate(620 440) rotate(-8)">
+    <ellipse cx="0" cy="40" rx="35" ry="5" fill="#000" opacity="0.4" filter="url(#shadowPa)"/>
+    <rect x="-30" y="-25" width="60" height="55" fill="url(#paintCanPa)"/>
+    <ellipse cx="0" cy="-25" rx="30" ry="7" fill="#aaa6a0"/>
+    <ellipse cx="0" cy="-25" rx="26" ry="5" fill="#a83a3a"/>
+    <rect x="-28" y="-8" width="56" height="14" fill="#fff"/>
+    <text x="0" y="3" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" font-weight="800" fill="#a83a3a">CRIMSON</text>
+    <ellipse cx="0" cy="30" rx="30" ry="7" fill="#7a7670"/>
+  </g>
+
+  <g transform="translate(700 460) rotate(12)">
+    <rect x="-30" y="-22" width="60" height="44" fill="url(#paintCanPa)"/>
+    <ellipse cx="0" cy="-22" rx="30" ry="6" fill="#aaa6a0"/>
+    <ellipse cx="0" cy="-22" rx="26" ry="4" fill="#3a8a3a"/>
+    <ellipse cx="0" cy="22" rx="30" ry="6" fill="#7a7670"/>
+  </g>
+
+  <g transform="translate(440 360)">
+    <rect x="-100" y="-3" width="200" height="6" fill="#f8e08a" opacity="0.95"/>
+    <rect x="-100" y="-3" width="200" height="2" fill="#fff" opacity="0.5"/>
+    <rect x="-100" y="-3" width="200" height="6" fill="none" stroke="#a87010" stroke-width="0.4" opacity="0.6"/>
+  </g>
+
+  <g transform="translate(380 420) rotate(20)">
+    <rect x="-50" y="-3" width="100" height="6" rx="2" fill="#7a4810"/>
+    <rect x="-50" y="-3" width="100" height="2" fill="#a06820"/>
+    <rect x="40" y="-12" width="20" height="24" fill="url(#metalPa)" stroke="#3a3a38" stroke-width="0.8"/>
+    <rect x="55" y="-8" width="20" height="16" fill="#aaa" stroke="#3a3a38" stroke-width="0.8"/>
+    <g stroke="#3a3a38" stroke-width="0.5">
+      <line x1="57" y1="-8" x2="57" y2="8"/>
+      <line x1="60" y1="-8" x2="60" y2="8"/>
+      <line x1="63" y1="-8" x2="63" y2="8"/>
+      <line x1="66" y1="-8" x2="66" y2="8"/>
+      <line x1="69" y1="-8" x2="69" y2="8"/>
+      <line x1="72" y1="-8" x2="72" y2="8"/>
+    </g>
+    <ellipse cx="64" cy="0" rx="8" ry="2.5" fill="#5a89a8" opacity="0.85"/>
+  </g>
+
+  <g fill="#5a89a8">
+    <path d="M 360 220 Q 354 235, 360 248 Q 366 235, 360 220 Z"/>
+    <path d="M 340 250 Q 335 260, 340 270 Q 345 260, 340 250 Z" opacity="0.85"/>
+    <circle cx="370" cy="270" r="3" opacity="0.7"/>
+    <circle cx="356" cy="290" r="2" opacity="0.6"/>
+  </g>
+
+  <g transform="translate(310 320) rotate(-30)">
+    <rect x="-40" y="-2" width="80" height="3" fill="#5a89a8" opacity="0.85"/>
+    <rect x="-40" y="-2" width="60" height="3" fill="#5a89a8" opacity="0.7"/>
+  </g>
+
+  <g fill="#000" opacity="0.4">
+    <ellipse cx="160" cy="455" rx="56" ry="8" filter="url(#shadowPa)"/>
+    <ellipse cx="620" cy="478" rx="40" ry="6" filter="url(#shadowPa)"/>
+  </g>
+
+  <rect x="0" y="358" width="800" height="3" fill="#3a2818"/>
+  <rect x="0" y="361" width="800" height="1" fill="#5a3a20" opacity="0.6"/>
+</svg>

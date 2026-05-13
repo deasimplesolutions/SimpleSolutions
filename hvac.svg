@@ -1,0 +1,219 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sidingH" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d8d2c2"/>
+      <stop offset="100%" stop-color="#a89e88"/>
+    </linearGradient>
+    <linearGradient id="groundH" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9a907a"/>
+      <stop offset="100%" stop-color="#5a523e"/>
+    </linearGradient>
+    <linearGradient id="unitBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d4d2c8"/>
+      <stop offset="40%" stop-color="#b8b4a8"/>
+      <stop offset="100%" stop-color="#6e6a5e"/>
+    </linearGradient>
+    <linearGradient id="unitTop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a3a38"/>
+      <stop offset="100%" stop-color="#1a1a18"/>
+    </linearGradient>
+    <linearGradient id="copperH" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e0a87a"/>
+      <stop offset="50%" stop-color="#a8704a"/>
+      <stop offset="100%" stop-color="#5e3a20"/>
+    </linearGradient>
+    <linearGradient id="insulationH" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a3a3a"/>
+      <stop offset="100%" stop-color="#1a1a1a"/>
+    </linearGradient>
+    <linearGradient id="padH" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b8b4ae"/>
+      <stop offset="100%" stop-color="#787468"/>
+    </linearGradient>
+    <radialGradient id="finGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#3a3a3a"/>
+    </radialGradient>
+    <pattern id="finsP" x="0" y="0" width="3" height="140" patternUnits="userSpaceOnUse">
+      <rect width="3" height="140" fill="#807c70"/>
+      <line x1="0" y1="0" x2="0" y2="140" stroke="#3a3a38" stroke-width="0.8"/>
+      <line x1="2" y1="0" x2="2" y2="140" stroke="#fff" stroke-width="0.3" opacity="0.3"/>
+    </pattern>
+    <pattern id="lapSidH" x="0" y="0" width="200" height="14" patternUnits="userSpaceOnUse">
+      <rect width="200" height="14" fill="url(#sidingH)"/>
+      <line x1="0" y1="13" x2="200" y2="13" stroke="#6a6050" stroke-width="1"/>
+      <line x1="0" y1="0" x2="200" y2="0" stroke="#fff" stroke-width="0.5" opacity="0.4"/>
+    </pattern>
+    <pattern id="concreteP" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <rect width="20" height="20" fill="url(#padH)"/>
+      <circle cx="4" cy="6" r="0.5" fill="#5a5650" opacity="0.6"/>
+      <circle cx="14" cy="12" r="0.5" fill="#5a5650" opacity="0.6"/>
+      <circle cx="9" cy="3" r="0.4" fill="#fff" opacity="0.3"/>
+      <circle cx="17" cy="17" r="0.6" fill="#5a5650" opacity="0.4"/>
+    </pattern>
+    <filter id="shadowH">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="500" fill="url(#lapSidH)"/>
+
+  <rect x="0" y="380" width="800" height="120" fill="url(#groundH)"/>
+  <g fill="#3a3220" opacity="0.6">
+    <ellipse cx="80" cy="430" rx="50" ry="3"/>
+    <ellipse cx="250" cy="450" rx="35" ry="2"/>
+    <ellipse cx="700" cy="445" rx="60" ry="3"/>
+    <ellipse cx="150" cy="470" rx="40" ry="2"/>
+  </g>
+  <g fill="#5a523e" opacity="0.5">
+    <rect x="40" y="395" width="3" height="2"/>
+    <rect x="120" y="412" width="2" height="2"/>
+    <rect x="200" y="430" width="3" height="2"/>
+    <rect x="380" y="420" width="2" height="2"/>
+    <rect x="600" y="408" width="3" height="2"/>
+  </g>
+
+  <g fill="#2a3818" opacity="0.6">
+    <ellipse cx="80" cy="395" rx="35" ry="20"/>
+    <ellipse cx="60" cy="390" rx="20" ry="15"/>
+    <ellipse cx="720" cy="400" rx="45" ry="22"/>
+  </g>
+
+  <rect x="240" y="340" width="380" height="60" fill="url(#concreteP)" rx="2"/>
+  <rect x="240" y="340" width="380" height="6" fill="#cac6c0"/>
+  <rect x="240" y="396" width="380" height="4" fill="#5a5650"/>
+  <g stroke="#5a5650" stroke-width="0.8" opacity="0.7">
+    <line x1="310" y1="340" x2="310" y2="400"/>
+    <line x1="380" y1="340" x2="380" y2="400"/>
+    <line x1="450" y1="340" x2="450" y2="400"/>
+    <line x1="520" y1="340" x2="520" y2="400"/>
+  </g>
+
+  <ellipse cx="420" cy="395" rx="170" ry="10" fill="#000" opacity="0.4" filter="url(#shadowH)"/>
+
+  <rect x="270" y="155" width="300" height="200" rx="4" fill="url(#unitBody)" stroke="#2a2a28" stroke-width="2.5"/>
+  <rect x="270" y="155" width="300" height="200" fill="#fff" opacity="0.05"/>
+
+  <rect x="270" y="155" width="300" height="42" fill="url(#unitTop)"/>
+  <rect x="270" y="155" width="300" height="6" fill="#5a5a58"/>
+  <g stroke="#0a0a08" stroke-width="2" fill="none">
+    <line x1="285" y1="170" x2="555" y2="170"/>
+    <line x1="285" y1="178" x2="555" y2="178"/>
+    <line x1="285" y1="186" x2="555" y2="186"/>
+    <line x1="285" y1="194" x2="555" y2="194"/>
+  </g>
+  <g stroke="#fff" stroke-width="0.5" opacity="0.2">
+    <line x1="285" y1="171" x2="555" y2="171"/>
+    <line x1="285" y1="179" x2="555" y2="179"/>
+    <line x1="285" y1="187" x2="555" y2="187"/>
+  </g>
+
+  <circle cx="420" cy="265" r="86" fill="#0a0a08"/>
+  <circle cx="420" cy="265" r="82" fill="#1a1a18"/>
+  <circle cx="420" cy="265" r="78" fill="url(#finGrad)" stroke="#3a3a38" stroke-width="1"/>
+  <g stroke="#3a3a38" stroke-width="1" fill="none">
+    <circle cx="420" cy="265" r="72"/>
+    <circle cx="420" cy="265" r="60"/>
+    <circle cx="420" cy="265" r="48"/>
+    <circle cx="420" cy="265" r="36"/>
+    <circle cx="420" cy="265" r="24"/>
+    <circle cx="420" cy="265" r="12"/>
+  </g>
+  <g stroke="#2a2a28" stroke-width="1.5">
+    <line x1="340" y1="265" x2="500" y2="265"/>
+    <line x1="420" y1="185" x2="420" y2="345"/>
+    <line x1="364" y1="209" x2="476" y2="321"/>
+    <line x1="476" y1="209" x2="364" y2="321"/>
+    <line x1="349" y1="237" x2="491" y2="293"/>
+    <line x1="349" y1="293" x2="491" y2="237"/>
+  </g>
+
+  <g fill="#2a2a28">
+    <path d="M 420 265 Q 395 200, 365 215 Q 380 240, 415 262 Z"/>
+    <path d="M 420 265 Q 485 240, 470 210 Q 445 225, 423 260 Z"/>
+    <path d="M 420 265 Q 445 330, 475 315 Q 460 290, 425 268 Z"/>
+    <path d="M 420 265 Q 355 290, 370 320 Q 395 305, 417 270 Z"/>
+  </g>
+  <g fill="#1a1a18" opacity="0.6">
+    <path d="M 420 265 Q 395 200, 365 215 Q 380 240, 415 262 Z"/>
+    <path d="M 420 265 Q 445 330, 475 315 Q 460 290, 425 268 Z"/>
+  </g>
+
+  <circle cx="420" cy="265" r="16" fill="#2a2a28" stroke="#5a5a58" stroke-width="1.5"/>
+  <circle cx="420" cy="265" r="12" fill="#1a1a18"/>
+  <circle cx="420" cy="265" r="6" fill="#888"/>
+  <circle cx="418" cy="263" r="2" fill="#fff" opacity="0.6"/>
+
+  <rect x="270" y="205" width="70" height="150" fill="url(#finsP)"/>
+  <rect x="500" y="205" width="70" height="150" fill="url(#finsP)"/>
+  <rect x="270" y="205" width="70" height="6" fill="#5a5a58"/>
+  <rect x="270" y="349" width="70" height="6" fill="#5a5a58"/>
+  <rect x="500" y="205" width="70" height="6" fill="#5a5a58"/>
+  <rect x="500" y="349" width="70" height="6" fill="#5a5a58"/>
+  <rect x="270" y="205" width="70" height="150" fill="#000" opacity="0.0"/>
+  <rect x="270" y="205" width="6" height="150" fill="#fff" opacity="0.2"/>
+  <rect x="500" y="205" width="6" height="150" fill="#fff" opacity="0.2"/>
+
+  <rect x="340" y="320" width="60" height="22" fill="#e8e2d0" stroke="#3a3835" stroke-width="1" rx="1"/>
+  <text x="370" y="335" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="800" fill="#2a2a28">COMFORT</text>
+  <rect x="340" y="320" width="60" height="2" fill="#fff" opacity="0.5"/>
+
+  <rect x="440" y="328" width="50" height="14" fill="#0a0a08"/>
+  <text x="465" y="338" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="#9a9a98">14-SEER 24K-BTU</text>
+
+  <rect x="555" y="220" width="56" height="76" fill="#888" stroke="#1a1a18" stroke-width="2" rx="2"/>
+  <rect x="555" y="220" width="56" height="6" fill="#aaa"/>
+  <rect x="560" y="230" width="46" height="56" fill="#3a3835"/>
+  <rect x="563" y="234" width="18" height="48" fill="#d4a020"/>
+  <rect x="585" y="234" width="18" height="48" fill="#aaa"/>
+  <circle cx="572" cy="240" r="2" fill="#1a1a18"/>
+  <circle cx="572" cy="258" r="2" fill="#1a1a18"/>
+  <circle cx="594" cy="240" r="2" fill="#1a1a18"/>
+  <circle cx="594" cy="258" r="2" fill="#1a1a18"/>
+  <circle cx="583" cy="296" r="3" fill="#22cc44"/>
+  <circle cx="583" cy="296" r="1.5" fill="#aaffaa"/>
+
+  <g stroke-width="14" stroke-linecap="round" fill="none">
+    <path d="M 567 240 Q 640 240, 660 200 Q 680 140, 750 130" stroke="url(#copperH)"/>
+    <path d="M 567 260 Q 640 260, 660 220 Q 680 160, 750 150" stroke="url(#insulationH)"/>
+  </g>
+  <g stroke="#3a2010" stroke-width="0.6" opacity="0.6">
+    <line x1="620" y1="240" x2="620" y2="246"/>
+    <line x1="640" y1="220" x2="646" y2="220"/>
+    <line x1="660" y1="200" x2="660" y2="206"/>
+    <line x1="680" y1="180" x2="686" y2="180"/>
+    <line x1="700" y1="160" x2="700" y2="166"/>
+    <line x1="720" y1="145" x2="726" y2="145"/>
+  </g>
+
+  <g fill="#aaa">
+    <rect x="560" y="237" width="8" height="7" fill="#888" stroke="#1a1a18" stroke-width="0.5"/>
+    <rect x="560" y="256" width="8" height="7" fill="#888" stroke="#1a1a18" stroke-width="0.5"/>
+  </g>
+
+  <g fill="#3a5018" opacity="0.85">
+    <ellipse cx="225" cy="395" rx="15" ry="8"/>
+    <path d="M 215 395 L 215 370 L 220 370 Z"/>
+    <path d="M 222 393 L 223 365 L 228 365 Z"/>
+    <path d="M 230 395 L 232 372 L 237 372 Z"/>
+    <path d="M 218 395 L 216 376 L 220 376 Z"/>
+  </g>
+  <g fill="#2a3818" opacity="0.85">
+    <ellipse cx="640" cy="395" rx="18" ry="8"/>
+    <path d="M 628 395 L 628 366 L 634 366 Z"/>
+    <path d="M 636 395 L 638 360 L 644 360 Z"/>
+    <path d="M 648 395 L 650 368 L 656 368 Z"/>
+    <path d="M 632 395 L 630 374 L 635 374 Z"/>
+    <path d="M 642 395 L 640 376 L 645 376 Z"/>
+  </g>
+
+  <rect x="270" y="155" width="2" height="200" fill="#fff" opacity="0.3"/>
+  <rect x="270" y="155" width="300" height="2" fill="#fff" opacity="0.3"/>
+  <rect x="568" y="155" width="2" height="200" fill="#000" opacity="0.3"/>
+  <rect x="270" y="353" width="300" height="2" fill="#000" opacity="0.3"/>
+
+  <g opacity="0.3" fill="none" stroke="#fff" stroke-width="1">
+    <path d="M 130 80 Q 175 90, 205 78"/>
+    <path d="M 600 60 Q 645 70, 680 58"/>
+  </g>
+</svg>
