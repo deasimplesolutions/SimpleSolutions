@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat Widget Demo — Simple Solutions</title>
+  <meta name="description" content="Try the Simple Solutions AI chatbot demo. See how an intelligent chat widget can engage your website visitors and capture leads.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://simplesolutions-c.com/chatbot-demo.html">
+  <meta property="og:title" content="Chat Widget Demo — Simple Solutions">
+  <meta property="og:description" content="Try the Simple Solutions AI chatbot demo and see it in action.">
+  <meta property="og:url" content="https://simplesolutions-c.com/chatbot-demo.html">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="chatbot.css" />
+  <style>
+    /* Demo page styles only — not part of the widget */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #1f2937;
+      background: #f3f4f6;
+      line-height: 1.6;
+    }
+
+    .demo-hero {
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+      color: #fff;
+      padding: 60px 24px 48px;
+      text-align: center;
+    }
+
+    .demo-hero h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .demo-hero p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .demo-container {
+      max-width: 760px;
+      margin: -24px auto 60px;
+      padding: 0 20px;
+    }
+
+    .demo-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      padding: 32px;
+      margin-bottom: 24px;
+    }
+
+    .demo-card h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #4f46e5;
+    }
+
+    .demo-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 20px 0 8px;
+    }
+
+    .demo-card p, .demo-card li {
+      font-size: 0.95rem;
+      color: #374151;
+    }
+
+    .demo-card ol {
+      padding-left: 20px;
+      margin-bottom: 12px;
+    }
+
+    .demo-card ol li {
+      margin-bottom: 8px;
+    }
+
+    .demo-card code {
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.88rem;
+      color: #dc2626;
+    }
+
+    .demo-card pre {
+      background: #1e1e2e;
+      color: #cdd6f4;
+      padding: 16px 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      margin: 12px 0;
+    }
+
+    .demo-card pre .comment { color: #6c7086; }
+    .demo-card pre .string  { color: #a6e3a1; }
+    .demo-card pre .keyword { color: #cba6f7; }
+
+    .demo-badge {
+      display: inline-block;
+      background: #eef2ff;
+      color: #4f46e5;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+
+    .demo-arrow {
+      display: inline-block;
+      animation: bounce 1.5s infinite;
+      font-size: 1.5rem;
+      margin-top: 16px;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+
+    @media (max-width: 600px) {
+      .demo-hero { padding: 40px 16px 32px; }
+      .demo-hero h1 { font-size: 1.5rem; }
+      .demo-card { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="demo-hero">
+    <h1>Chat Widget Demo</h1>
+    <p>A floating AI chatbot powered by Claude. Click the chat button in the bottom-right to try it out.</p>
+    <div class="demo-arrow">&#8595;</div>
+  </div>
+
+  <div class="demo-container">
+
+    <!-- Quick Start -->
+    <div class="demo-card">
+      <span class="demo-badge">Quick Start</span>
+      <h2>Setup in 3 Steps</h2>
+      <ol>
+        <li>Open <code>chatbot.js</code> and replace <code>"your-api-key-here"</code> with your Anthropic API key.</li>
+        <li>Add the CSS and JS files to any page (see embed code below).</li>
+        <li>That's it — the widget will appear in the bottom-right corner.</li>
+      </ol>
+      <h3>Embed Code</h3>
+      <pre>&lt;!-- Add inside &lt;head&gt; or before &lt;/body&gt; --&gt;
+&lt;link rel="stylesheet" href="chatbot.css" /&gt;
+&lt;script src="chatbot.js"&gt;&lt;/script&gt;</pre>
+    </div>
+
+    <!-- Customization -->
+    <div class="demo-card">
+      <span class="demo-badge">Customization</span>
+      <h2>Make It Yours</h2>
+
+      <h3>1. API Key</h3>
+      <p>Open <code>chatbot.js</code> and set the variable at the top:</p>
+      <pre><span class="comment">// Replace with your Anthropic API key</span>
+<span class="keyword">const</span> ANTHROPIC_API_KEY = <span class="string">"sk-ant-..."</span>;</pre>
+
+      <h3>2. System Prompt</h3>
+      <p>Edit <code>SYSTEM_PROMPT</code> in <code>chatbot.js</code> to control the chatbot's personality, knowledge, and tone:</p>
+      <pre><span class="keyword">const</span> SYSTEM_PROMPT =
+  <span class="string">"You are a helpful assistant for Simple Solutions.
+   Answer questions about our services, pricing,
+   and availability. Be friendly and concise."</span>;</pre>
+
+      <h3>3. Business Name</h3>
+      <p>Change <code>BUSINESS_NAME</code> in <code>chatbot.js</code>:</p>
+      <pre><span class="keyword">const</span> BUSINESS_NAME = <span class="string">"Simple Solutions"</span>;</pre>
+
+      <h3>4. Accent Color</h3>
+      <p>Open <code>chatbot.css</code> and change the CSS variable at the top:</p>
+      <pre><span class="keyword">:root</span> {
+  <span class="string">--chat-accent</span>: #4f46e5;       <span class="comment">/* main color */</span>
+  <span class="string">--chat-accent-hover</span>: #4338ca; <span class="comment">/* hover state */</span>
+}</pre>
+    </div>
+
+    <!-- Architecture -->
+    <div class="demo-card">
+      <span class="demo-badge">Architecture</span>
+      <h2>File Structure</h2>
+      <pre>your-website/
+  ├── chatbot.css        <span class="comment"># All widget styles</span>
+  ├── chatbot.js         <span class="comment"># Widget logic + API calls</span>
+  └── chatbot-demo.html  <span class="comment"># This demo page</span></pre>
+      <p>The widget is fully self-contained — just the CSS and JS files. Drop them into any existing website and they'll work without conflicts.</p>
+    </div>
+
+    <!-- Notes -->
+    <div class="demo-card">
+      <span class="demo-badge">Important</span>
+      <h2>Security Note</h2>
+      <p>This widget calls the Anthropic API directly from the browser, which means your API key is visible in the page source. For production use, you should route API calls through your own backend server to keep the key secret. The current setup is ideal for internal tools, prototypes, and demos.</p>
+    </div>
+
+  </div>
+
+  <!-- Load the chat widget -->
+  <script src="chatbot.js"></script>
+</body>
+</html>

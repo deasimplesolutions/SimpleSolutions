@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Simple Solutions</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --navy: #0f1a2e; --navy-light: #1a2744;
+      --gray-900: #111827; --gray-700: #374151; --gray-500: #6b7280; --gray-300: #d1d5db;
+      --white: #ffffff; --bg: #faf9f7; --bg-alt: #f0eee9;
+      --green: #16a34a; --green-soft: #dcfce7;
+      --amber: #d97706; --amber-soft: #fef3c7;
+      --red: #dc2626; --red-soft: #fee2e2;
+      --blue: #3b82f6; --blue-soft: #dbeafe;
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--gray-900); background: var(--bg); line-height: 1.6;
+      -webkit-font-smoothing: antialiased; min-height: 100vh;
+    }
+
+    /* ── Nav ── */
+    nav { background: var(--white); border-bottom: 1px solid var(--bg-alt); padding: 1rem 2rem; }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .logo { display: inline-flex; align-items: center; gap: 0.7rem; text-decoration: none; }
+    .logo-icon { height: 32px; width: auto; }
+    .logo-text { font-size: 1.1rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; }
+    .logo-text span { color: var(--gray-500); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .nav-user { font-size: 0.9rem; color: var(--gray-700); }
+    .nav-user strong { color: var(--navy); }
+    .logout-btn {
+      background: transparent; color: var(--navy);
+      border: 1.5px solid var(--navy); padding: 0.5rem 1.1rem;
+      border-radius: 8px; font-size: 0.88rem; font-weight: 600;
+      font-family: inherit; cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .logout-btn:hover { background: var(--navy); color: var(--white); }
+    .logout-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(15,26,46,0.25); }
+
+    /* ── Page wrap ── */
+    .wrap { max-width: 1100px; margin: 2.5rem auto; padding: 0 1.5rem 4rem; }
+    .page-head { margin-bottom: 2.5rem; }
+    .page-head h1 { font-size: 1.8rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; margin-bottom: 0.3rem; }
+    .page-head p { color: var(--gray-500); }
+
+    .section-title {
+      font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--gray-500); margin-bottom: 1rem;
+    }
+
+    /* ── Agent card ── */
+    .agent-card {
+      background: var(--white); border: 1px solid var(--bg-alt);
+      border-radius: 16px; padding: 1.6rem 1.8rem;
+      box-shadow: 0 4px 14px rgba(15,26,46,0.04);
+      margin-bottom: 2.5rem;
+    }
+    .agent-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+    .agent-avatar {
+      width: 52px; height: 52px; border-radius: 12px;
+      background: var(--navy); color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 1.1rem;
+    }
+    .agent-info { flex: 1; min-width: 0; }
+    .agent-info h2 { font-size: 1.15rem; font-weight: 700; color: var(--navy); margin-bottom: 0.25rem; line-height: 1.2; }
+    .agent-phone {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.92rem; color: var(--gray-700); font-variant-numeric: tabular-nums;
+    }
+    .agent-phone svg { width: 14px; height: 14px; }
+    .agent-status {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--green-soft); color: var(--green);
+      padding: 0.35rem 0.7rem; border-radius: 50px;
+      font-size: 0.78rem; font-weight: 700;
+    }
+    .agent-status::before {
+      content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--green);
+      animation: livePulse 1.6s ease-in-out infinite;
+    }
+    @keyframes livePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+
+    .agent-stats {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+      padding-top: 1.5rem; border-top: 1px solid var(--bg-alt);
+    }
+    .stat { }
+    .stat-num { font-size: 1.65rem; font-weight: 800; color: var(--navy); line-height: 1; font-variant-numeric: tabular-nums; }
+    .stat-label { font-size: 0.78rem; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.35rem; }
+
+    /* ── Calls list ── */
+    .calls-list { display: flex; flex-direction: column; gap: 0.6rem; }
+    .call-item {
+      background: var(--white); border: 1px solid var(--bg-alt);
+      border-radius: 12px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .call-item[open] { border-color: var(--gray-300); box-shadow: 0 4px 14px rgba(15,26,46,0.06); }
+    .call-header {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.9rem 1.2rem;
+      cursor: pointer; list-style: none;
+      border-radius: 12px;
+    }
+    .call-header::-webkit-details-marker { display: none; }
+    .call-header::marker { content: ''; }
+    .call-header:hover { background: var(--bg-alt); }
+    .call-chevron {
+      width: 8px; height: 8px;
+      border-right: 1.5px solid var(--gray-500);
+      border-bottom: 1.5px solid var(--gray-500);
+      transform: rotate(-45deg);
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+    .call-item[open] .call-chevron { transform: rotate(45deg); }
+    .call-name {
+      font-weight: 700; color: var(--navy); font-size: 0.95rem;
+      flex-shrink: 0; min-width: 140px;
+    }
+    .call-summary {
+      color: var(--gray-500); font-size: 0.88rem;
+      flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .call-time {
+      color: var(--gray-500); font-size: 0.82rem;
+      flex-shrink: 0; font-variant-numeric: tabular-nums;
+    }
+    .call-status {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.3rem 0.7rem; border-radius: 50px;
+      font-size: 0.72rem; font-weight: 700;
+      flex-shrink: 0;
+    }
+    .call-status.booked { background: var(--green-soft); color: var(--green); }
+    .call-status.pending { background: var(--amber-soft); color: var(--amber); }
+    .call-status.declined { background: var(--red-soft); color: var(--red); }
+
+    .call-details {
+      padding: 0 1.2rem 1.2rem;
+      border-top: 1px solid var(--bg-alt);
+      padding-top: 1.2rem;
+    }
+    .detail-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 1.5rem;
+    }
+    .detail .detail-label {
+      display: block;
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--gray-500); margin-bottom: 0.25rem;
+    }
+    .detail .detail-value {
+      font-size: 0.92rem; color: var(--gray-900); font-weight: 500; word-wrap: break-word;
+    }
+    .detail.full { grid-column: 1 / -1; }
+    .detail-value.appt-yes {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      color: var(--green); font-weight: 600;
+    }
+    .detail-value.appt-no { color: var(--amber); font-weight: 600; }
+
+    .empty-state {
+      background: var(--white); border: 1px dashed var(--gray-300);
+      border-radius: 12px; padding: 2.5rem 1.5rem;
+      text-align: center; color: var(--gray-500); font-size: 0.95rem;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 700px) {
+      .agent-stats { grid-template-columns: repeat(2, 1fr); }
+      .detail-grid { grid-template-columns: 1fr; }
+      .call-name { min-width: 0; }
+      .call-summary { display: none; }
+      .nav-user { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 180 80" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="8" width="50" height="64" rx="8" fill="#0f1a2e"/>
+        <text x="25" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">S</text>
+        <rect x="58" y="0" width="50" height="64" rx="8" fill="#374151"/>
+        <text x="83" y="44" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">S</text>
+        <rect x="116" y="8" width="50" height="64" rx="8" fill="#0f1a2e"/>
+        <text x="141" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">C</text>
+      </svg>
+      <div class="logo-text">Simple <span>Solutions</span></div>
+    </a>
+    <div class="nav-right">
+      <div class="nav-user">Signed in as <strong id="nav-username">—</strong></div>
+      <button class="logout-btn" id="logout-btn">Log out</button>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="page-head">
+    <h1>Welcome, <span id="welcome-name">there</span>.</h1>
+    <p>Your voice agent and live call activity at a glance.</p>
+  </div>
+
+  <!-- ── Voice Agent ── -->
+  <div class="section-title">Your Voice Agent</div>
+  <div class="agent-card">
+    <div class="agent-header">
+      <div class="agent-avatar" id="agent-avatar">—</div>
+      <div class="agent-info">
+        <h2 id="agent-name">—</h2>
+        <span class="agent-phone">
+          <svg viewBox="0 0 16 16" fill="#16a34a"><path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328z"/></svg>
+          <span id="agent-phone">—</span>
+        </span>
+      </div>
+      <span class="agent-status">Active</span>
+    </div>
+    <div class="agent-stats">
+      <div class="stat">
+        <div class="stat-num" id="stat-total">—</div>
+        <div class="stat-label">Total Calls</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" id="stat-today">—</div>
+        <div class="stat-label">Today</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" id="stat-booked">—</div>
+        <div class="stat-label">Booking Rate</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" id="stat-duration">—</div>
+        <div class="stat-label">Avg Duration</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Calls List ── -->
+  <div class="section-title">Recent Calls</div>
+  <div class="calls-list" id="calls-list"></div>
+</div>
+
+<script src="auth.js"></script>
+<script>
+  const SERVER_URL = 'https://simplesolutions-server.onrender.com';
+  const AGENT_PHONE = '+1 (866) 660-2921';
+
+  /* ── Auth check ── */
+  SSCAuth.requireAuth('login.html');
+  const user = SSCAuth.getCurrentUser();
+  if (user) {
+    document.getElementById('welcome-name').textContent = user.firstName;
+    document.getElementById('nav-username').textContent = user.username;
+  }
+
+  /* ── Render agent ── */
+  function renderAgent(agent) {
+    document.getElementById('agent-avatar').textContent = agent.initials;
+    document.getElementById('agent-name').textContent = agent.name;
+    document.getElementById('agent-phone').textContent = agent.phoneNumber;
+    document.getElementById('stat-total').textContent = agent.stats.total;
+    document.getElementById('stat-today').textContent = agent.stats.today;
+    document.getElementById('stat-booked').textContent = agent.stats.bookingRate;
+    document.getElementById('stat-duration').textContent = agent.stats.avgDuration;
+  }
+
+  /* ── Render calls ── */
+  function fmtAgo(min) {
+    if (min < 1) return 'just now';
+    if (min < 60) return `${min} min ago`;
+    const h = Math.floor(min / 60);
+    if (h < 24) return `${h}h ago`;
+    return `${Math.floor(h / 24)}d ago`;
+  }
+  function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  function fmtDuration(sec) {
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60);
+    return `${m}:${String(s).padStart(2, '0')}`;
+  }
+  function makeInitials(name) {
+    if (!name) return '··';
+    return name.trim().split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+  }
+
+  function renderCalls(calls) {
+    const list = document.getElementById('calls-list');
+    if (!calls.length) {
+      list.innerHTML = '<div class="empty-state">No calls yet. Once your voice agent picks up its first call, it\'ll show up here.</div>';
+      return;
+    }
+    list.innerHTML = calls.map(c => `
+      <details class="call-item">
+        <summary class="call-header">
+          <span class="call-chevron"></span>
+          <span class="call-name">${esc(c.customerName)}</span>
+          <span class="call-summary">${esc(c.reasonForCalling)}</span>
+          <span class="call-time">${fmtAgo(c.minutesAgo)}</span>
+          <span class="call-status ${c.booked ? 'booked' : 'pending'}">
+            ${c.booked ? '✓ Booked' : '○ No booking'}
+          </span>
+        </summary>
+        <div class="call-details">
+          <div class="detail-grid">
+            <div class="detail">
+              <span class="detail-label">Phone</span>
+              <span class="detail-value">${esc(c.phoneNumber)}</span>
+            </div>
+            <div class="detail">
+              <span class="detail-label">Email</span>
+              <span class="detail-value">${esc(c.email || '—')}</span>
+            </div>
+            <div class="detail">
+              <span class="detail-label">Location</span>
+              <span class="detail-value">${esc(c.location || '—')}</span>
+            </div>
+            <div class="detail">
+              <span class="detail-label">Call Duration</span>
+              <span class="detail-value">${esc(c.duration)}</span>
+            </div>
+            <div class="detail full">
+              <span class="detail-label">Reason for Calling</span>
+              <span class="detail-value">${esc(c.reasonForCalling)}</span>
+            </div>
+            <div class="detail full">
+              <span class="detail-label">Appointment</span>
+              <span class="detail-value ${c.booked ? 'appt-yes' : 'appt-no'}">
+                ${c.booked ? '✓ ' + esc(c.appointmentDate || 'Scheduled') : 'Not booked — follow-up needed'}
+              </span>
+            </div>
+          </div>
+        </div>
+      </details>
+    `).join('');
+  }
+
+  /* ── Boot — fetch live data from Vapi (via Render proxy) ── */
+  function showError(msg) {
+    document.getElementById('calls-list').innerHTML =
+      `<div class="empty-state" style="border-color: var(--red); color: var(--red);">${esc(msg)}</div>`;
+  }
+
+  async function loadDashboard() {
+    document.getElementById('calls-list').innerHTML =
+      '<div class="empty-state">Loading your calls…</div>';
+
+    try {
+      const [agentRes, callsRes] = await Promise.all([
+        fetch(`${SERVER_URL}/api/vapi/agent`),
+        fetch(`${SERVER_URL}/api/vapi/calls?limit=50`)
+      ]);
+
+      if (!agentRes.ok || !callsRes.ok) {
+        throw new Error(`Server returned ${agentRes.status} / ${callsRes.status}`);
+      }
+
+      const assistant = await agentRes.json();
+      const callsData = await callsRes.json();
+      const callsList = Array.isArray(callsData) ? callsData : (callsData.data || []);
+
+      const now = Date.now();
+      const calls = callsList.map(call => {
+        const s = call.analysis?.structuredData || {};
+        const startedAt = call.startedAt ? new Date(call.startedAt).getTime() : null;
+        const endedAt = call.endedAt ? new Date(call.endedAt).getTime() : null;
+        const durSec = startedAt && endedAt ? Math.floor((endedAt - startedAt) / 1000) : null;
+        return {
+          id: call.id,
+          customerName: s.customerName || call.customer?.name || 'Unknown caller',
+          phoneNumber: call.customer?.number || '',
+          email: s.email || '',
+          location: s.location || '',
+          reasonForCalling: s.reasonForCalling || call.analysis?.summary || 'No summary available.',
+          booked: !!s.bookedAppointment,
+          appointmentDate: s.appointmentDate || '',
+          duration: durSec != null ? fmtDuration(durSec) : '—',
+          minutesAgo: startedAt ? Math.floor((now - startedAt) / 60000) : 0,
+          _startedAt: startedAt
+        };
+      }).sort((a, b) => (b._startedAt || 0) - (a._startedAt || 0));
+
+      const total = calls.length;
+      const startOfToday = new Date(); startOfToday.setHours(0, 0, 0, 0);
+      const todayCount = calls.filter(c => c._startedAt && c._startedAt >= startOfToday.getTime()).length;
+      const bookedCount = calls.filter(c => c.booked).length;
+      const bookingRate = total > 0 ? Math.round((bookedCount / total) * 100) + '%' : '—';
+      const durSecs = calls
+        .map(c => { const m = c.duration.match(/^(\d+):(\d+)$/); return m ? +m[1] * 60 + +m[2] : null; })
+        .filter(d => d != null);
+      const avgDuration = durSecs.length
+        ? fmtDuration(durSecs.reduce((a, b) => a + b, 0) / durSecs.length)
+        : '—';
+
+      renderAgent({
+        name: (assistant.name || 'Voice Agent').trim(),
+        initials: makeInitials(assistant.name),
+        phoneNumber: AGENT_PHONE,
+        stats: { total, today: todayCount, bookingRate, avgDuration }
+      });
+      renderCalls(calls);
+    } catch (err) {
+      console.error('Dashboard load failed:', err);
+      showError('Could not load Vapi data. The server may be waking up — try refreshing in 30 seconds.');
+    }
+  }
+
+  loadDashboard();
+
+  /* ── Logout ── */
+  document.getElementById('logout-btn').addEventListener('click', () => {
+    SSCAuth.logOut();
+    window.location.href = 'index.html';
+  });
+</script>
+
+</body>
+</html>

@@ -49,14 +49,6 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- Services: Website Creation -->
-  <url>
-    <loc>https://simplesolutions-c.com/service-website-creation.html</loc>
-    <lastmod>2026-04-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
   <!-- Chatbot Demo -->
   <url>
     <loc>https://simplesolutions-c.com/chatbot-demo.html</loc>

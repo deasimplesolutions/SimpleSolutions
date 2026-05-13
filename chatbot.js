@@ -2,9 +2,11 @@
 // CHATBOT WIDGET CONFIGURATION
 // ============================================
 // Edit the variables below to customize the widget.
+// The Anthropic API key and system prompt live on the
+// server (Render env vars + server.js) — NOT in this file.
 
-// Your proxy server URL (deployed on Render)
-const CHAT_PROXY_URL = "https://private-server-for-website.onrender.com";
+// URL of your chat proxy server (Render Web Service).
+const SERVER_URL = "https://simplesolutions-server.onrender.com";
 
 // Business name shown in the chat header
 const BUSINESS_NAME = "Simple Solutions";
@@ -134,22 +136,14 @@ const WELCOME_MESSAGE = "Hi there! How can I help you today?";
     showTypingIndicator();
 
     try {
-      const reply = await callAnthropicAPI();
+      const reply = await callChatProxy();
       removeTypingIndicator();
       appendMessage("assistant", reply);
       conversationHistory.push({ role: "assistant", content: reply });
     } catch (err) {
       removeTypingIndicator();
-      // Show a friendly message for overloaded/transient errors
-      let errorMsg;
-      const rawMsg = (err.message || "").toLowerCase();
-      if (rawMsg.includes("overload") || rawMsg.includes("busy") || rawMsg.includes("529")) {
-        errorMsg = "I'm a little busy right now — please try again in a moment!";
-      } else if (rawMsg.includes("failed to fetch") || rawMsg.includes("network")) {
-        errorMsg = "It looks like there's a connection issue. Please check your internet and try again.";
-      } else {
-        errorMsg = err.message || "Something went wrong. Please try again.";
-      }
+      const errorMsg =
+        err.message || "Something went wrong. Please try again.";
       appendMessage("assistant", `⚠ ${errorMsg}`);
       // Remove the failed user message from history so the conversation stays clean
       conversationHistory.pop();
@@ -159,26 +153,15 @@ const WELCOME_MESSAGE = "Hi there! How can I help you today?";
     }
   }
 
-  // ── API Call (via proxy server) ──
+  // ── Chat proxy call ──
+  // The proxy at /api/chat holds the Anthropic API key and system
+  // prompt server-side, so nothing sensitive lives in this file.
 
-  async function callAnthropicAPI() {
-    if (
-      !CHAT_PROXY_URL ||
-      CHAT_PROXY_URL === "http://localhost:3000"
-    ) {
-      console.warn(
-        "Chat widget: still using localhost. Update CHAT_PROXY_URL after deploying your server."
-      );
-    }
-
-    const response = await fetch(`${CHAT_PROXY_URL}/api/chat`, {
+  async function callChatProxy() {
+    const response = await fetch(`${SERVER_URL}/api/chat`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        messages: conversationHistory,
-      }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages: conversationHistory }),
     });
 
     if (!response.ok) {

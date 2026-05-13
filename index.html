@@ -13,6 +13,8 @@
   <meta property="og:type" content="website">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="chatbot.css">
+  <link rel="stylesheet" href="mobile-nav.css">
+  <script src="mobile-nav.js" defer></script>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -74,6 +76,66 @@
       line-height: 1.1;
     }
     .logo-text span { color: var(--gray-500); }
+    .nav-left { display: flex; align-items: center; gap: 2rem; }
+    .nav-left a { font-size: 0.9rem; font-weight: 500; color: var(--gray-700); text-decoration: none; transition: color 0.2s; }
+    .nav-left a:hover { color: var(--navy); }
+    .nav-dropdown { position: relative; }
+    .nav-dropdown > a { display: inline-flex; align-items: center; gap: 0.3rem; cursor: pointer; }
+    .nav-dropdown > a::after {
+      content: '';
+      width: 6px; height: 6px;
+      border-right: 1.5px solid currentColor;
+      border-bottom: 1.5px solid currentColor;
+      transform: translateY(-2px) rotate(45deg);
+      transition: transform 0.2s;
+    }
+    .nav-dropdown:hover > a::after,
+    .nav-dropdown:focus-within > a::after { transform: translateY(0) rotate(225deg); }
+    .nav-dropdown-menu {
+      position: absolute;
+      top: calc(100% + 12px);
+      left: -16px;
+      width: 280px;
+      background: var(--white);
+      border: 1px solid var(--bg-alt);
+      border-radius: 12px;
+      box-shadow: 0 12px 32px rgba(15,26,46,0.12);
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-4px);
+      transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+    }
+    .nav-dropdown-menu.is-wide { width: 420px; display: grid; grid-template-columns: 1fr 1fr; gap: 0.15rem 0.25rem; }
+    .nav-dropdown::before {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height: 16px;
+    }
+    .nav-dropdown:hover .nav-dropdown-menu,
+    .nav-dropdown:focus-within .nav-dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .nav-dropdown-menu a {
+      display: block;
+      padding: 0.7rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--gray-700);
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-dropdown-menu a:hover { background: var(--bg-alt); color: var(--navy); }
+    .nav-dropdown-menu a:focus-visible { outline: none; background: var(--bg-alt); color: var(--navy); }
     .nav-links { display: flex; align-items: center; gap: 2rem; }
     .nav-links a {
       font-size: 0.9rem;
@@ -97,18 +159,26 @@
 
     /* ── HERO ── */
     .hero {
-      padding: 10rem 2rem 6rem;
-      text-align: center;
+      padding: 9rem 2rem 5rem;
       background: var(--bg);
       position: relative;
       overflow: hidden;
     }
-    .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.5s ease-in-out; z-index: 0; }
-    .hero-bg.active { opacity: 1; }
-    .hero-bg-1 { background-image: url('hero-bg-1.svg'); }
-    .hero-bg-2 { background-image: url('hero-bg-2.svg'); }
-    .hero-bg-3 { background-image: url('hero-bg-3.svg'); }
-    .hero-inner { max-width: 820px; margin: 0 auto; position: relative; z-index: 1; }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: stretch;
+    }
+    .hero-content {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+    }
     .hero-badge {
       display: inline-block;
       background: var(--navy);
@@ -119,29 +189,43 @@
       letter-spacing: 0.08em;
       padding: 0.4rem 1rem;
       border-radius: 50px;
-      margin-bottom: 2rem;
-    }
-    .hero h1 {
-      font-size: clamp(2.2rem, 5vw, 3.4rem);
-      font-weight: 800;
-      line-height: 1.15;
-      color: var(--navy);
-      letter-spacing: -0.03em;
       margin-bottom: 1.5rem;
     }
-    .hero p {
-      font-size: 1.15rem;
+    .hero h1 {
+      font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--navy);
+      letter-spacing: -0.03em;
+      margin-bottom: 1.25rem;
+    }
+    .hero-tagline {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--navy);
+      max-width: 520px;
+      margin: 0 auto 1rem;
+      line-height: 1.4;
+    }
+    .hero-desc {
+      font-size: 1rem;
       color: var(--gray-500);
-      max-width: 620px;
-      margin: 0 auto 2.5rem;
-      line-height: 1.7;
+      max-width: 520px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.65;
     }
     .hero-ctas {
-      display: inline-flex;
+      display: flex;
       align-items: center;
       gap: 0.9rem;
       flex-wrap: wrap;
       justify-content: center;
+      margin-top: auto;
+    }
+    .hero-slideshow { width: 100%; }
+    .hero-slideshow .slideshow { max-width: 100%; margin: 0; }
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
     }
     .hero-cta {
       display: inline-flex;
@@ -183,6 +267,77 @@
       box-shadow: 0 6px 20px rgba(15,26,46,0.3);
     }
     .hero-cta-secondary svg { width: 18px; height: 18px; }
+
+    /* ── HERO SLIDESHOW ── */
+    .slideshow {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+      aspect-ratio: 16 / 11;
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--navy);
+      box-shadow: 0 14px 40px rgba(15,26,46,0.15);
+    }
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .slide.active { opacity: 1; }
+    .slide img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .slide::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(15,26,46,0) 50%, rgba(15,26,46,0.85) 100%);
+    }
+    .slide-name {
+      position: relative;
+      z-index: 1;
+      color: var(--white);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      padding: 1.2rem 1.5rem 1.4rem;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+    }
+    .slide-dots {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+    .dot {
+      background: var(--white);
+      color: var(--gray-700);
+      border: 1px solid var(--bg-alt);
+      padding: 0.4rem 0.9rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
+    }
+    .dot:hover { transform: translateY(-1px); border-color: var(--gray-300); }
+    .dot.active {
+      background: var(--navy);
+      color: var(--white);
+      border-color: var(--navy);
+    }
 
     /* ── SPEED TO LEAD ANIMATION ── */
     .speed-to-lead {
@@ -400,129 +555,172 @@
       background: var(--white);
       border: 1px solid var(--bg-alt);
       border-radius: 16px;
-      padding: 2.5rem 2rem;
+      padding: 2rem 1.6rem;
       transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
     }
     .step-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 12px 32px rgba(0,0,0,0.08);
     }
     .step-num {
-      font-size: 3rem;
+      font-size: 2.4rem;
       font-weight: 800;
       color: var(--gray-300);
       line-height: 1;
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
     }
     .step-card h3 {
       font-size: 1.25rem;
       font-weight: 700;
       color: var(--navy);
-      margin-bottom: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .step-anim {
+      width: 100%;
+      aspect-ratio: 12 / 7;
+      background: var(--bg-alt);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .step-anim svg { width: 100%; height: 100%; display: block; }
+    .step-stat {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid var(--bg-alt);
+    }
+    .step-stat-num {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1;
+      flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+    }
+    .step-stat-body { flex: 1; min-width: 0; }
+    .step-stat-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--gray-700);
+      line-height: 1.35;
+      margin-bottom: 2px;
+      min-height: 2.7em;
+    }
+    .step-anim { margin-top: 0.5rem; }
+    .step-stat-source {
+      font-size: 0.7rem;
+      color: var(--gray-500);
+    }
+    .step-learn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 0.85rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--navy);
+      text-decoration: none;
+      transition: gap 0.2s, color 0.2s;
+    }
+    .step-learn:hover { color: var(--accent); gap: 0.6rem; }
+    .step-learn::after {
+      content: '→';
+      font-weight: 700;
+      transition: transform 0.2s;
     }
     .step-card p {
       font-size: 0.95rem;
       color: var(--gray-500);
-      line-height: 1.65;
+      line-height: 1.55;
+      margin-bottom: 1.1rem;
+      min-height: 4.65em;
     }
 
-    /* ── SERVICES ── */
-    .services {
-      padding: 6rem 2rem;
-      background: var(--bg-alt);
-    }
-    .services-inner { max-width: 1200px; margin: 0 auto; }
-    .services h2 {
-      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-      font-weight: 800;
-      color: var(--navy);
-      letter-spacing: -0.02em;
-      margin-bottom: 3.5rem;
-      text-align: center;
-    }
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-    }
-    .service-card {
-      background: var(--white);
-      border: 1px solid var(--bg-alt);
-      border-radius: 16px;
-      padding: 2.2rem 1.8rem;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .service-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
-    }
-    .service-card.featured {
-      background: var(--navy);
-      border-color: var(--navy);
-    }
-    .service-card.featured .service-type,
-    .service-card.featured h3,
-    .service-card.featured li { color: var(--white); }
-    .service-card.featured .service-type { opacity: 0.6; }
-    .service-card.featured .check-icon { color: #60a5fa; }
-    .service-card.featured .btn-service {
-      background: var(--white);
-      color: var(--navy);
-    }
-    .service-card.featured .btn-service:hover {
-      background: var(--bg);
+    /* ── 01 Dashboard — leads being captured live ── */
+    .anim-dash .row { opacity: 0; animation: rowIn 5s ease-in-out infinite; }
+    .anim-dash .row-1 { animation-delay: 0.4s; }
+    .anim-dash .row-2 { animation-delay: 1.3s; }
+    .anim-dash .row-3 { animation-delay: 2.2s; }
+    .anim-dash .row-4 { animation-delay: 3.1s; }
+    @keyframes rowIn {
+      0%, 8%   { opacity: 0; transform: translateX(-6px); }
+      14%, 80% { opacity: 1; transform: translateX(0); }
+      100%     { opacity: 0; }
     }
 
-    .service-type {
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--gray-500);
-      margin-bottom: 0.5rem;
+    /* ── 02 Quick Response — message reply ── */
+    .anim-msg .msg-in,
+    .anim-msg .msg-out,
+    .anim-msg .time-badge { opacity: 0; }
+    .anim-msg .msg-in   { animation: msgIn   4s ease-in-out infinite; }
+    .anim-msg .msg-out  { animation: msgOut  4s ease-in-out infinite; }
+    .anim-msg .time-badge { animation: timeBadge 4s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+    @keyframes msgIn {
+      0%, 5%   { opacity: 0; transform: translateX(-8px); }
+      15%, 92% { opacity: 1; transform: translateX(0); }
+      100%     { opacity: 0; }
     }
-    .service-card h3 {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 1.25rem;
+    @keyframes msgOut {
+      0%, 40%  { opacity: 0; transform: translateX(8px); }
+      48%, 92% { opacity: 1; transform: translateX(0); }
+      100%     { opacity: 0; }
     }
-    .service-card ul {
-      list-style: none;
-      margin-bottom: 2rem;
-      flex: 1;
+    @keyframes timeBadge {
+      0%, 60%  { opacity: 0; transform: scale(0.8); }
+      68%, 92% { opacity: 1; transform: scale(1); }
+      100%     { opacity: 0; transform: scale(0.9); }
     }
-    .service-card li {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.6rem;
-      font-size: 0.9rem;
-      color: var(--gray-700);
-      margin-bottom: 0.6rem;
-      line-height: 1.4;
+    .anim-msg .typing-dot {
+      animation: typingDot 1.2s ease-in-out infinite;
     }
-    .check-icon {
-      flex-shrink: 0;
-      width: 18px;
-      height: 18px;
-      color: #3b82f6;
-      margin-top: 1px;
+    .anim-msg .typing-dot-2 { animation-delay: 0.2s; }
+    .anim-msg .typing-dot-3 { animation-delay: 0.4s; }
+    @keyframes typingDot {
+      0%, 60%, 100% { opacity: 0.3; }
+      30%           { opacity: 1; }
     }
-    .btn-service {
-      display: block;
-      text-align: center;
-      padding: 0.8rem;
-      border-radius: 10px;
-      background: var(--navy);
-      color: var(--white);
-      font-size: 0.9rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
+
+    /* ── 03 Analytics dashboard — KPIs + chart ── */
+    .anim-analytics .bar {
+      transform-origin: bottom;
+      transform-box: fill-box;
+      animation: aBar 3.5s ease-in-out infinite;
     }
-    .btn-service:hover { transform: translateY(-1px); }
+    .anim-analytics .a1 { animation-delay: 0s; }
+    .anim-analytics .a2 { animation-delay: 0.18s; }
+    .anim-analytics .a3 { animation-delay: 0.36s; }
+    .anim-analytics .a4 { animation-delay: 0.54s; }
+    .anim-analytics .a5 { animation-delay: 0.72s; }
+    .anim-analytics .a6 { animation-delay: 0.9s; }
+    .anim-analytics .a7 { animation-delay: 1.08s; }
+    @keyframes aBar {
+      0%, 100% { transform: scaleY(1); }
+      50%      { transform: scaleY(1.3); }
+    }
+    .anim-analytics .kpi-pulse {
+      transform-origin: center;
+      transform-box: fill-box;
+      animation: kpiPulse 2.4s ease-in-out infinite;
+    }
+    .anim-analytics .kpi-pulse-2 { animation-delay: 0.8s; }
+    .anim-analytics .kpi-pulse-3 { animation-delay: 1.6s; }
+    @keyframes kpiPulse {
+      0%, 100% { opacity: 1; }
+      50%      { opacity: 0.55; }
+    }
+    .anim-analytics .live-dot {
+      transform-origin: center;
+      transform-box: fill-box;
+      animation: liveDot 1.2s ease-in-out infinite;
+    }
+    @keyframes liveDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.5; transform: scale(0.8); }
+    }
 
     /* ── ABOUT ── */
     .about {
@@ -737,8 +935,8 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .steps-grid { grid-template-columns: 1fr; }
-      .services-grid { grid-template-columns: 1fr; }
       .nav-links a:not(.btn-nav) { display: none; }
+      .nav-left a:not(.logo) { display: none; }
     }
     @media (max-width: 600px) {
       .hero { padding: 8rem 1.2rem 4rem; }
@@ -753,7 +951,8 @@
 <!-- ── NAVIGATION ── -->
 <nav>
   <div class="nav-inner">
-    <a href="#" class="logo">
+    <div class="nav-left">
+      <a href="#" class="logo">
         <svg class="logo-icon" viewBox="0 0 180 80" xmlns="http://www.w3.org/2000/svg">
           <rect x="0" y="8" width="50" height="64" rx="8" fill="#0f1a2e"/>
           <text x="25" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">S</text>
@@ -764,39 +963,156 @@
         </svg>
         <div class="logo-text">Simple <span>Solutions</span></div>
       </a>
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="#about">About</a>
-      <a href="#how">How it works</a>
-      <a href="#services">Services</a>
+      <div class="nav-dropdown">
+        <a href="#services">Services</a>
+        <div class="nav-dropdown-menu" role="menu">
+          <a href="service-247-answering.html" role="menuitem">24/7 Answering <svg class="ind-icon" viewBox="0 0 16 16"><path fill="#16a34a" d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328z"/></svg></a>
+          <a href="service-quick-response.html" role="menuitem">Quick Response <svg class="ind-icon" viewBox="0 0 16 16"><path d="M 9 1 L 3 9 L 7 9 L 5 15 L 13 7 L 9 7 Z" fill="#f59e0b" stroke="#d97706" stroke-width="0.5" stroke-linejoin="round"/><path d="M 9 1 L 4.5 7.5 L 6.5 7.5" stroke="#fde088" stroke-width="0.6" fill="none" stroke-linejoin="round"/></svg></a>
+          <a href="service-real-time-analytics.html" role="menuitem">Real Time Analytics <svg class="ind-icon" viewBox="0 0 16 16"><line x1="1.5" y1="14.2" x2="14.5" y2="14.2" stroke="#9ca3af" stroke-width="0.5"/><rect x="2" y="9" width="2.5" height="5.2" fill="#0f1a2e" rx="0.3"/><rect x="6" y="6" width="2.5" height="8.2" fill="#3b82f6" rx="0.3"/><rect x="10" y="3" width="2.5" height="11.2" fill="#22c55e" rx="0.3"/><path d="M 3 9 L 7 6 L 11 3" stroke="#374151" stroke-width="0.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M 9 3.5 L 11 3 L 11.5 5" stroke="#374151" stroke-width="0.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <a href="industries.html">Industries</a>
+        <div class="nav-dropdown-menu is-wide" role="menu">
+          <a href="industry-roofing.html" role="menuitem">Roofing <svg class="ind-icon" viewBox="0 0 16 16"><rect x="10.5" y="3.5" width="1.8" height="3" fill="#6b3410"/><rect x="10.2" y="3.2" width="2.4" height="0.6" fill="#4a2208"/><path d="M 8 2.5 L 15 9 L 13 9 L 13 10 L 3 10 L 3 9 L 1 9 Z" fill="#a0522d"/><line x1="3" y1="9" x2="13" y2="9" stroke="#6b3410" stroke-width="0.4"/><line x1="4.5" y1="7.5" x2="11.5" y2="7.5" stroke="#6b3410" stroke-width="0.4"/><line x1="6" y1="6" x2="10" y2="6" stroke="#6b3410" stroke-width="0.4"/></svg></a>
+          <a href="industry-hvac.html" role="menuitem">HVAC <svg class="ind-icon" viewBox="0 0 16 16"><rect x="2" y="3.5" width="12" height="9" rx="1.5" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.3"/><circle cx="8" cy="8" r="2.8" fill="#fff" stroke="#3b82f6" stroke-width="0.7"/><line x1="8" y1="5.2" x2="8" y2="10.8" stroke="#3b82f6" stroke-width="0.6"/><line x1="5.2" y1="8" x2="10.8" y2="8" stroke="#3b82f6" stroke-width="0.6"/><line x1="6" y1="6" x2="10" y2="10" stroke="#3b82f6" stroke-width="0.5"/><line x1="10" y1="6" x2="6" y2="10" stroke="#3b82f6" stroke-width="0.5"/><circle cx="8" cy="8" r="0.7" fill="#3b82f6"/><line x1="3.2" y1="5.5" x2="4.5" y2="5.5" stroke="#3b82f6" stroke-width="0.6"/><line x1="3.2" y1="7" x2="4.5" y2="7" stroke="#3b82f6" stroke-width="0.6"/><line x1="3.2" y1="8.5" x2="4.5" y2="8.5" stroke="#3b82f6" stroke-width="0.6"/><line x1="3.2" y1="10" x2="4.5" y2="10" stroke="#3b82f6" stroke-width="0.6"/><line x1="11.5" y1="5.5" x2="12.8" y2="5.5" stroke="#3b82f6" stroke-width="0.6"/><line x1="11.5" y1="7" x2="12.8" y2="7" stroke="#3b82f6" stroke-width="0.6"/><line x1="11.5" y1="8.5" x2="12.8" y2="8.5" stroke="#3b82f6" stroke-width="0.6"/><line x1="11.5" y1="10" x2="12.8" y2="10" stroke="#3b82f6" stroke-width="0.6"/></svg></a>
+          <a href="industry-plumbing.html" role="menuitem">Plumbing <svg class="ind-icon" viewBox="0 0 16 16" fill="none" stroke-linecap="round"><path d="M 1.5 4 L 7 4 Q 12 4, 12 9 L 12 14.5" stroke="#4b5563" stroke-width="3.6"/><path d="M 1.5 4 L 7 4 Q 12 4, 12 9 L 12 14.5" stroke="#9ca3af" stroke-width="2.2"/><path d="M 1.5 4 L 7 4 Q 12 4, 12 9 L 12 14.5" stroke="#3b82f6" stroke-width="1.1"/><rect x="0.5" y="2.2" width="2.2" height="3.6" rx="0.4" fill="#4b5563"/><rect x="0.5" y="2.5" width="2.2" height="0.4" fill="#1f2937"/><rect x="0.5" y="5" width="2.2" height="0.4" fill="#1f2937"/><circle cx="12" cy="9" r="2.4" fill="#4b5563"/><circle cx="12" cy="9" r="1.5" fill="#9ca3af"/><rect x="9.8" y="13.6" width="4.4" height="1.6" rx="0.4" fill="#4b5563"/><rect x="9.8" y="13.9" width="4.4" height="0.3" fill="#1f2937"/></svg></a>
+          <a href="industry-electrical.html" role="menuitem">Electrical ⚡</a>
+          <a href="industry-general-contractors.html" role="menuitem">General Contractors 🔧</a>
+          <a href="industry-painters.html" role="menuitem">Painters <svg class="ind-icon" viewBox="0 0 16 16"><path d="M 3 5.5 L 4 13 Q 4 14, 5 14 L 11 14 Q 12 14, 12 13 L 13 5.5 Z" fill="#ef4444"/><path d="M 3.5 10 L 4 13 Q 4 14, 5 14 L 11 14 Q 12 14, 12 13 L 12.5 10 Z" fill="#b91c1c"/><ellipse cx="8" cy="5.5" rx="5" ry="1.4" fill="#1d4ed8"/><ellipse cx="8" cy="5.2" rx="4" ry="0.7" fill="#60a5fa"/><path d="M 4.5 4.5 Q 8 1.5, 11.5 4.5" stroke="#4b5563" stroke-width="0.9" fill="none"/><circle cx="4.5" cy="4.5" r="0.6" fill="#4b5563"/><circle cx="11.5" cy="4.5" r="0.6" fill="#4b5563"/><path d="M 12.6 6.5 Q 12.9 8.5, 12.6 10.5 Q 12.3 8.5, 12.6 6.5 Z" fill="#1d4ed8"/><rect x="6" y="10.5" width="4" height="1.6" fill="#fff" opacity="0.85"/><rect x="6.5" y="11" width="3" height="0.4" fill="#b91c1c"/></svg></a>
+          <a href="industry-flooring.html" role="menuitem">Flooring 🪵</a>
+          <a href="industry-pool.html" role="menuitem">Pool <svg class="ind-icon" viewBox="0 0 16 16"><rect x="1" y="5" width="14" height="1.2" rx="0.3" fill="#d1d5db"/><rect x="2" y="6" width="12" height="8" rx="1.5" fill="#1d4ed8"/><rect x="2" y="6" width="12" height="2" fill="#3b82f6"/><line x1="4.5" y1="5" x2="4.5" y2="6" stroke="#9ca3af" stroke-width="0.4"/><line x1="8" y1="5" x2="8" y2="6" stroke="#9ca3af" stroke-width="0.4"/><line x1="11.5" y1="5" x2="11.5" y2="6" stroke="#9ca3af" stroke-width="0.4"/><line x1="3.6" y1="6" x2="3.6" y2="10" stroke="#fff" stroke-width="0.5"/><line x1="4.6" y1="6" x2="4.6" y2="10" stroke="#fff" stroke-width="0.5"/><line x1="3.4" y1="7.2" x2="4.8" y2="7.2" stroke="#fff" stroke-width="0.45"/><line x1="3.4" y1="8.6" x2="4.8" y2="8.6" stroke="#fff" stroke-width="0.45"/><path d="M 6 10 Q 7 9.4, 8 10 T 10 10 T 12 10" stroke="#fff" stroke-width="0.6" fill="none"/><path d="M 6 11.6 Q 7 11, 8 11.6 T 10 11.6 T 12 11.6" stroke="#fff" stroke-width="0.6" fill="none"/><path d="M 6 13 Q 7 12.5, 8 13 T 10 13 T 12 13" stroke="#fff" stroke-width="0.6" fill="none"/></svg></a>
+          <a href="industry-landscaping.html" role="menuitem">Landscaping <svg class="ind-icon" viewBox="0 0 16 16"><circle cx="8" cy="4.5" r="2.2" fill="#fb923c"/><path d="M 8 6 L 8 13" stroke="#16a34a" stroke-width="1.6"/><path d="M 4 13 Q 6 9, 8 13 Q 10 9, 12 13 L 12 14 L 4 14 Z" fill="#16a34a"/></svg></a>
+          <a href="industry-cleaning.html" role="menuitem">Cleaning 🧽</a>
+        </div>
+      </div>
       <a href="case-studies.html">Case Studies</a>
-      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-links">
+      <a href="login.html" class="btn-nav">Login</a>
       <a href="contact.html" class="btn-nav">Get in touch</a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
     </div>
   </div>
 </nav>
 
+<div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Site navigation" aria-modal="true">
+  <div class="mobile-menu-head">
+    <a href="index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 180 80" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="50" height="64" rx="8" fill="#0f1a2e"/><text x="25" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">S</text><rect x="58" y="0" width="50" height="64" rx="8" fill="#374151"/><text x="83" y="44" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">S</text><rect x="116" y="8" width="50" height="64" rx="8" fill="#0f1a2e"/><text x="141" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">C</text></svg>
+      <div class="logo-text">Simple <span>Solutions</span></div>
+    </a>
+    <button class="mobile-menu-close" aria-label="Close menu"></button>
+  </div>
+  <div class="mobile-menu-section">
+    <div class="mobile-menu-label">Services</div>
+    <a href="service-247-answering.html">24/7 Answering <svg class="ind-icon" viewBox="0 0 16 16"><path fill="#16a34a" d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328z"/></svg></a>
+    <a href="service-quick-response.html">Quick Response <svg class="ind-icon" viewBox="0 0 16 16"><path d="M 9 1 L 3 9 L 7 9 L 5 15 L 13 7 L 9 7 Z" fill="#f59e0b" stroke="#d97706" stroke-width="0.5" stroke-linejoin="round"/><path d="M 9 1 L 4.5 7.5 L 6.5 7.5" stroke="#fde088" stroke-width="0.6" fill="none" stroke-linejoin="round"/></svg></a>
+    <a href="service-real-time-analytics.html">Real Time Analytics <svg class="ind-icon" viewBox="0 0 16 16"><line x1="1.5" y1="14.2" x2="14.5" y2="14.2" stroke="#9ca3af" stroke-width="0.5"/><rect x="2" y="9" width="2.5" height="5.2" fill="#0f1a2e" rx="0.3"/><rect x="6" y="6" width="2.5" height="8.2" fill="#3b82f6" rx="0.3"/><rect x="10" y="3" width="2.5" height="11.2" fill="#22c55e" rx="0.3"/><path d="M 3 9 L 7 6 L 11 3" stroke="#374151" stroke-width="0.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M 9 3.5 L 11 3 L 11.5 5" stroke="#374151" stroke-width="0.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
+  <div class="mobile-menu-section">
+    <div class="mobile-menu-label">Industries</div>
+    <a href="industry-roofing.html">Roofing <svg class="ind-icon" viewBox="0 0 16 16"><rect x="10.5" y="3.5" width="1.8" height="3" fill="#6b3410"/><rect x="10.2" y="3.2" width="2.4" height="0.6" fill="#4a2208"/><path d="M 8 2.5 L 15 9 L 13 9 L 13 10 L 3 10 L 3 9 L 1 9 Z" fill="#a0522d"/><line x1="3" y1="9" x2="13" y2="9" stroke="#6b3410" stroke-width="0.4"/><line x1="4.5" y1="7.5" x2="11.5" y2="7.5" stroke="#6b3410" stroke-width="0.4"/><line x1="6" y1="6" x2="10" y2="6" stroke="#6b3410" stroke-width="0.4"/></svg></a>
+    <a href="industry-hvac.html">HVAC <svg class="ind-icon" viewBox="0 0 16 16"><rect x="2" y="3.5" width="12" height="9" rx="1.5" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.3"/><circle cx="8" cy="8" r="2.8" fill="#fff" stroke="#3b82f6" stroke-width="0.7"/><line x1="8" y1="5.2" x2="8" y2="10.8" stroke="#3b82f6" stroke-width="0.6"/><line x1="5.2" y1="8" x2="10.8" y2="8" stroke="#3b82f6" stroke-width="0.6"/><line x1="6" y1="6" x2="10" y2="10" stroke="#3b82f6" stroke-width="0.5"/><line x1="10" y1="6" x2="6" y2="10" stroke="#3b82f6" stroke-width="0.5"/><circle cx="8" cy="8" r="0.7" fill="#3b82f6"/><line x1="3.2" y1="5.5" x2="4.5" y2="5.5" stroke="#3b82f6" stroke-width="0.6"/><line x1="3.2" y1="7" x2="4.5" y2="7" stroke="#3b82f6" stroke-width="0.6"/><line x1="3.2" y1="8.5" x2="4.5" y2="8.5" stroke="#3b82f6" stroke-width="0.6"/><line x1="3.2" y1="10" x2="4.5" y2="10" stroke="#3b82f6" stroke-width="0.6"/><line x1="11.5" y1="5.5" x2="12.8" y2="5.5" stroke="#3b82f6" stroke-width="0.6"/><line x1="11.5" y1="7" x2="12.8" y2="7" stroke="#3b82f6" stroke-width="0.6"/><line x1="11.5" y1="8.5" x2="12.8" y2="8.5" stroke="#3b82f6" stroke-width="0.6"/><line x1="11.5" y1="10" x2="12.8" y2="10" stroke="#3b82f6" stroke-width="0.6"/></svg></a>
+    <a href="industry-plumbing.html">Plumbing <svg class="ind-icon" viewBox="0 0 16 16" fill="none" stroke-linecap="round"><path d="M 1.5 4 L 7 4 Q 12 4, 12 9 L 12 14.5" stroke="#4b5563" stroke-width="3.6"/><path d="M 1.5 4 L 7 4 Q 12 4, 12 9 L 12 14.5" stroke="#9ca3af" stroke-width="2.2"/><path d="M 1.5 4 L 7 4 Q 12 4, 12 9 L 12 14.5" stroke="#3b82f6" stroke-width="1.1"/><rect x="0.5" y="2.2" width="2.2" height="3.6" rx="0.4" fill="#4b5563"/><rect x="0.5" y="2.5" width="2.2" height="0.4" fill="#1f2937"/><rect x="0.5" y="5" width="2.2" height="0.4" fill="#1f2937"/><circle cx="12" cy="9" r="2.4" fill="#4b5563"/><circle cx="12" cy="9" r="1.5" fill="#9ca3af"/><rect x="9.8" y="13.6" width="4.4" height="1.6" rx="0.4" fill="#4b5563"/><rect x="9.8" y="13.9" width="4.4" height="0.3" fill="#1f2937"/></svg></a>
+    <a href="industry-electrical.html">Electrical ⚡</a>
+    <a href="industry-general-contractors.html">General Contractors 🔧</a>
+    <a href="industry-painters.html">Painters <svg class="ind-icon" viewBox="0 0 16 16"><path d="M 3 5.5 L 4 13 Q 4 14, 5 14 L 11 14 Q 12 14, 12 13 L 13 5.5 Z" fill="#ef4444"/><path d="M 3.5 10 L 4 13 Q 4 14, 5 14 L 11 14 Q 12 14, 12 13 L 12.5 10 Z" fill="#b91c1c"/><ellipse cx="8" cy="5.5" rx="5" ry="1.4" fill="#1d4ed8"/><ellipse cx="8" cy="5.2" rx="4" ry="0.7" fill="#60a5fa"/><path d="M 4.5 4.5 Q 8 1.5, 11.5 4.5" stroke="#4b5563" stroke-width="0.9" fill="none"/><circle cx="4.5" cy="4.5" r="0.6" fill="#4b5563"/><circle cx="11.5" cy="4.5" r="0.6" fill="#4b5563"/><path d="M 12.6 6.5 Q 12.9 8.5, 12.6 10.5 Q 12.3 8.5, 12.6 6.5 Z" fill="#1d4ed8"/><rect x="6" y="10.5" width="4" height="1.6" fill="#fff" opacity="0.85"/><rect x="6.5" y="11" width="3" height="0.4" fill="#b91c1c"/></svg></a>
+    <a href="industry-flooring.html">Flooring 🪵</a>
+    <a href="industry-pool.html">Pool <svg class="ind-icon" viewBox="0 0 16 16"><rect x="1" y="5" width="14" height="1.2" rx="0.3" fill="#d1d5db"/><rect x="2" y="6" width="12" height="8" rx="1.5" fill="#1d4ed8"/><rect x="2" y="6" width="12" height="2" fill="#3b82f6"/><line x1="4.5" y1="5" x2="4.5" y2="6" stroke="#9ca3af" stroke-width="0.4"/><line x1="8" y1="5" x2="8" y2="6" stroke="#9ca3af" stroke-width="0.4"/><line x1="11.5" y1="5" x2="11.5" y2="6" stroke="#9ca3af" stroke-width="0.4"/><line x1="3.6" y1="6" x2="3.6" y2="10" stroke="#fff" stroke-width="0.5"/><line x1="4.6" y1="6" x2="4.6" y2="10" stroke="#fff" stroke-width="0.5"/><line x1="3.4" y1="7.2" x2="4.8" y2="7.2" stroke="#fff" stroke-width="0.45"/><line x1="3.4" y1="8.6" x2="4.8" y2="8.6" stroke="#fff" stroke-width="0.45"/><path d="M 6 10 Q 7 9.4, 8 10 T 10 10 T 12 10" stroke="#fff" stroke-width="0.6" fill="none"/><path d="M 6 11.6 Q 7 11, 8 11.6 T 10 11.6 T 12 11.6" stroke="#fff" stroke-width="0.6" fill="none"/><path d="M 6 13 Q 7 12.5, 8 13 T 10 13 T 12 13" stroke="#fff" stroke-width="0.6" fill="none"/></svg></a>
+    <a href="industry-landscaping.html">Landscaping <svg class="ind-icon" viewBox="0 0 16 16"><circle cx="8" cy="4.5" r="2.2" fill="#fb923c"/><path d="M 8 6 L 8 13" stroke="#16a34a" stroke-width="1.6"/><path d="M 4 13 Q 6 9, 8 13 Q 10 9, 12 13 L 12 14 L 4 14 Z" fill="#16a34a"/></svg></a>
+    <a href="industry-cleaning.html">Cleaning 🧽</a>
+  </div>
+  <div class="mobile-menu-section">
+    <a href="case-studies.html">Case Studies</a>
+  </div>
+  <div class="mobile-menu-footer">
+    <a href="login.html" class="btn-secondary">Login</a>
+    <a href="contact.html">Get in touch</a>
+  </div>
+</div>
+
 <!-- ── HERO ── -->
 <section class="hero">
-  <div class="hero-bg hero-bg-1 active"></div>
-  <div class="hero-bg hero-bg-2"></div>
-  <div class="hero-bg hero-bg-3"></div>
   <div class="hero-inner">
-    <div class="hero-badge">AI-Powered Automation</div>
-    <h1>Simple Solutions</h1>
-    <p>The Build is ours. The Results are yours.</p>
-    <div class="hero-ctas">
-      <a href="contact.html" class="hero-cta">
-        Get started
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-      </a>
-      <a href="#services" class="hero-cta-secondary">
-        See our Services
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-      </a>
+    <div class="hero-content">
+      <div class="hero-badge">AI-Powered Automation</div>
+      <h1>Simple Solutions</h1>
+      <p class="hero-tagline">The Build is ours. The Results are yours.</p>
+      <p class="hero-desc">AI workflows built inside your business — 24/7 answering, instant-reply bots, and live analytics that turn missed calls into booked jobs. Plugged into the tools you already run on.</p>
+      <div class="hero-ctas">
+        <a href="contact.html" class="hero-cta">
+          Get started
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+        </a>
+        <a href="#services" class="hero-cta-secondary">
+          See our Services
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="hero-slideshow">
+      <div class="slideshow" id="slideshow">
+        <div class="slide active"><img src="images/roofing.jpg" alt="Roofing"><div class="slide-name">Roofing</div></div>
+        <div class="slide"><img src="images/hvac.jpg" alt="HVAC"><div class="slide-name">HVAC</div></div>
+        <div class="slide"><img src="images/plumbing.jpg" alt="Plumbing"><div class="slide-name">Plumbing</div></div>
+        <div class="slide"><img src="images/electrical.jpg" alt="Electrical"><div class="slide-name">Electrical</div></div>
+        <div class="slide"><img src="images/general-contractor.jpg" alt="General Contractors"><div class="slide-name">General Contractors</div></div>
+        <div class="slide"><img src="images/painters.jpg" alt="Painters"><div class="slide-name">Painters</div></div>
+        <div class="slide"><img src="images/flooring.jpg" alt="Flooring"><div class="slide-name">Flooring</div></div>
+        <div class="slide"><img src="images/pool.jpg" alt="Pool"><div class="slide-name">Pool</div></div>
+        <div class="slide"><img src="images/landscaping.jpg" alt="Landscaping"><div class="slide-name">Landscaping</div></div>
+        <div class="slide"><img src="images/cleaning.jpg" alt="Cleaning"><div class="slide-name">Cleaning</div></div>
+      </div>
+      <div class="slide-dots" id="slide-dots">
+        <button class="dot active" data-i="0">Roofing</button>
+        <button class="dot" data-i="1">HVAC</button>
+        <button class="dot" data-i="2">Plumbing</button>
+        <button class="dot" data-i="3">Electrical</button>
+        <button class="dot" data-i="4">General Contractors</button>
+        <button class="dot" data-i="5">Painters</button>
+        <button class="dot" data-i="6">Flooring</button>
+        <button class="dot" data-i="7">Pool</button>
+        <button class="dot" data-i="8">Landscaping</button>
+        <button class="dot" data-i="9">Cleaning</button>
+      </div>
     </div>
   </div>
 </section>
+
+<script>
+  (function () {
+    const slides = document.querySelectorAll('#slideshow .slide');
+    const dots = document.querySelectorAll('#slide-dots .dot');
+    let idx = 0;
+    let timer = null;
+
+    function show(i) {
+      slides[idx].classList.remove('active');
+      dots[idx].classList.remove('active');
+      idx = (i + slides.length) % slides.length;
+      slides[idx].classList.add('active');
+      dots[idx].classList.add('active');
+    }
+    function next() { show(idx + 1); }
+    function start() { timer = setInterval(next, 3000); }
+    function stop() { clearInterval(timer); }
+
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        stop();
+        show(parseInt(dot.dataset.i, 10));
+        start();
+      });
+    });
+
+    const slideshow = document.getElementById('slideshow');
+    slideshow.addEventListener('mouseenter', stop);
+    slideshow.addEventListener('mouseleave', start);
+
+    start();
+  })();
+</script>
 
 <!-- ── SPEED TO LEAD ANIMATION ── -->
 <section class="speed-to-lead">
@@ -820,7 +1136,7 @@
 
       <div class="stl-row">
         <div class="stl-row-label">
-          Typical competitor
+          Current situation
           <span class="stl-sublabel">Manual follow-up</span>
         </div>
         <div class="stl-bar-wrap">
@@ -837,95 +1153,157 @@
   </div>
 </section>
 
-<script>
-  const bgs = document.querySelectorAll('.hero-bg');
-  let current = 0;
-  setInterval(() => {
-    bgs[current].classList.remove('active');
-    current = (current + 1) % bgs.length;
-    bgs[current].classList.add('active');
-  }, 5000);
-</script>
-
 <!-- ── HOW IT WORKS ── -->
-<section class="how-it-works" id="how">
+<section class="how-it-works" id="services">
   <div class="how-inner">
-    <div class="section-label">How it works</div>
-    <h2>Three steps to a full pipeline.</h2>
+    <div class="section-label">Service Categories</div>
+    <h2>Built into every workflow.</h2>
     <div class="steps-grid">
       <div class="step-card">
         <div class="step-num">01</div>
-        <h3>Plug in, don't rip out</h3>
-        <p>We build AI workflows inside HubSpot, ServiceTitan, Jobber, GoHighLevel — whatever you already pay for. No migration, no disruption.</p>
+        <h3>24/7 Answering</h3>
+        <p>24/7 on-call answering across every channel. Customers reach you anytime — and we book confirmed jobs, even at 2am.</p>
+        <div class="step-anim anim-dash" aria-hidden="true">
+          <svg viewBox="0 0 240 140" xmlns="http://www.w3.org/2000/svg">
+            <rect width="240" height="140" rx="8" fill="#fff"/>
+            <rect width="240" height="22" rx="8" fill="#e8e6e0"/>
+            <rect y="14" width="240" height="8" fill="#e8e6e0"/>
+            <circle cx="12" cy="11" r="3" fill="#9ca3af"/>
+            <circle cx="24" cy="11" r="3" fill="#9ca3af"/>
+            <circle cx="36" cy="11" r="3" fill="#9ca3af"/>
+            <text x="120" y="14" font-family="Inter,sans-serif" font-size="8" font-weight="700" text-anchor="middle" fill="#374151">Leads · Live</text>
+            <line x1="0" y1="22" x2="240" y2="22" stroke="#d1d5db" stroke-width="0.5"/>
+            <g class="row row-1">
+              <rect x="8" y="32" width="224" height="20" rx="4" fill="#f5f3f0"/>
+              <circle cx="20" cy="42" r="6" fill="#3b82f6"/>
+              <text x="20" y="45" font-family="Inter,sans-serif" font-size="7" font-weight="700" text-anchor="middle" fill="#fff">M</text>
+              <text x="32" y="40" font-family="Inter,sans-serif" font-size="7.5" font-weight="600" fill="#111827">Mike R.</text>
+              <text x="32" y="49" font-family="Inter,sans-serif" font-size="6.5" fill="#6b7280">Roof inspection · 2 min ago</text>
+              <circle cx="218" cy="42" r="5" fill="#22c55e"/>
+              <path d="M 215 42 L 217 44 L 221 40" stroke="#fff" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+            <g class="row row-2">
+              <rect x="8" y="56" width="224" height="20" rx="4" fill="#f5f3f0"/>
+              <circle cx="20" cy="66" r="6" fill="#10b981"/>
+              <text x="20" y="69" font-family="Inter,sans-serif" font-size="7" font-weight="700" text-anchor="middle" fill="#fff">S</text>
+              <text x="32" y="64" font-family="Inter,sans-serif" font-size="7.5" font-weight="600" fill="#111827">Sarah K.</text>
+              <text x="32" y="73" font-family="Inter,sans-serif" font-size="6.5" fill="#6b7280">HVAC tune-up · 4 min ago</text>
+              <circle cx="218" cy="66" r="5" fill="#22c55e"/>
+              <path d="M 215 66 L 217 68 L 221 64" stroke="#fff" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+            <g class="row row-3">
+              <rect x="8" y="80" width="224" height="20" rx="4" fill="#f5f3f0"/>
+              <circle cx="20" cy="90" r="6" fill="#f59e0b"/>
+              <text x="20" y="93" font-family="Inter,sans-serif" font-size="7" font-weight="700" text-anchor="middle" fill="#fff">C</text>
+              <text x="32" y="88" font-family="Inter,sans-serif" font-size="7.5" font-weight="600" fill="#111827">Carlos D.</text>
+              <text x="32" y="97" font-family="Inter,sans-serif" font-size="6.5" fill="#6b7280">Plumbing leak · 6 min ago</text>
+              <circle cx="218" cy="90" r="5" fill="#22c55e"/>
+              <path d="M 215 90 L 217 92 L 221 88" stroke="#fff" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+            <g class="row row-4">
+              <rect x="8" y="104" width="224" height="20" rx="4" fill="#f5f3f0"/>
+              <circle cx="20" cy="114" r="6" fill="#8b5cf6"/>
+              <text x="20" y="117" font-family="Inter,sans-serif" font-size="7" font-weight="700" text-anchor="middle" fill="#fff">J</text>
+              <text x="32" y="112" font-family="Inter,sans-serif" font-size="7.5" font-weight="600" fill="#111827">Jen P.</text>
+              <text x="32" y="121" font-family="Inter,sans-serif" font-size="6.5" fill="#6b7280">Painting quote · just now</text>
+              <circle cx="218" cy="114" r="5" fill="#22c55e"/>
+              <path d="M 215 114 L 217 116 L 221 112" stroke="#fff" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+          </svg>
+        </div>
+        <div class="step-stat">
+          <div class="step-stat-num">260%</div>
+          <div class="step-stat-body">
+            <div class="step-stat-label">Lift in lead conversions with 24/7 response</div>
+            <div class="step-stat-source">Source: Velocify Lead Response Study</div>
+          </div>
+        </div>
+        <a href="service-247-answering.html" class="step-learn">Learn more</a>
       </div>
       <div class="step-card">
         <div class="step-num">02</div>
-        <h3>Automate the repetitive stuff</h3>
-        <p>Lead response, scheduling, follow-ups, review requests — handled automatically the moment they need to happen.</p>
+        <h3>Quick Response</h3>
+        <p>Replies in seconds, not minutes. The first to respond wins the deal — and we make sure that's always you, every lead.</p>
+        <div class="step-anim anim-msg" aria-hidden="true">
+          <svg viewBox="0 0 240 140" xmlns="http://www.w3.org/2000/svg">
+            <rect width="240" height="140" rx="8" fill="#fff"/>
+            <text x="14" y="18" font-family="Inter,sans-serif" font-size="7" font-weight="700" fill="#6b7280">CUSTOMER · 7:42 PM</text>
+            <g class="msg-in">
+              <path d="M 14 24 Q 14 22, 16 22 L 130 22 Q 132 22, 132 24 L 132 50 Q 132 52, 130 52 L 24 52 L 18 58 L 20 52 L 16 52 Q 14 52, 14 50 Z" fill="#e8e6e0"/>
+              <text x="22" y="36" font-family="Inter,sans-serif" font-size="7.5" fill="#111827">Hi — water heater</text>
+              <text x="22" y="46" font-family="Inter,sans-serif" font-size="7.5" fill="#111827">leaking. Help?</text>
+            </g>
+            <text x="226" y="68" font-family="Inter,sans-serif" font-size="7" font-weight="700" text-anchor="end" fill="#3b82f6">SIMPLE SOLUTIONS · NOW</text>
+            <g class="msg-out">
+              <path d="M 226 74 Q 226 72, 224 72 L 110 72 Q 108 72, 108 74 L 108 110 Q 108 112, 110 112 L 216 112 L 222 118 L 220 112 L 224 112 Q 226 112, 226 110 Z" fill="#3b82f6"/>
+              <text x="118" y="86" font-family="Inter,sans-serif" font-size="7.5" fill="#fff">On it. Tech booked</text>
+              <text x="118" y="96" font-family="Inter,sans-serif" font-size="7.5" fill="#fff">for 8:15 PM tonight.</text>
+              <text x="118" y="106" font-family="Inter,sans-serif" font-size="7.5" font-weight="700" fill="#fff">Confirmation sent ✓</text>
+            </g>
+            <g class="time-badge">
+              <rect x="98" y="120" width="68" height="16" rx="8" fill="#22c55e"/>
+              <circle cx="108" cy="128" r="2.5" fill="#fff"/>
+              <text x="116" y="131" font-family="Inter,sans-serif" font-size="7.5" font-weight="700" fill="#fff">Replied in 11s</text>
+            </g>
+          </svg>
+        </div>
+        <div class="step-stat">
+          <div class="step-stat-num">21×</div>
+          <div class="step-stat-body">
+            <div class="step-stat-label">More likely to convert when you reply in under 5 minutes</div>
+            <div class="step-stat-source">Source: Harvard Business Review</div>
+          </div>
+        </div>
+        <a href="service-quick-response.html" class="step-learn">Learn more</a>
       </div>
       <div class="step-card">
         <div class="step-num">03</div>
-        <h3>Scale without hiring</h3>
-        <p>Your workflows run 24/7. More leads get closed, more jobs get booked, and your team focuses on the work.</p>
+        <h3>Real Time Analytics</h3>
+        <p>Every lead, response, and booking tracked in one live dashboard. Know what's working before it's too late to adjust.</p>
+        <div class="step-anim anim-analytics" aria-hidden="true">
+          <svg viewBox="0 0 240 140" xmlns="http://www.w3.org/2000/svg">
+            <rect width="240" height="140" rx="8" fill="#fff"/>
+            <rect width="240" height="20" rx="8" fill="#e8e6e0"/>
+            <rect y="12" width="240" height="8" fill="#e8e6e0"/>
+            <text x="14" y="13" font-family="Inter,sans-serif" font-size="7.5" font-weight="700" fill="#374151">Analytics</text>
+            <circle class="live-dot" cx="216" cy="10" r="3" fill="#22c55e"/>
+            <text x="222" y="13" font-family="Inter,sans-serif" font-size="6.5" font-weight="700" fill="#374151">LIVE</text>
+            <g>
+              <rect x="8" y="26" width="70" height="38" rx="4" fill="#f5f3f0"/>
+              <text x="14" y="38" font-family="Inter,sans-serif" font-size="6.5" font-weight="600" fill="#6b7280">LEADS</text>
+              <text class="kpi-pulse" x="14" y="56" font-family="Inter,sans-serif" font-size="15" font-weight="800" fill="#0f1a2e">247</text>
+              <text x="56" y="56" font-family="Inter,sans-serif" font-size="7" font-weight="700" fill="#22c55e">+18%</text>
+            </g>
+            <g>
+              <rect x="82" y="26" width="70" height="38" rx="4" fill="#f5f3f0"/>
+              <text x="88" y="38" font-family="Inter,sans-serif" font-size="6.5" font-weight="600" fill="#6b7280">CONVERT</text>
+              <text class="kpi-pulse kpi-pulse-2" x="88" y="56" font-family="Inter,sans-serif" font-size="15" font-weight="800" fill="#0f1a2e">68%</text>
+              <text x="130" y="56" font-family="Inter,sans-serif" font-size="7" font-weight="700" fill="#22c55e">+4%</text>
+            </g>
+            <g>
+              <rect x="156" y="26" width="76" height="38" rx="4" fill="#f5f3f0"/>
+              <text x="162" y="38" font-family="Inter,sans-serif" font-size="6.5" font-weight="600" fill="#6b7280">PIPELINE</text>
+              <text class="kpi-pulse kpi-pulse-3" x="162" y="56" font-family="Inter,sans-serif" font-size="14" font-weight="800" fill="#3b82f6">$48k</text>
+            </g>
+            <line x1="8" y1="128" x2="232" y2="128" stroke="#d1d5db" stroke-width="0.6"/>
+            <rect class="bar a1" x="14" y="100" width="24" height="28" rx="2" fill="#0f1a2e"/>
+            <rect class="bar a2" x="44" y="86" width="24" height="42" rx="2" fill="#3b82f6"/>
+            <rect class="bar a3" x="74" y="94" width="24" height="34" rx="2" fill="#0f1a2e"/>
+            <rect class="bar a4" x="104" y="78" width="24" height="50" rx="2" fill="#3b82f6"/>
+            <rect class="bar a5" x="134" y="92" width="24" height="36" rx="2" fill="#0f1a2e"/>
+            <rect class="bar a6" x="164" y="82" width="24" height="46" rx="2" fill="#3b82f6"/>
+            <rect class="bar a7" x="194" y="88" width="24" height="40" rx="2" fill="#0f1a2e"/>
+          </svg>
+        </div>
+        <div class="step-stat">
+          <div class="step-stat-num">26%</div>
+          <div class="step-stat-body">
+            <div class="step-stat-label">Higher conversion rates with live tracking</div>
+            <div class="step-stat-source">Source: Salesforce State of Sales</div>
+          </div>
+        </div>
+        <a href="service-real-time-analytics.html" class="step-learn">Learn more</a>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── SERVICES ── -->
-<section class="services" id="services">
-  <div class="services-inner">
-    <h2>Four Solutions within your Business.</h2>
-    <div class="services-grid">
-
-      <!-- Card 01 -->
-      <div class="service-card">
-        <div class="service-type">01 — Single workflow</div>
-        <h3>Speed to Lead Workflow</h3>
-        <ul>
-          <li><svg class="check-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Instant lead response bot</li>
-          <li><svg class="check-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Automatic follow-up sequences</li>
-          <li><svg class="check-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Lead routing &amp; notifications</li>
-        </ul>
-        <a href="service-speed-to-lead.html" class="btn-service">Get started</a>
-      </div>
-
-      <!-- Card 02 — Featured -->
-      <div class="service-card featured">
-        <div class="service-type">02 — Enterprise</div>
-        <h3>Appointment Setting</h3>
-        <ul>
-          <li><svg class="check-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Automated appointment scheduling</li>
-          <li><svg class="check-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Constant follow-ups &amp; reminders</li>
-          <li><svg class="check-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Multi-channel outreach sequences</li>
-        </ul>
-        <a href="service-appointment-setting.html" class="btn-service">Get started</a>
-      </div>
-
-      <!-- Card 03 — Featured -->
-      <div class="service-card featured">
-        <div class="service-type">03 — AI-Powered</div>
-        <h3>Website Chat Bot</h3>
-        <ul>
-          <li><svg class="check-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>AI-powered live chat</li>
-          <li><svg class="check-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Lead qualification &amp; capture</li>
-          <li><svg class="check-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Automated appointment booking</li>
-        </ul>
-        <a href="service-website-chatbot.html" class="btn-service">Get started</a>
-      </div>
-
-      <!-- Card 04 -->
-      <div class="service-card">
-        <div class="service-type">04 — Web presence</div>
-        <h3>Website Creation Through a Modern Lens</h3>
-        <ul>
-          <li><svg class="check-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Clean, conversion-focused design</li>
-          <li><svg class="check-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Mobile-first &amp; fast-loading</li>
-          <li><svg class="check-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Integrated with your CRM &amp; tools</li>
-        </ul>
-        <a href="service-website-creation.html" class="btn-service">Get started</a>
-      </div>
-
     </div>
   </div>
 </section>
@@ -936,9 +1314,8 @@
     <div class="about-content">
       <div class="section-label">About us</div>
       <h2>We're AI contractors — not consultants.</h2>
-      <p>Simple Solutions is a team of AI contractors who build, deploy, and maintain automation workflows for businesses that run on tools like HubSpot, ServiceTitan, Jobber, and GoHighLevel. We don't sell advice or strategy decks — we get inside your existing software and wire it up to work smarter.</p>
-      <p>Think of us as the crew you bring in to install the electrical, not the architect who hands you a blueprint. We handle the technical build so your team can focus on running the business, not managing software.</p>
-      <p>Every workflow we create is custom-built around how your operation actually runs — your leads, your scheduling, your follow-ups, your CRM. No templates, no one-size-fits-all platforms. Just clean automation that plugs directly into the tools you already pay for.</p>
+      <p>At Simple Solutions we build automation inside your business — workflows that capture more leads, book more jobs, and grow your client base without growing your headcount. Efficiency you can measure. Customers you can count.</p>
+      <p>We handle the build. The results are yours.</p>
     </div>
     <div class="about-stats">
       <div class="stat-card">
@@ -964,7 +1341,7 @@
       <div class="section-label">Get started</div>
       <h2>Book a free AI readiness audit.</h2>
       <p>30 minutes. We map your workflows, identify automation opportunities, and give you a plain-English plan. No pitch, no pressure.</p>
-      <p class="cta-email-link">Or email us at <a href="mailto:deasimplesolutions@gmail.com">deasimplesolutions@gmail.com</a></p>
+      <p class="cta-email-link">Or email us at <a href="mailto:dea@simplesolutions-c.com">dea@simplesolutions-c.com</a></p>
     </div>
     <div class="cta-form">
       <label for="work-email">Work email</label>
@@ -992,7 +1369,7 @@
         </svg>
         <div class="footer-logo-text">Simple <span>Solutions</span></div>
       </a>
-    <p>&copy; 2026 Simple Solutions &middot; <a href="mailto:deasimplesolutions@gmail.com">deasimplesolutions@gmail.com</a></p>
+    <p>&copy; 2026 Simple Solutions &middot; <a href="mailto:dea@simplesolutions-c.com">dea@simplesolutions-c.com</a></p>
   </div>
 </footer>
 

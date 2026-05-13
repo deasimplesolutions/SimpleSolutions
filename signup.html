@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create your account — Simple Solutions</title>
+  <meta name="description" content="Create your Simple Solutions account.">
+  <meta name="robots" content="noindex, nofollow">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --navy: #0f1a2e;
+      --navy-light: #1a2744;
+      --gray-900: #111827;
+      --gray-700: #374151;
+      --gray-500: #6b7280;
+      --gray-300: #d1d5db;
+      --gray-100: #f5f3f0;
+      --white: #ffffff;
+      --bg: #faf9f7;
+      --bg-alt: #f0eee9;
+      --red: #dc2626;
+      --green: #16a34a;
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--gray-900);
+      background: var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .auth-nav {
+      padding: 1.4rem 2rem;
+      border-bottom: 1px solid var(--bg-alt);
+    }
+    .auth-nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      text-decoration: none;
+    }
+    .auth-nav .logo-icon { height: 32px; width: auto; }
+    .auth-nav .logo-text {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+    }
+    .auth-nav .logo-text span { color: var(--gray-500); }
+    .auth-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1.5rem;
+    }
+    .auth-card {
+      width: 100%;
+      max-width: 460px;
+      background: var(--white);
+      border: 1px solid var(--bg-alt);
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 10px 30px rgba(15,26,46,0.06);
+    }
+    .auth-card h1 {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+    }
+    .auth-card .sub {
+      color: var(--gray-500);
+      font-size: 0.95rem;
+      margin-bottom: 1.8rem;
+    }
+    .field { margin-bottom: 1.1rem; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--gray-700);
+      margin-bottom: 0.4rem;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 0.75rem 0.9rem;
+      border: 1px solid var(--gray-300);
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: var(--gray-900);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input:focus { border-color: var(--navy); box-shadow: 0 0 0 3px rgba(15,26,46,0.08); }
+    .password-wrap { position: relative; }
+    .toggle-pw {
+      position: absolute;
+      right: 0.7rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--gray-500);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+    }
+    .toggle-pw:hover { color: var(--navy); }
+    .hint {
+      font-size: 0.78rem;
+      color: var(--gray-500);
+      margin-top: 0.35rem;
+    }
+    .match-msg { font-size: 0.78rem; margin-top: 0.35rem; min-height: 1em; }
+    .match-msg.ok { color: var(--green); }
+    .match-msg.bad { color: var(--red); }
+    .submit-btn {
+      width: 100%;
+      padding: 0.9rem;
+      border: none;
+      border-radius: 10px;
+      background: var(--navy);
+      color: var(--white);
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      margin-top: 0.5rem;
+    }
+    .submit-btn:hover { background: var(--navy-light); transform: translateY(-1px); }
+    .submit-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(15,26,46,0.25); }
+    .submit-btn:disabled { background: var(--gray-300); cursor: not-allowed; transform: none; }
+    .toggle-pw:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; border-radius: 4px; }
+    .alert {
+      padding: 0.75rem 0.9rem;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      margin-bottom: 1.2rem;
+      display: none;
+    }
+    .alert.show { display: block; }
+    .alert.error { background: #fef2f2; color: var(--red); border: 1px solid #fecaca; }
+    .alert.success { background: #f0fdf4; color: var(--green); border: 1px solid #bbf7d0; }
+    .auth-foot {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--gray-500);
+    }
+    .auth-foot a {
+      color: var(--navy);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .auth-foot a:hover { text-decoration: underline; }
+    @media (max-width: 480px) {
+      .auth-card { padding: 1.8rem 1.4rem; }
+      .field-row { grid-template-columns: 1fr; gap: 0; }
+      .field-row .field { margin-bottom: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="auth-nav">
+  <a href="index.html">
+    <svg class="logo-icon" viewBox="0 0 180 80" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="8" width="50" height="64" rx="8" fill="#0f1a2e"/>
+      <text x="25" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">S</text>
+      <rect x="58" y="0" width="50" height="64" rx="8" fill="#374151"/>
+      <text x="83" y="44" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">S</text>
+      <rect x="116" y="8" width="50" height="64" rx="8" fill="#0f1a2e"/>
+      <text x="141" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">C</text>
+    </svg>
+    <div class="logo-text">Simple <span>Solutions</span></div>
+  </a>
+</nav>
+
+<div class="auth-wrap">
+  <div class="auth-card">
+    <h1>Create your account</h1>
+    <p class="sub">Get started with Simple Solutions in under a minute.</p>
+
+    <div id="alert" class="alert"></div>
+
+    <form id="signup-form" novalidate>
+      <div class="field-row">
+        <div class="field">
+          <label for="firstName">First name</label>
+          <input type="text" id="firstName" name="firstName" autocomplete="given-name" required>
+        </div>
+        <div class="field">
+          <label for="lastName">Last name</label>
+          <input type="text" id="lastName" name="lastName" autocomplete="family-name" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" autocomplete="email" placeholder="you@company.com" required>
+      </div>
+
+      <div class="field">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" autocomplete="username" required>
+        <div class="hint">3–20 characters. Letters, numbers, dots, dashes, underscores.</div>
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <div class="password-wrap">
+          <input type="password" id="password" name="password" autocomplete="new-password" required>
+          <button type="button" class="toggle-pw" data-target="password">Show</button>
+        </div>
+        <div class="hint" id="pw-hint">At least 8 characters with an uppercase letter, a lowercase letter, and a number.</div>
+      </div>
+
+      <div class="field">
+        <label for="confirmPassword">Confirm password</label>
+        <div class="password-wrap">
+          <input type="password" id="confirmPassword" name="confirmPassword" autocomplete="new-password" required>
+          <button type="button" class="toggle-pw" data-target="confirmPassword">Show</button>
+        </div>
+        <div class="match-msg" id="match-msg"></div>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submit-btn">Create account</button>
+    </form>
+
+    <div class="auth-foot">
+      Already have an account? <a href="login.html">Login</a>
+    </div>
+  </div>
+</div>
+
+<script src="auth.js"></script>
+<script>
+  const form = document.getElementById('signup-form');
+  const alertEl = document.getElementById('alert');
+  const submitBtn = document.getElementById('submit-btn');
+  const pwHint = document.getElementById('pw-hint');
+  const matchMsg = document.getElementById('match-msg');
+  const pw = document.getElementById('password');
+  const cpw = document.getElementById('confirmPassword');
+
+  document.querySelectorAll('.toggle-pw').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = document.getElementById(btn.dataset.target);
+      if (target.type === 'password') {
+        target.type = 'text';
+        btn.textContent = 'Hide';
+      } else {
+        target.type = 'password';
+        btn.textContent = 'Show';
+      }
+    });
+  });
+
+  function updatePwHint() {
+    const issues = SSCAuth.passwordIssues(pw.value);
+    if (!pw.value) {
+      pwHint.style.color = '';
+      pwHint.textContent = 'At least 8 characters with an uppercase letter, a lowercase letter, and a number.';
+    } else if (issues.length) {
+      pwHint.style.color = 'var(--red)';
+      pwHint.textContent = 'Needs: ' + issues.join(', ') + '.';
+    } else {
+      pwHint.style.color = 'var(--green)';
+      pwHint.textContent = 'Strong password.';
+    }
+  }
+
+  function updateMatch() {
+    if (!cpw.value) {
+      matchMsg.textContent = '';
+      matchMsg.className = 'match-msg';
+      return;
+    }
+    if (pw.value === cpw.value) {
+      matchMsg.textContent = 'Passwords match.';
+      matchMsg.className = 'match-msg ok';
+    } else {
+      matchMsg.textContent = 'Passwords do not match.';
+      matchMsg.className = 'match-msg bad';
+    }
+  }
+
+  pw.addEventListener('input', () => { updatePwHint(); updateMatch(); });
+  cpw.addEventListener('input', updateMatch);
+
+  function showAlert(msg, type) {
+    alertEl.textContent = msg;
+    alertEl.className = 'alert show ' + type;
+  }
+  function clearAlert() {
+    alertEl.className = 'alert';
+    alertEl.textContent = '';
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearAlert();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Creating account…';
+
+    const data = {
+      firstName: form.firstName.value,
+      lastName: form.lastName.value,
+      email: form.email.value,
+      username: form.username.value,
+      password: form.password.value,
+      confirmPassword: form.confirmPassword.value
+    };
+
+    try {
+      const result = await SSCAuth.signUp(data);
+      if (!result.ok) {
+        showAlert(result.error, 'error');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Create account';
+        return;
+      }
+      showAlert('Account created! Redirecting…', 'success');
+      setTimeout(() => { window.location.href = 'dashboard.html'; }, 600);
+    } catch (err) {
+      showAlert('Something went wrong. Please try again.', 'error');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Create account';
+    }
+  });
+</script>
+
+</body>
+</html>
