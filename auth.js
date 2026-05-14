@@ -169,6 +169,37 @@
     cachedUser = null;
   }
 
+  async function requestPasswordReset(email) {
+    email = (email || '').trim().toLowerCase();
+    if (!isValidEmail(email)) {
+      return { ok: false, error: 'Please enter a valid email address.' };
+    }
+    const { error } = await sb.auth.resetPasswordForEmail(email, {
+      redirectTo: global.location.origin + '/reset-password.html'
+    });
+    if (error) {
+      return { ok: false, error: friendlyAuthError(error) };
+    }
+    // Always show a generic success message to avoid leaking which emails
+    // are registered.
+    return {
+      ok: true,
+      message: 'If an account exists for that email, a reset link has been sent. Check your inbox.'
+    };
+  }
+
+  async function updatePassword(newPassword) {
+    const pwIssues = passwordIssues(newPassword);
+    if (pwIssues.length) {
+      return { ok: false, error: 'Password needs ' + pwIssues.join(', ') + '.' };
+    }
+    const { data, error } = await sb.auth.updateUser({ password: newPassword });
+    if (error) {
+      return { ok: false, error: friendlyAuthError(error) };
+    }
+    return { ok: true, user: publicUser(data.user) };
+  }
+
   async function requireAuth(redirectTo) {
     await init();
     if (!cachedUser) {
@@ -181,12 +212,14 @@
   function brokenStub(reason) {
     const err = { ok: false, error: reason };
     return {
-      signUp:              async () => err,
-      logIn:               async () => err,
-      logOut:              async () => {},
-      getCurrentUser:      () => null,
-      getCurrentUserAsync: async () => null,
-      requireAuth:         async (r) => { global.location.href = r || 'login.html'; return false; },
+      signUp:               async () => err,
+      logIn:                async () => err,
+      logOut:               async () => {},
+      getCurrentUser:       () => null,
+      getCurrentUserAsync:  async () => null,
+      requireAuth:          async (r) => { global.location.href = r || 'login.html'; return false; },
+      requestPasswordReset: async () => err,
+      updatePassword:       async () => err,
       passwordIssues
     };
   }
@@ -200,6 +233,8 @@
     getCurrentUser,
     getCurrentUserAsync,
     requireAuth,
+    requestPasswordReset,
+    updatePassword,
     passwordIssues,
     init,
     _supabase: sb
