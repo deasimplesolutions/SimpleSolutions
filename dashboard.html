@@ -10,48 +10,85 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
       --navy: #0f1a2e; --navy-light: #1a2744;
-      --gray-900: #111827; --gray-700: #374151; --gray-500: #6b7280; --gray-300: #d1d5db;
+      --gray-900: #111827; --gray-700: #374151; --gray-500: #6b7280; --gray-400: #9ca3af; --gray-300: #d1d5db; --gray-200: #e5e7eb; --gray-100: #f3f4f6;
       --white: #ffffff; --bg: #faf9f7; --bg-alt: #f0eee9;
       --green: #16a34a; --green-soft: #dcfce7;
       --amber: #d97706; --amber-soft: #fef3c7;
       --red: #dc2626; --red-soft: #fee2e2;
       --blue: #3b82f6; --blue-soft: #dbeafe;
+      --purple: #8b5cf6; --purple-soft: #ede9fe;
+      --sidebar-w: 240px;
     }
+    html, body { height: 100%; }
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       color: var(--gray-900); background: var(--bg); line-height: 1.6;
-      -webkit-font-smoothing: antialiased; min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Nav ── */
-    nav { background: var(--white); border-bottom: 1px solid var(--bg-alt); padding: 1rem 2rem; }
-    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
-    .logo { display: inline-flex; align-items: center; gap: 0.7rem; text-decoration: none; }
-    .logo-icon { height: 32px; width: auto; }
-    .logo-text { font-size: 1.1rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; }
-    .logo-text span { color: var(--gray-500); }
-    .nav-right { display: flex; align-items: center; gap: 1rem; }
-    .nav-user { font-size: 0.9rem; color: var(--gray-700); }
-    .nav-user strong { color: var(--navy); }
+    /* ── App shell ── */
+    .app { display: flex; min-height: 100vh; }
+    .sidebar {
+      width: var(--sidebar-w); background: var(--white); border-right: 1px solid var(--bg-alt);
+      display: flex; flex-direction: column; position: sticky; top: 0; height: 100vh; flex-shrink: 0;
+    }
+    .sidebar-head { padding: 1.4rem 1.4rem 1.6rem; border-bottom: 1px solid var(--bg-alt); }
+    .sidebar-head .logo { display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+    .sidebar-head .logo-icon { height: 28px; width: auto; }
+    .sidebar-head .logo-text { font-size: 1rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; }
+    .sidebar-head .logo-text span { color: var(--gray-500); }
+
+    .sidebar-nav { flex: 1; padding: 1rem 0.6rem; display: flex; flex-direction: column; gap: 0.15rem; }
+    .nav-item {
+      display: flex; align-items: center; gap: 0.7rem;
+      padding: 0.65rem 0.85rem; border-radius: 8px;
+      background: transparent; color: var(--gray-700); font-size: 0.9rem; font-weight: 600;
+      border: none; cursor: pointer; font-family: inherit; text-align: left; width: 100%;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-item:hover { background: var(--bg-alt); color: var(--navy); }
+    .nav-item.active { background: var(--navy); color: var(--white); }
+    .nav-item.active:hover { background: var(--navy-light); color: var(--white); }
+    .nav-item svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    .sidebar-foot { padding: 1rem 1rem 1.2rem; border-top: 1px solid var(--bg-alt); }
+    .sidebar-user { font-size: 0.78rem; color: var(--gray-500); margin-bottom: 0.6rem; }
+    .sidebar-user strong { display: block; color: var(--navy); font-size: 0.9rem; font-weight: 700; line-height: 1.2; margin-bottom: 0.15rem; }
     .logout-btn {
-      background: transparent; color: var(--navy);
-      border: 1.5px solid var(--navy); padding: 0.5rem 1.1rem;
-      border-radius: 8px; font-size: 0.88rem; font-weight: 600;
-      font-family: inherit; cursor: pointer;
-      transition: background 0.2s, color 0.2s;
+      width: 100%; padding: 0.55rem; background: transparent; color: var(--navy);
+      border: 1.5px solid var(--bg-alt); border-radius: 8px; font-size: 0.85rem; font-weight: 600;
+      font-family: inherit; cursor: pointer; transition: background 0.15s, border-color 0.15s;
     }
-    .logout-btn:hover { background: var(--navy); color: var(--white); }
-    .logout-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(15,26,46,0.25); }
+    .logout-btn:hover { background: var(--navy); color: var(--white); border-color: var(--navy); }
 
-    /* ── Page wrap ── */
-    .wrap { max-width: 1100px; margin: 2.5rem auto; padding: 0 1.5rem 4rem; }
-    .page-head { margin-bottom: 2.5rem; }
-    .page-head h1 { font-size: 1.8rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; margin-bottom: 0.3rem; }
-    .page-head p { color: var(--gray-500); }
+    .main { flex: 1; min-width: 0; }
+    .topbar {
+      padding: 1.6rem 2rem 1.2rem; border-bottom: 1px solid var(--bg-alt);
+      background: var(--white);
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
+    }
+    .topbar h1 { font-size: 1.55rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; line-height: 1.1; }
+    .topbar p { color: var(--gray-500); font-size: 0.9rem; margin-top: 0.2rem; }
+
+    /* ── Filter chips ── */
+    .filters { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .filter-chip {
+      padding: 0.45rem 0.85rem; border: 1px solid var(--gray-200);
+      background: var(--white); color: var(--gray-700);
+      border-radius: 50px; font-size: 0.82rem; font-weight: 600; font-family: inherit;
+      cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .filter-chip:hover { border-color: var(--navy); color: var(--navy); }
+    .filter-chip.active { background: var(--navy); color: var(--white); border-color: var(--navy); }
+
+    /* ── Views ── */
+    .view-wrap { padding: 1.8rem 2rem 4rem; max-width: 1200px; }
+    .view { display: none; }
+    .view.active { display: block; }
 
     .section-title {
-      font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
-      color: var(--gray-500); margin-bottom: 1rem;
+      font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--gray-500); margin-bottom: 0.9rem;
     }
 
     /* ── Agent card ── */
@@ -59,225 +96,503 @@
       background: var(--white); border: 1px solid var(--bg-alt);
       border-radius: 16px; padding: 1.6rem 1.8rem;
       box-shadow: 0 4px 14px rgba(15,26,46,0.04);
-      margin-bottom: 2.5rem;
+      margin-bottom: 2.2rem;
     }
     .agent-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
     .agent-avatar {
-      width: 52px; height: 52px; border-radius: 12px;
-      background: var(--navy); color: var(--white);
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 800; font-size: 1.1rem;
+      width: 48px; height: 48px; border-radius: 12px; background: var(--navy); color: var(--white);
+      display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.05rem; flex-shrink: 0;
     }
     .agent-info { flex: 1; min-width: 0; }
-    .agent-info h2 { font-size: 1.15rem; font-weight: 700; color: var(--navy); margin-bottom: 0.25rem; line-height: 1.2; }
-    .agent-phone {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      font-size: 0.92rem; color: var(--gray-700); font-variant-numeric: tabular-nums;
-    }
+    .agent-info h2 { font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.2rem; line-height: 1.2; }
+    .agent-phone { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.9rem; color: var(--gray-700); font-variant-numeric: tabular-nums; }
     .agent-phone svg { width: 14px; height: 14px; }
     .agent-status {
       display: inline-flex; align-items: center; gap: 0.4rem;
-      background: var(--green-soft); color: var(--green);
-      padding: 0.35rem 0.7rem; border-radius: 50px;
-      font-size: 0.78rem; font-weight: 700;
+      background: var(--green-soft); color: var(--green); padding: 0.3rem 0.7rem; border-radius: 50px;
+      font-size: 0.74rem; font-weight: 700;
     }
     .agent-status::before {
       content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--green);
       animation: livePulse 1.6s ease-in-out infinite;
     }
     @keyframes livePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
-
     .agent-stats {
       display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
       padding-top: 1.5rem; border-top: 1px solid var(--bg-alt);
     }
-    .stat { }
-    .stat-num { font-size: 1.65rem; font-weight: 800; color: var(--navy); line-height: 1; font-variant-numeric: tabular-nums; }
-    .stat-label { font-size: 0.78rem; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.35rem; }
+    .stat-num { font-size: 1.55rem; font-weight: 800; color: var(--navy); line-height: 1; font-variant-numeric: tabular-nums; }
+    .stat-label { font-size: 0.74rem; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.35rem; }
 
     /* ── Calls list ── */
-    .calls-list { display: flex; flex-direction: column; gap: 0.6rem; }
+    .calls-list { display: flex; flex-direction: column; gap: 0.55rem; }
     .call-item {
-      background: var(--white); border: 1px solid var(--bg-alt);
-      border-radius: 12px;
+      background: var(--white); border: 1px solid var(--bg-alt); border-radius: 12px;
       transition: border-color 0.15s, box-shadow 0.15s;
     }
     .call-item[open] { border-color: var(--gray-300); box-shadow: 0 4px 14px rgba(15,26,46,0.06); }
     .call-header {
-      display: flex; align-items: center; gap: 1rem;
-      padding: 0.9rem 1.2rem;
-      cursor: pointer; list-style: none;
-      border-radius: 12px;
+      display: flex; align-items: center; gap: 1rem; padding: 0.85rem 1.1rem;
+      cursor: pointer; list-style: none; border-radius: 12px;
     }
     .call-header::-webkit-details-marker { display: none; }
     .call-header::marker { content: ''; }
     .call-header:hover { background: var(--bg-alt); }
     .call-chevron {
       width: 8px; height: 8px;
-      border-right: 1.5px solid var(--gray-500);
-      border-bottom: 1.5px solid var(--gray-500);
-      transform: rotate(-45deg);
-      transition: transform 0.2s;
-      flex-shrink: 0;
+      border-right: 1.5px solid var(--gray-500); border-bottom: 1.5px solid var(--gray-500);
+      transform: rotate(-45deg); transition: transform 0.2s; flex-shrink: 0;
     }
     .call-item[open] .call-chevron { transform: rotate(45deg); }
-    .call-name {
-      font-weight: 700; color: var(--navy); font-size: 0.95rem;
-      flex-shrink: 0; min-width: 140px;
-    }
-    .call-summary {
-      color: var(--gray-500); font-size: 0.88rem;
-      flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-    }
-    .call-time {
-      color: var(--gray-500); font-size: 0.82rem;
-      flex-shrink: 0; font-variant-numeric: tabular-nums;
-    }
+    .call-name { font-weight: 700; color: var(--navy); font-size: 0.92rem; flex-shrink: 0; min-width: 130px; }
+    .call-summary { color: var(--gray-500); font-size: 0.86rem; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .call-time { color: var(--gray-500); font-size: 0.8rem; flex-shrink: 0; font-variant-numeric: tabular-nums; }
     .call-status {
       display: inline-flex; align-items: center; gap: 0.35rem;
-      padding: 0.3rem 0.7rem; border-radius: 50px;
-      font-size: 0.72rem; font-weight: 700;
-      flex-shrink: 0;
+      padding: 0.28rem 0.65rem; border-radius: 50px; font-size: 0.7rem; font-weight: 700; flex-shrink: 0;
     }
     .call-status.booked { background: var(--green-soft); color: var(--green); }
     .call-status.pending { background: var(--amber-soft); color: var(--amber); }
     .call-status.declined { background: var(--red-soft); color: var(--red); }
-
-    .call-details {
-      padding: 0 1.2rem 1.2rem;
-      border-top: 1px solid var(--bg-alt);
-      padding-top: 1.2rem;
-    }
-    .detail-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 1.5rem;
-    }
-    .detail .detail-label {
-      display: block;
-      font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+    .call-details { padding: 0 1.1rem 1.1rem; border-top: 1px solid var(--bg-alt); padding-top: 1.1rem; }
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 1.5rem; }
+    .detail-label {
+      display: block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
       color: var(--gray-500); margin-bottom: 0.25rem;
     }
-    .detail .detail-value {
-      font-size: 0.92rem; color: var(--gray-900); font-weight: 500; word-wrap: break-word;
-    }
+    .detail-value { font-size: 0.9rem; color: var(--gray-900); font-weight: 500; word-wrap: break-word; }
     .detail.full { grid-column: 1 / -1; }
-    .detail-value.appt-yes {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      color: var(--green); font-weight: 600;
-    }
+    .detail-value.appt-yes { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--green); font-weight: 600; }
     .detail-value.appt-no { color: var(--amber); font-weight: 600; }
+    .call-actions { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
+    .call-actions button {
+      padding: 0.45rem 0.9rem; background: var(--navy); color: var(--white);
+      border: none; border-radius: 8px; font-size: 0.82rem; font-weight: 600; font-family: inherit;
+      cursor: pointer; transition: background 0.15s;
+    }
+    .call-actions button:hover { background: var(--navy-light); }
+    .call-actions button.secondary { background: transparent; color: var(--navy); border: 1.5px solid var(--gray-200); }
+    .call-actions button.secondary:hover { background: var(--bg-alt); border-color: var(--navy); }
 
     .empty-state {
       background: var(--white); border: 1px dashed var(--gray-300);
       border-radius: 12px; padding: 2.5rem 1.5rem;
-      text-align: center; color: var(--gray-500); font-size: 0.95rem;
+      text-align: center; color: var(--gray-500); font-size: 0.93rem;
     }
 
+    /* ── Analytics ── */
+    .analytics-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.6rem; }
+    .metric-card {
+      background: var(--white); border: 1px solid var(--bg-alt); border-radius: 14px;
+      padding: 1.2rem 1.3rem; box-shadow: 0 2px 8px rgba(15,26,46,0.03);
+    }
+    .metric-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-500); }
+    .metric-value { font-size: 1.7rem; font-weight: 800; color: var(--navy); line-height: 1; margin-top: 0.6rem; font-variant-numeric: tabular-nums; }
+    .metric-sub { font-size: 0.78rem; color: var(--gray-500); margin-top: 0.4rem; }
+
+    .chart-row { display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; margin-bottom: 1.6rem; }
+    .chart-card {
+      background: var(--white); border: 1px solid var(--bg-alt); border-radius: 14px;
+      padding: 1.3rem; box-shadow: 0 2px 8px rgba(15,26,46,0.03);
+    }
+    .chart-card h3 { font-size: 0.92rem; font-weight: 700; color: var(--navy); margin-bottom: 0.2rem; }
+    .chart-card .chart-sub { font-size: 0.78rem; color: var(--gray-500); margin-bottom: 1rem; }
+    .chart-canvas-wrap { position: relative; height: 240px; }
+
+    /* ── Calendar ── */
+    .cal-controls { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+    .cal-month-label { font-size: 1.1rem; font-weight: 700; color: var(--navy); }
+    .cal-nav { display: flex; gap: 0.4rem; }
+    .cal-nav button {
+      padding: 0.4rem 0.9rem; background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: 8px; font-size: 0.85rem; font-weight: 600; color: var(--gray-700); font-family: inherit;
+      cursor: pointer; transition: border-color 0.15s, color 0.15s;
+    }
+    .cal-nav button:hover { border-color: var(--navy); color: var(--navy); }
+    .cal-grid {
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; background: var(--gray-200);
+      border: 1px solid var(--gray-200); border-radius: 12px; overflow: hidden;
+    }
+    .cal-dow {
+      background: var(--bg-alt); padding: 0.6rem 0.8rem;
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gray-500);
+    }
+    .cal-day {
+      background: var(--white); padding: 0.6rem 0.7rem; min-height: 90px;
+      cursor: pointer; transition: background 0.15s; position: relative;
+    }
+    .cal-day:hover { background: var(--bg-alt); }
+    .cal-day.other-month { background: #fafaf8; color: var(--gray-400); }
+    .cal-day.today .cal-daynum { background: var(--navy); color: var(--white); border-radius: 50%; padding: 2px 6px; }
+    .cal-day.has-bookings { background: var(--green-soft); }
+    .cal-day.has-bookings:hover { background: #c2f5d2; }
+    .cal-day.selected { outline: 2px solid var(--navy); outline-offset: -2px; }
+    .cal-daynum { font-size: 0.85rem; font-weight: 700; color: var(--gray-700); display: inline-block; }
+    .cal-other-month .cal-daynum { color: var(--gray-400); }
+    .cal-bookings-count {
+      display: inline-block; margin-left: 0.4rem; font-size: 0.7rem;
+      background: var(--green); color: var(--white); padding: 1px 6px; border-radius: 50px; font-weight: 700;
+    }
+    .cal-day-events { margin-top: 0.4rem; display: flex; flex-direction: column; gap: 2px; }
+    .cal-event {
+      font-size: 0.7rem; color: var(--green); font-weight: 600;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .cal-detail-pane {
+      margin-top: 1.2rem; background: var(--white); border: 1px solid var(--bg-alt);
+      border-radius: 12px; padding: 1.2rem 1.4rem;
+    }
+    .cal-detail-pane h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.8rem; }
+    .cal-detail-list { display: flex; flex-direction: column; gap: 0.6rem; }
+    .cal-detail-item {
+      display: flex; align-items: center; gap: 0.8rem; padding: 0.7rem 0.9rem;
+      background: var(--bg-alt); border-radius: 8px;
+    }
+    .cal-detail-item .who { font-weight: 700; color: var(--navy); font-size: 0.9rem; }
+    .cal-detail-item .when { font-size: 0.82rem; color: var(--gray-500); margin-left: auto; }
+
+    /* ── Dispatch ── */
+    .dispatch-head {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem; gap: 1rem; flex-wrap: wrap;
+    }
+    .dispatch-head h2 { font-size: 1.05rem; font-weight: 700; color: var(--navy); }
+    .add-tech-btn {
+      padding: 0.55rem 1.1rem; background: var(--navy); color: var(--white);
+      border: none; border-radius: 8px; font-size: 0.85rem; font-weight: 600; font-family: inherit;
+      cursor: pointer; transition: background 0.15s;
+    }
+    .add-tech-btn:hover { background: var(--navy-light); }
+
+    .tech-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+    .tech-card {
+      background: var(--white); border: 1px solid var(--bg-alt); border-radius: 12px;
+      padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.7rem;
+    }
+    .tech-card-head { display: flex; align-items: center; gap: 0.8rem; }
+    .tech-avatar {
+      width: 40px; height: 40px; border-radius: 10px; background: var(--purple); color: var(--white);
+      display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; flex-shrink: 0;
+    }
+    .tech-name { font-weight: 700; color: var(--navy); font-size: 0.95rem; line-height: 1.2; }
+    .tech-role { font-size: 0.78rem; color: var(--gray-500); }
+    .tech-phone { font-size: 0.85rem; color: var(--gray-700); font-variant-numeric: tabular-nums; }
+    .tech-actions { display: flex; gap: 0.4rem; margin-top: 0.4rem; flex-wrap: wrap; }
+    .tech-actions a {
+      flex: 1; padding: 0.5rem; text-align: center; border-radius: 8px; text-decoration: none;
+      font-size: 0.82rem; font-weight: 600; transition: background 0.15s;
+    }
+    .tech-actions .call { background: var(--green); color: var(--white); }
+    .tech-actions .call:hover { background: #128a3f; }
+    .tech-actions .text { background: var(--blue); color: var(--white); }
+    .tech-actions .text:hover { background: #2563eb; }
+    .tech-actions .edit, .tech-actions .delete {
+      flex: 0 0 auto; background: transparent; color: var(--gray-500); border: 1px solid var(--gray-200);
+      cursor: pointer; font-family: inherit;
+    }
+    .tech-actions .edit:hover { color: var(--navy); border-color: var(--navy); }
+    .tech-actions .delete:hover { color: var(--red); border-color: var(--red); }
+
+    /* ── Dispatch modal (used for both add-tech and per-call dispatch) ── */
+    .modal-backdrop {
+      display: none; position: fixed; inset: 0; background: rgba(15,26,46,0.5); z-index: 100;
+      align-items: center; justify-content: center; padding: 1rem;
+    }
+    .modal-backdrop.show { display: flex; }
+    .modal {
+      background: var(--white); border-radius: 16px; padding: 1.6rem 1.8rem;
+      width: 100%; max-width: 460px; max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .modal h2 { font-size: 1.2rem; font-weight: 800; color: var(--navy); margin-bottom: 1.2rem; }
+    .modal .field { margin-bottom: 1rem; }
+    .modal label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--gray-700); margin-bottom: 0.35rem; }
+    .modal input, .modal textarea {
+      width: 100%; padding: 0.6rem 0.8rem; border: 1px solid var(--gray-300); border-radius: 8px;
+      font-size: 0.9rem; font-family: inherit; color: var(--gray-900); outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .modal textarea { resize: vertical; min-height: 90px; }
+    .modal input:focus, .modal textarea:focus { border-color: var(--navy); box-shadow: 0 0 0 3px rgba(15,26,46,0.08); }
+    .modal-actions { display: flex; gap: 0.6rem; justify-content: flex-end; margin-top: 1.2rem; }
+    .modal-actions button {
+      padding: 0.55rem 1.1rem; border-radius: 8px; font-size: 0.85rem; font-weight: 600; font-family: inherit; cursor: pointer;
+      border: none;
+    }
+    .modal-actions .cancel { background: transparent; color: var(--gray-700); border: 1.5px solid var(--gray-200); }
+    .modal-actions .cancel:hover { border-color: var(--navy); color: var(--navy); }
+    .modal-actions .save { background: var(--navy); color: var(--white); }
+    .modal-actions .save:hover { background: var(--navy-light); }
+    .modal-error { color: var(--red); font-size: 0.82rem; margin-top: 0.4rem; min-height: 1em; }
+
+    .dispatch-tech-list { display: flex; flex-direction: column; gap: 0.5rem; max-height: 280px; overflow-y: auto; margin-top: 0.4rem; }
+    .dispatch-tech-row {
+      display: flex; align-items: center; gap: 0.7rem; padding: 0.7rem 0.9rem;
+      background: var(--bg-alt); border-radius: 8px;
+    }
+    .dispatch-tech-row .who { flex: 1; min-width: 0; }
+    .dispatch-tech-row .who-name { font-weight: 700; color: var(--navy); font-size: 0.88rem; line-height: 1.2; }
+    .dispatch-tech-row .who-role { font-size: 0.76rem; color: var(--gray-500); }
+    .dispatch-tech-row a {
+      padding: 0.4rem 0.8rem; background: var(--blue); color: var(--white);
+      border-radius: 6px; text-decoration: none; font-size: 0.8rem; font-weight: 600;
+    }
+    .dispatch-tech-row a:hover { background: #2563eb; }
+
     /* ── Responsive ── */
-    @media (max-width: 700px) {
-      .agent-stats { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 900px) {
+      .agent-stats, .analytics-row { grid-template-columns: repeat(2, 1fr); }
+      .chart-row { grid-template-columns: 1fr; }
       .detail-grid { grid-template-columns: 1fr; }
       .call-name { min-width: 0; }
       .call-summary { display: none; }
-      .nav-user { display: none; }
+    }
+    @media (max-width: 700px) {
+      .app { flex-direction: column; }
+      .sidebar { width: 100%; height: auto; position: static; flex-direction: row; align-items: center; }
+      .sidebar-head { border-bottom: none; border-right: 1px solid var(--bg-alt); padding: 1rem; }
+      .sidebar-nav { flex-direction: row; padding: 0.5rem; gap: 0.2rem; overflow-x: auto; }
+      .nav-item { white-space: nowrap; padding: 0.5rem 0.8rem; }
+      .nav-item span { display: none; }
+      .sidebar-foot { display: none; }
+      .topbar { padding: 1.2rem 1rem 1rem; }
+      .view-wrap { padding: 1.2rem 1rem 3rem; }
     }
   </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-inner">
-    <a href="index.html" class="logo">
-      <svg class="logo-icon" viewBox="0 0 180 80" xmlns="http://www.w3.org/2000/svg">
-        <rect x="0" y="8" width="50" height="64" rx="8" fill="#0f1a2e"/>
-        <text x="25" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">S</text>
-        <rect x="58" y="0" width="50" height="64" rx="8" fill="#374151"/>
-        <text x="83" y="44" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">S</text>
-        <rect x="116" y="8" width="50" height="64" rx="8" fill="#0f1a2e"/>
-        <text x="141" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">C</text>
-      </svg>
-      <div class="logo-text">Simple <span>Solutions</span></div>
-    </a>
-    <div class="nav-right">
-      <div class="nav-user">Signed in as <strong id="nav-username">—</strong></div>
+<div class="app">
+
+  <!-- ─────────── SIDEBAR ─────────── -->
+  <aside class="sidebar">
+    <div class="sidebar-head">
+      <a href="index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 180 80" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="8" width="50" height="64" rx="8" fill="#0f1a2e"/>
+          <text x="25" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">S</text>
+          <rect x="58" y="0" width="50" height="64" rx="8" fill="#374151"/>
+          <text x="83" y="44" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">S</text>
+          <rect x="116" y="8" width="50" height="64" rx="8" fill="#0f1a2e"/>
+          <text x="141" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">C</text>
+        </svg>
+        <div class="logo-text">Simple <span>Solutions</span></div>
+      </a>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="nav-item active" data-view="agent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11h-6M19 8v6"/></svg>
+        <span>Your Agent</span>
+      </button>
+      <button class="nav-item" data-view="analytics">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        <span>Analytics</span>
+      </button>
+      <button class="nav-item" data-view="calendar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span>Calendar</span>
+      </button>
+      <button class="nav-item" data-view="dispatch">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18l-2 13H5L3 3z"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg>
+        <span>Dispatch</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-foot">
+      <div class="sidebar-user">
+        <strong id="nav-fullname">—</strong>
+        <span id="nav-email">—</span>
+      </div>
       <button class="logout-btn" id="logout-btn">Log out</button>
     </div>
-  </div>
-</nav>
+  </aside>
 
-<div class="wrap">
-  <div class="page-head">
-    <h1>Welcome, <span id="welcome-name">there</span>.</h1>
-    <p>Your voice agent and live call activity at a glance.</p>
-  </div>
+  <!-- ─────────── MAIN ─────────── -->
+  <main class="main">
 
-  <!-- ── Voice Agent ── -->
-  <div class="section-title">Your Voice Agent</div>
-  <div class="agent-card">
-    <div class="agent-header">
-      <div class="agent-avatar" id="agent-avatar">—</div>
-      <div class="agent-info">
-        <h2 id="agent-name">—</h2>
-        <span class="agent-phone">
-          <svg viewBox="0 0 16 16" fill="#16a34a"><path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328z"/></svg>
-          <span id="agent-phone">—</span>
-        </span>
+    <div class="topbar">
+      <div>
+        <h1 id="topbar-title">Welcome back.</h1>
+        <p id="topbar-sub">Your voice agent and call activity.</p>
       </div>
-      <span class="agent-status">Active</span>
-    </div>
-    <div class="agent-stats">
-      <div class="stat">
-        <div class="stat-num" id="stat-total">—</div>
-        <div class="stat-label">Total Calls</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num" id="stat-today">—</div>
-        <div class="stat-label">Today</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num" id="stat-booked">—</div>
-        <div class="stat-label">Booking Rate</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num" id="stat-duration">—</div>
-        <div class="stat-label">Avg Duration</div>
+      <div class="filters" id="filter-chips">
+        <button class="filter-chip" data-period="today">Today</button>
+        <button class="filter-chip active" data-period="week">This Week</button>
+        <button class="filter-chip" data-period="month">This Month</button>
+        <button class="filter-chip" data-period="quarter">This Quarter</button>
+        <button class="filter-chip" data-period="year">This Year</button>
+        <button class="filter-chip" data-period="all">All time</button>
       </div>
     </div>
-  </div>
 
-  <!-- ── Calls List ── -->
-  <div class="section-title">Recent Calls</div>
-  <div class="calls-list" id="calls-list"></div>
+    <div class="view-wrap">
+
+      <!-- ─── VIEW: AGENT ─── -->
+      <section class="view active" id="view-agent">
+        <div class="section-title">Your Voice Agent</div>
+        <div class="agent-card">
+          <div class="agent-header">
+            <div class="agent-avatar" id="agent-avatar">—</div>
+            <div class="agent-info">
+              <h2 id="agent-name">—</h2>
+              <span class="agent-phone">
+                <svg viewBox="0 0 16 16" fill="#16a34a"><path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328z"/></svg>
+                <span id="agent-phone">—</span>
+              </span>
+            </div>
+            <span class="agent-status">Active</span>
+          </div>
+          <div class="agent-stats">
+            <div><div class="stat-num" id="stat-total">—</div><div class="stat-label">Calls in Period</div></div>
+            <div><div class="stat-num" id="stat-today">—</div><div class="stat-label">Today</div></div>
+            <div><div class="stat-num" id="stat-booked">—</div><div class="stat-label">Booking Rate</div></div>
+            <div><div class="stat-num" id="stat-duration">—</div><div class="stat-label">Avg Duration</div></div>
+          </div>
+        </div>
+
+        <div class="section-title">Recent Calls</div>
+        <div class="calls-list" id="calls-list"></div>
+      </section>
+
+      <!-- ─── VIEW: ANALYTICS ─── -->
+      <section class="view" id="view-analytics">
+        <div class="section-title">Performance — <span id="analytics-period-label">This Week</span></div>
+        <div class="analytics-row">
+          <div class="metric-card">
+            <div class="metric-label">Total Calls</div>
+            <div class="metric-value" id="ana-total">—</div>
+            <div class="metric-sub" id="ana-total-sub">in selected period</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Booked</div>
+            <div class="metric-value" id="ana-booked">—</div>
+            <div class="metric-sub" id="ana-booked-sub">appointments scheduled</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Booking Rate</div>
+            <div class="metric-value" id="ana-rate">—</div>
+            <div class="metric-sub">% of calls that booked</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Avg Response</div>
+            <div class="metric-value" id="ana-response">—</div>
+            <div class="metric-sub">AI pickup time</div>
+          </div>
+        </div>
+
+        <div class="chart-row">
+          <div class="chart-card">
+            <h3>Calls per day</h3>
+            <p class="chart-sub">Volume + booking outcomes across the selected period.</p>
+            <div class="chart-canvas-wrap"><canvas id="chart-volume"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <h3>Lead quality</h3>
+            <p class="chart-sub">Outcome split for the selected period.</p>
+            <div class="chart-canvas-wrap"><canvas id="chart-quality"></canvas></div>
+          </div>
+        </div>
+
+        <div class="chart-row" style="grid-template-columns: 1fr;">
+          <div class="chart-card">
+            <h3>Booking rate over time</h3>
+            <p class="chart-sub">% of calls that resulted in a booking, day by day.</p>
+            <div class="chart-canvas-wrap"><canvas id="chart-rate"></canvas></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── VIEW: CALENDAR ─── -->
+      <section class="view" id="view-calendar">
+        <div class="section-title">Booked Appointments</div>
+        <div class="cal-controls">
+          <div class="cal-month-label" id="cal-month-label">—</div>
+          <div class="cal-nav">
+            <button id="cal-prev">‹ Prev</button>
+            <button id="cal-today">Today</button>
+            <button id="cal-next">Next ›</button>
+          </div>
+        </div>
+        <div class="cal-grid" id="cal-grid"></div>
+        <div class="cal-detail-pane" id="cal-detail-pane" style="display:none;">
+          <h3 id="cal-detail-title">—</h3>
+          <div class="cal-detail-list" id="cal-detail-list"></div>
+        </div>
+      </section>
+
+      <!-- ─── VIEW: DISPATCH ─── -->
+      <section class="view" id="view-dispatch">
+        <div class="dispatch-head">
+          <h2>Your Technicians</h2>
+          <button class="add-tech-btn" id="add-tech-btn">+ Add Technician</button>
+        </div>
+        <div id="tech-grid" class="tech-grid"></div>
+        <div id="tech-empty" class="empty-state" style="display:none;">
+          No technicians yet. Click <strong>+ Add Technician</strong> to add your first one. They'll show up here and on the Dispatch button next to each call in Your Agent.
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<!-- ─────────── MODAL: Add/Edit Technician ─────────── -->
+<div class="modal-backdrop" id="tech-modal-backdrop">
+  <div class="modal">
+    <h2 id="tech-modal-title">Add Technician</h2>
+    <form id="tech-form" novalidate>
+      <input type="hidden" id="tech-id">
+      <div class="field">
+        <label for="tech-name">Name</label>
+        <input type="text" id="tech-name" autocomplete="off" required>
+      </div>
+      <div class="field">
+        <label for="tech-role">Role / Trade</label>
+        <input type="text" id="tech-role" placeholder="e.g. Lead Plumber, HVAC Tech" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="tech-phone">Phone (mobile, with country code)</label>
+        <input type="tel" id="tech-phone" placeholder="+1 (555) 123-4567" autocomplete="off" required>
+      </div>
+      <div class="modal-error" id="tech-error"></div>
+      <div class="modal-actions">
+        <button type="button" class="cancel" id="tech-cancel">Cancel</button>
+        <button type="submit" class="save" id="tech-save">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ─────────── MODAL: Dispatch a call to a technician ─────────── -->
+<div class="modal-backdrop" id="dispatch-modal-backdrop">
+  <div class="modal">
+    <h2>Dispatch this job</h2>
+    <p style="font-size:0.88rem;color:var(--gray-500);margin-bottom:1rem;">Tap a technician to send them a pre-filled SMS with the customer's details.</p>
+    <div class="dispatch-tech-list" id="dispatch-tech-list"></div>
+    <div class="modal-actions">
+      <button type="button" class="cancel" id="dispatch-cancel">Cancel</button>
+    </div>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="auth.js"></script>
 <script>
   const SERVER_URL = 'https://simplesolutions-server.onrender.com';
 
-  /* ── Auth check (async — waits for Supabase session to resolve) ── */
-  async function bootAuth() {
-    const ok = await SSCAuth.requireAuth('login.html');
-    if (!ok) return false;
-    const user = SSCAuth.getCurrentUser();
-    if (user) {
-      document.getElementById('welcome-name').textContent = user.firstName || user.username || 'there';
-      document.getElementById('nav-username').textContent = user.username || user.email;
-    }
-    return true;
-  }
+  // ── State ──
+  let allCalls = [];           // full list, all time
+  let activePeriod = 'week';   // current filter
+  let activeView = 'agent';    // current sidebar tab
+  let technicians = [];        // user_metadata.technicians
+  let calMonthAnchor = new Date();   // first of currently shown month
+  let calSelectedDate = null;        // YYYY-MM-DD string
+  let pendingDispatchCall = null;    // call object passed when opening dispatch modal
+  const charts = {};                 // Chart.js instances
 
-  /* ── Render agent ── */
-  function renderAgent(agent) {
-    document.getElementById('agent-avatar').textContent = agent.initials;
-    document.getElementById('agent-name').textContent = agent.name;
-    document.getElementById('agent-phone').textContent = agent.phoneNumber;
-    document.getElementById('stat-total').textContent = agent.stats.total;
-    document.getElementById('stat-today').textContent = agent.stats.today;
-    document.getElementById('stat-booked').textContent = agent.stats.bookingRate;
-    document.getElementById('stat-duration').textContent = agent.stats.avgDuration;
-  }
-
-  /* ── Render calls ── */
+  // ── Utils ──
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
   function fmtAgo(min) {
     if (min < 1) return 'just now';
     if (min < 60) return `${min} min ago`;
@@ -285,7 +600,6 @@
     if (h < 24) return `${h}h ago`;
     return `${Math.floor(h / 24)}d ago`;
   }
-  function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
   function fmtDuration(sec) {
     const m = Math.floor(sec / 60);
     const s = Math.floor(sec % 60);
@@ -295,98 +609,74 @@
     if (!name) return '··';
     return name.trim().split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase();
   }
+  function ymd(d) {
+    const yr = d.getFullYear();
+    const mo = String(d.getMonth() + 1).padStart(2, '0');
+    const da = String(d.getDate()).padStart(2, '0');
+    return `${yr}-${mo}-${da}`;
+  }
+  function periodStart(period) {
+    const now = new Date();
+    const d = new Date(now);
+    d.setHours(0, 0, 0, 0);
+    if (period === 'today') return d;
+    if (period === 'week')   { d.setDate(d.getDate() - 6); return d; }
+    if (period === 'month')  { d.setDate(d.getDate() - 29); return d; }
+    if (period === 'quarter'){ d.setDate(d.getDate() - 89); return d; }
+    if (period === 'year')   { d.setDate(d.getDate() - 364); return d; }
+    return new Date(0); // all time
+  }
+  function periodLabel(period) {
+    return ({today:'Today', week:'This Week', month:'This Month', quarter:'This Quarter', year:'This Year', all:'All Time'})[period] || period;
+  }
+  function callsInPeriod(period) {
+    const start = periodStart(period).getTime();
+    return allCalls.filter(c => (c._startedAt || 0) >= start);
+  }
 
-  function renderCalls(calls) {
-    const list = document.getElementById('calls-list');
-    if (!calls.length) {
-      list.innerHTML = '<div class="empty-state">No calls yet. Once your voice agent picks up its first call, it\'ll show up here.</div>';
-      return;
+  // ── Auth boot ──
+  async function bootAuth() {
+    const ok = await SSCAuth.requireAuth('login.html');
+    if (!ok) return false;
+    const user = SSCAuth.getCurrentUser();
+    if (user) {
+      document.getElementById('nav-fullname').textContent =
+        ((user.firstName || '') + ' ' + (user.lastName || '')).trim() || user.username || 'Account';
+      document.getElementById('nav-email').textContent = user.email || '';
+      document.getElementById('topbar-title').textContent = 'Welcome, ' + (user.firstName || user.username || 'there') + '.';
     }
-    list.innerHTML = calls.map(c => `
-      <details class="call-item">
-        <summary class="call-header">
-          <span class="call-chevron"></span>
-          <span class="call-name">${esc(c.customerName)}</span>
-          <span class="call-summary">${esc(c.reasonForCalling)}</span>
-          <span class="call-time">${fmtAgo(c.minutesAgo)}</span>
-          <span class="call-status ${c.booked ? 'booked' : 'pending'}">
-            ${c.booked ? '✓ Booked' : '○ No booking'}
-          </span>
-        </summary>
-        <div class="call-details">
-          <div class="detail-grid">
-            <div class="detail">
-              <span class="detail-label">Phone</span>
-              <span class="detail-value">${esc(c.phoneNumber)}</span>
-            </div>
-            <div class="detail">
-              <span class="detail-label">Email</span>
-              <span class="detail-value">${esc(c.email || '—')}</span>
-            </div>
-            <div class="detail">
-              <span class="detail-label">Location</span>
-              <span class="detail-value">${esc(c.location || '—')}</span>
-            </div>
-            <div class="detail">
-              <span class="detail-label">Call Duration</span>
-              <span class="detail-value">${esc(c.duration)}</span>
-            </div>
-            <div class="detail full">
-              <span class="detail-label">Reason for Calling</span>
-              <span class="detail-value">${esc(c.reasonForCalling)}</span>
-            </div>
-            <div class="detail full">
-              <span class="detail-label">Appointment</span>
-              <span class="detail-value ${c.booked ? 'appt-yes' : 'appt-no'}">
-                ${c.booked ? '✓ ' + esc(c.appointmentDate || 'Scheduled') : 'Not booked — follow-up needed'}
-              </span>
-            </div>
-          </div>
-        </div>
-      </details>
-    `).join('');
+    return true;
   }
 
-  /* ── Boot — fetch live data from Vapi (via Render proxy) ── */
-  function showError(msg) {
-    document.getElementById('calls-list').innerHTML =
-      `<div class="empty-state" style="border-color: var(--red); color: var(--red);">${esc(msg)}</div>`;
-  }
-
-  async function loadDashboard() {
-    document.getElementById('calls-list').innerHTML =
-      '<div class="empty-state">Loading your calls…</div>';
-
-    // Grab the current Supabase access token to authenticate the API call.
+  // ── Data fetch ──
+  async function fetchData() {
     const { data: sessionData } = await SSCAuth._supabase.auth.getSession();
     const token = sessionData?.session?.access_token;
     if (!token) {
-      showError('Your session has expired. Please log in again.');
+      showAgentError('Your session has expired. Please log in again.');
       setTimeout(() => { window.location.href = 'login.html'; }, 1500);
       return;
     }
-    const authHeaders = { Authorization: 'Bearer ' + token };
+    const headers = { Authorization: 'Bearer ' + token };
+
+    document.getElementById('calls-list').innerHTML =
+      '<div class="empty-state">Loading your calls…</div>';
 
     try {
       const [agentRes, callsRes] = await Promise.all([
-        fetch(`${SERVER_URL}/api/vapi/agent`, { headers: authHeaders }),
-        fetch(`${SERVER_URL}/api/vapi/calls?limit=50`, { headers: authHeaders })
+        fetch(`${SERVER_URL}/api/vapi/agent`, { headers }),
+        fetch(`${SERVER_URL}/api/vapi/calls?limit=100`, { headers })
       ]);
 
-      // 403 with body { error: "no_assistant" } means this user has not been
-      // assigned a Vapi agent yet. Show a friendly message instead of an error.
       if (agentRes.status === 403 || callsRes.status === 403) {
         const body = await agentRes.json().catch(() => ({}));
-        const msg = body.message ||
-          'Your voice agent is not set up yet. Contact Simple Solutions to get assigned.';
+        const msg = body.message || 'Your voice agent is not set up yet. Contact Simple Solutions to get assigned.';
         document.getElementById('agent-name').textContent = 'Not assigned yet';
         document.getElementById('agent-phone').textContent = '—';
         document.getElementById('agent-avatar').textContent = '··';
-        document.getElementById('calls-list').innerHTML =
-          `<div class="empty-state">${esc(msg)}</div>`;
+        document.getElementById('calls-list').innerHTML = `<div class="empty-state">${esc(msg)}</div>`;
         return;
       }
-
       if (!agentRes.ok || !callsRes.ok) {
         throw new Error(`Server returned ${agentRes.status} / ${callsRes.status}`);
       }
@@ -396,7 +686,7 @@
       const callsList = Array.isArray(callsData) ? callsData : (callsData.data || []);
 
       const now = Date.now();
-      const calls = callsList.map(call => {
+      allCalls = callsList.map(call => {
         const s = call.analysis?.structuredData || {};
         const startedAt = call.startedAt ? new Date(call.startedAt).getTime() : null;
         const endedAt = call.endedAt ? new Date(call.endedAt).getTime() : null;
@@ -411,44 +701,561 @@
           booked: !!s.bookedAppointment,
           appointmentDate: s.appointmentDate || '',
           duration: durSec != null ? fmtDuration(durSec) : '—',
+          durationSec: durSec,
           minutesAgo: startedAt ? Math.floor((now - startedAt) / 60000) : 0,
           _startedAt: startedAt
         };
       }).sort((a, b) => (b._startedAt || 0) - (a._startedAt || 0));
 
-      const total = calls.length;
-      const startOfToday = new Date(); startOfToday.setHours(0, 0, 0, 0);
-      const todayCount = calls.filter(c => c._startedAt && c._startedAt >= startOfToday.getTime()).length;
-      const bookedCount = calls.filter(c => c.booked).length;
-      const bookingRate = total > 0 ? Math.round((bookedCount / total) * 100) + '%' : '—';
-      const durSecs = calls
-        .map(c => { const m = c.duration.match(/^(\d+):(\d+)$/); return m ? +m[1] * 60 + +m[2] : null; })
-        .filter(d => d != null);
-      const avgDuration = durSecs.length
-        ? fmtDuration(durSecs.reduce((a, b) => a + b, 0) / durSecs.length)
-        : '—';
-
       renderAgent({
         name: (assistant.name || 'Voice Agent').trim(),
         initials: makeInitials(assistant.name),
-        phoneNumber: assistant.assignedPhoneNumber || '—',
-        stats: { total, today: todayCount, bookingRate, avgDuration }
+        phoneNumber: assistant.assignedPhoneNumber || '—'
       });
-      renderCalls(calls);
+      renderActiveView();
     } catch (err) {
       console.error('Dashboard load failed:', err);
-      showError('Could not load Vapi data. The server may be waking up — try refreshing in 30 seconds.');
+      showAgentError('Could not load Vapi data. The server may be waking up — try refreshing in 30 seconds.');
     }
   }
 
-  /* ── Boot ── */
-  bootAuth().then(ok => { if (ok) loadDashboard(); });
+  function showAgentError(msg) {
+    document.getElementById('calls-list').innerHTML =
+      `<div class="empty-state" style="border-color: var(--red); color: var(--red);">${esc(msg)}</div>`;
+  }
 
-  /* ── Logout ── */
+  // ── Render: agent header (static, doesn't depend on filter) ──
+  function renderAgent(a) {
+    document.getElementById('agent-avatar').textContent = a.initials;
+    document.getElementById('agent-name').textContent = a.name;
+    document.getElementById('agent-phone').textContent = a.phoneNumber;
+  }
+
+  // ── Render: agent stats + call list (filtered) ──
+  function renderAgentView() {
+    const calls = callsInPeriod(activePeriod);
+    const startOfToday = new Date(); startOfToday.setHours(0, 0, 0, 0);
+    const todayCount = calls.filter(c => c._startedAt && c._startedAt >= startOfToday.getTime()).length;
+    const bookedCount = calls.filter(c => c.booked).length;
+    const bookingRate = calls.length > 0 ? Math.round((bookedCount / calls.length) * 100) + '%' : '—';
+    const durSecs = calls.map(c => c.durationSec).filter(d => d != null);
+    const avgDuration = durSecs.length ? fmtDuration(durSecs.reduce((a, b) => a + b, 0) / durSecs.length) : '—';
+
+    document.getElementById('stat-total').textContent = calls.length;
+    document.getElementById('stat-today').textContent = todayCount;
+    document.getElementById('stat-booked').textContent = bookingRate;
+    document.getElementById('stat-duration').textContent = avgDuration;
+
+    renderCallsList(calls);
+  }
+
+  function renderCallsList(calls) {
+    const list = document.getElementById('calls-list');
+    if (!calls.length) {
+      list.innerHTML = '<div class="empty-state">No calls in this period yet.</div>';
+      return;
+    }
+    list.innerHTML = calls.map(c => `
+      <details class="call-item" data-call-id="${esc(c.id)}">
+        <summary class="call-header">
+          <span class="call-chevron"></span>
+          <span class="call-name">${esc(c.customerName)}</span>
+          <span class="call-summary">${esc(c.reasonForCalling)}</span>
+          <span class="call-time">${fmtAgo(c.minutesAgo)}</span>
+          <span class="call-status ${c.booked ? 'booked' : 'pending'}">
+            ${c.booked ? '✓ Booked' : '○ No booking'}
+          </span>
+        </summary>
+        <div class="call-details">
+          <div class="detail-grid">
+            <div class="detail"><span class="detail-label">Phone</span><span class="detail-value">${esc(c.phoneNumber)}</span></div>
+            <div class="detail"><span class="detail-label">Email</span><span class="detail-value">${esc(c.email || '—')}</span></div>
+            <div class="detail"><span class="detail-label">Location</span><span class="detail-value">${esc(c.location || '—')}</span></div>
+            <div class="detail"><span class="detail-label">Call Duration</span><span class="detail-value">${esc(c.duration)}</span></div>
+            <div class="detail full"><span class="detail-label">Reason for Calling</span><span class="detail-value">${esc(c.reasonForCalling)}</span></div>
+            <div class="detail full"><span class="detail-label">Appointment</span>
+              <span class="detail-value ${c.booked ? 'appt-yes' : 'appt-no'}">
+                ${c.booked ? '✓ ' + esc(c.appointmentDate || 'Scheduled') : 'Not booked — follow-up needed'}
+              </span>
+            </div>
+          </div>
+          <div class="call-actions">
+            <button class="dispatch-btn" data-call-id="${esc(c.id)}">Dispatch a technician</button>
+            ${c.phoneNumber ? `<a class="secondary" style="text-decoration:none;display:inline-block;line-height:1.4;padding:0.45rem 0.9rem;background:transparent;color:var(--navy);border:1.5px solid var(--gray-200);border-radius:8px;font-size:0.82rem;font-weight:600;" href="tel:${esc(c.phoneNumber)}">Call back</a>` : ''}
+          </div>
+        </div>
+      </details>
+    `).join('');
+
+    // Wire dispatch buttons
+    list.querySelectorAll('.dispatch-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault(); e.stopPropagation();
+        const id = btn.dataset.callId;
+        const call = allCalls.find(x => x.id === id);
+        if (call) openDispatchModal(call);
+      });
+    });
+  }
+
+  // ── Render: analytics ──
+  function renderAnalyticsView() {
+    const calls = callsInPeriod(activePeriod);
+    document.getElementById('analytics-period-label').textContent = periodLabel(activePeriod);
+    document.getElementById('ana-total').textContent = calls.length;
+    document.getElementById('ana-total-sub').textContent = `in ${periodLabel(activePeriod).toLowerCase()}`;
+    const booked = calls.filter(c => c.booked).length;
+    document.getElementById('ana-booked').textContent = booked;
+    document.getElementById('ana-booked-sub').textContent = booked === 1 ? 'appointment scheduled' : 'appointments scheduled';
+    document.getElementById('ana-rate').textContent = calls.length ? Math.round((booked / calls.length) * 100) + '%' : '—';
+    document.getElementById('ana-response').textContent = calls.length ? '~1s' : '—';
+
+    drawVolumeChart(calls);
+    drawQualityChart(calls);
+    drawRateChart(calls);
+  }
+
+  function bucketByDay(calls) {
+    const map = new Map();   // ymd -> { total, booked }
+    const start = periodStart(activePeriod);
+    const end = new Date(); end.setHours(23, 59, 59, 999);
+    // Seed every day in range so the chart shows zero days too
+    for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+      map.set(ymd(d), { total: 0, booked: 0 });
+    }
+    calls.forEach(c => {
+      if (!c._startedAt) return;
+      const k = ymd(new Date(c._startedAt));
+      if (!map.has(k)) map.set(k, { total: 0, booked: 0 });
+      const b = map.get(k);
+      b.total++;
+      if (c.booked) b.booked++;
+    });
+    const keys = Array.from(map.keys()).sort();
+    return {
+      labels: keys.map(k => {
+        const d = new Date(k + 'T00:00:00');
+        return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+      }),
+      total: keys.map(k => map.get(k).total),
+      booked: keys.map(k => map.get(k).booked),
+      keys
+    };
+  }
+
+  function drawVolumeChart(calls) {
+    const ctx = document.getElementById('chart-volume');
+    const data = bucketByDay(calls);
+    if (charts.volume) charts.volume.destroy();
+    charts.volume = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: data.labels,
+        datasets: [
+          { label: 'Booked', data: data.booked, backgroundColor: '#16a34a', borderRadius: 4 },
+          { label: 'Not booked', data: data.total.map((t, i) => t - data.booked[i]), backgroundColor: '#d97706', borderRadius: 4 }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12 } } },
+        scales: {
+          x: { stacked: true, grid: { display: false }, ticks: { font: { size: 10 } } },
+          y: { stacked: true, beginAtZero: true, ticks: { stepSize: 1, font: { size: 10 } }, grid: { color: '#f0eee9' } }
+        }
+      }
+    });
+  }
+
+  function drawQualityChart(calls) {
+    const ctx = document.getElementById('chart-quality');
+    const booked = calls.filter(c => c.booked).length;
+    const unbooked = calls.length - booked;
+    if (charts.quality) charts.quality.destroy();
+    charts.quality = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Booked', 'No booking'],
+        datasets: [{
+          data: calls.length ? [booked, unbooked] : [1],
+          backgroundColor: calls.length ? ['#16a34a', '#d97706'] : ['#e5e7eb'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false, cutout: '65%',
+        plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12 } } }
+      }
+    });
+  }
+
+  function drawRateChart(calls) {
+    const ctx = document.getElementById('chart-rate');
+    const data = bucketByDay(calls);
+    const rates = data.total.map((t, i) => t > 0 ? Math.round((data.booked[i] / t) * 100) : null);
+    if (charts.rate) charts.rate.destroy();
+    charts.rate = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: data.labels,
+        datasets: [{
+          label: 'Booking rate %',
+          data: rates,
+          borderColor: '#0f1a2e', backgroundColor: 'rgba(15,26,46,0.08)',
+          tension: 0.3, fill: true, spanGaps: true,
+          pointBackgroundColor: '#0f1a2e', pointRadius: 3
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { grid: { display: false }, ticks: { font: { size: 10 } } },
+          y: { beginAtZero: true, max: 100, ticks: { callback: v => v + '%', font: { size: 10 } }, grid: { color: '#f0eee9' } }
+        }
+      }
+    });
+  }
+
+  // ── Render: calendar ──
+  function renderCalendarView() {
+    const monthStart = new Date(calMonthAnchor.getFullYear(), calMonthAnchor.getMonth(), 1);
+    document.getElementById('cal-month-label').textContent =
+      monthStart.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+
+    // Bookings keyed by ymd of the appointment. We try the parsed appointmentDate
+    // first; if that's empty/unparseable, we fall back to the call's startedAt.
+    const bookingsByDate = new Map();
+    allCalls.filter(c => c.booked).forEach(c => {
+      let d = null;
+      if (c.appointmentDate) {
+        const parsed = new Date(c.appointmentDate);
+        if (!isNaN(parsed)) d = parsed;
+      }
+      if (!d && c._startedAt) d = new Date(c._startedAt);
+      if (!d) return;
+      const k = ymd(d);
+      if (!bookingsByDate.has(k)) bookingsByDate.set(k, []);
+      bookingsByDate.get(k).push({ ...c, _apptDate: d });
+    });
+
+    // Build a 6-row grid starting from the Sunday before the 1st
+    const firstDay = monthStart.getDay();
+    const gridStart = new Date(monthStart);
+    gridStart.setDate(gridStart.getDate() - firstDay);
+
+    const dows = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const todayKey = ymd(new Date());
+    let html = dows.map(d => `<div class="cal-dow">${d}</div>`).join('');
+
+    for (let i = 0; i < 42; i++) {
+      const d = new Date(gridStart);
+      d.setDate(d.getDate() + i);
+      const inMonth = d.getMonth() === monthStart.getMonth();
+      const k = ymd(d);
+      const bookings = bookingsByDate.get(k) || [];
+      const classes = ['cal-day'];
+      if (!inMonth) classes.push('other-month');
+      if (k === todayKey) classes.push('today');
+      if (bookings.length) classes.push('has-bookings');
+      if (k === calSelectedDate) classes.push('selected');
+
+      const previewEvents = bookings.slice(0, 2).map(b =>
+        `<div class="cal-event">• ${esc(b.customerName)}</div>`
+      ).join('');
+      const more = bookings.length > 2 ? `<div class="cal-event">+${bookings.length - 2} more</div>` : '';
+
+      html += `<div class="${classes.join(' ')}" data-date="${k}">
+        <span class="cal-daynum">${d.getDate()}</span>
+        ${bookings.length ? `<span class="cal-bookings-count">${bookings.length}</span>` : ''}
+        <div class="cal-day-events">${previewEvents}${more}</div>
+      </div>`;
+    }
+
+    const grid = document.getElementById('cal-grid');
+    grid.innerHTML = html;
+    grid.querySelectorAll('.cal-day').forEach(el => {
+      el.addEventListener('click', () => selectCalDay(el.dataset.date, bookingsByDate));
+    });
+
+    if (calSelectedDate) selectCalDay(calSelectedDate, bookingsByDate, false);
+  }
+
+  function selectCalDay(dateKey, bookingsMap, refreshGrid = true) {
+    calSelectedDate = dateKey;
+    if (refreshGrid) {
+      document.querySelectorAll('.cal-day').forEach(el => el.classList.toggle('selected', el.dataset.date === dateKey));
+    }
+    const pane = document.getElementById('cal-detail-pane');
+    const list = bookingsMap.get(dateKey) || [];
+    if (!list.length) {
+      pane.style.display = 'block';
+      const niceDate = new Date(dateKey + 'T00:00:00').toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+      document.getElementById('cal-detail-title').textContent = niceDate;
+      document.getElementById('cal-detail-list').innerHTML = '<div style="color:var(--gray-500);font-size:0.88rem;">No appointments on this day.</div>';
+      return;
+    }
+    pane.style.display = 'block';
+    const niceDate = new Date(dateKey + 'T00:00:00').toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+    document.getElementById('cal-detail-title').textContent = `${niceDate} — ${list.length} appointment${list.length === 1 ? '' : 's'}`;
+    document.getElementById('cal-detail-list').innerHTML = list.map(b => {
+      const t = b._apptDate ? b._apptDate.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) : '';
+      return `<div class="cal-detail-item">
+        <div>
+          <div class="who">${esc(b.customerName)}</div>
+          <div style="font-size:0.8rem;color:var(--gray-500);">${esc(b.reasonForCalling || '')}</div>
+        </div>
+        <div class="when">${esc(t || 'Time TBD')}</div>
+      </div>`;
+    }).join('');
+  }
+
+  // ── Render: dispatch ──
+  function renderDispatchView() {
+    const grid = document.getElementById('tech-grid');
+    const empty = document.getElementById('tech-empty');
+    if (!technicians.length) {
+      grid.innerHTML = '';
+      empty.style.display = 'block';
+      return;
+    }
+    empty.style.display = 'none';
+    grid.innerHTML = technicians.map(t => {
+      const telHref = 'tel:' + (t.phone || '').replace(/[^\d+]/g, '');
+      const smsHref = 'sms:' + (t.phone || '').replace(/[^\d+]/g, '');
+      return `<div class="tech-card">
+        <div class="tech-card-head">
+          <div class="tech-avatar">${esc(makeInitials(t.name))}</div>
+          <div>
+            <div class="tech-name">${esc(t.name)}</div>
+            <div class="tech-role">${esc(t.role || 'Technician')}</div>
+          </div>
+        </div>
+        <div class="tech-phone">${esc(t.phone || '—')}</div>
+        <div class="tech-actions">
+          <a class="call" href="${telHref}">Call</a>
+          <a class="text" href="${smsHref}">Text</a>
+          <button class="edit" data-edit="${esc(t.id)}">Edit</button>
+          <button class="delete" data-delete="${esc(t.id)}">Delete</button>
+        </div>
+      </div>`;
+    }).join('');
+
+    grid.querySelectorAll('[data-edit]').forEach(btn => {
+      btn.addEventListener('click', () => openTechModal(btn.dataset.edit));
+    });
+    grid.querySelectorAll('[data-delete]').forEach(btn => {
+      btn.addEventListener('click', () => deleteTech(btn.dataset.delete));
+    });
+  }
+
+  // ── Tech CRUD ──
+  async function loadTechnicians() {
+    const raw = await SSCAuth.getRawUser();
+    technicians = (raw && raw.user_metadata && Array.isArray(raw.user_metadata.technicians))
+      ? raw.user_metadata.technicians : [];
+  }
+
+  async function saveTechnicians() {
+    const result = await SSCAuth.updateUserMetadata({ technicians });
+    if (!result.ok) {
+      alert('Could not save: ' + result.error);
+      return false;
+    }
+    return true;
+  }
+
+  function openTechModal(editId) {
+    const modal = document.getElementById('tech-modal-backdrop');
+    const idEl = document.getElementById('tech-id');
+    const nameEl = document.getElementById('tech-name');
+    const roleEl = document.getElementById('tech-role');
+    const phoneEl = document.getElementById('tech-phone');
+    const titleEl = document.getElementById('tech-modal-title');
+    const errorEl = document.getElementById('tech-error');
+    errorEl.textContent = '';
+
+    if (editId) {
+      const t = technicians.find(x => x.id === editId);
+      if (!t) return;
+      titleEl.textContent = 'Edit Technician';
+      idEl.value = t.id;
+      nameEl.value = t.name || '';
+      roleEl.value = t.role || '';
+      phoneEl.value = t.phone || '';
+    } else {
+      titleEl.textContent = 'Add Technician';
+      idEl.value = '';
+      nameEl.value = '';
+      roleEl.value = '';
+      phoneEl.value = '';
+    }
+    modal.classList.add('show');
+    setTimeout(() => nameEl.focus(), 50);
+  }
+
+  function closeTechModal() {
+    document.getElementById('tech-modal-backdrop').classList.remove('show');
+  }
+
+  async function deleteTech(id) {
+    const t = technicians.find(x => x.id === id);
+    if (!t) return;
+    if (!confirm(`Delete ${t.name}? This can't be undone.`)) return;
+    technicians = technicians.filter(x => x.id !== id);
+    if (await saveTechnicians()) renderDispatchView();
+  }
+
+  document.getElementById('tech-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const id = document.getElementById('tech-id').value;
+    const name = document.getElementById('tech-name').value.trim();
+    const role = document.getElementById('tech-role').value.trim();
+    const phone = document.getElementById('tech-phone').value.trim();
+    const errorEl = document.getElementById('tech-error');
+    errorEl.textContent = '';
+
+    if (!name) { errorEl.textContent = 'Name is required.'; return; }
+    if (!phone) { errorEl.textContent = 'Phone is required.'; return; }
+
+    if (id) {
+      const idx = technicians.findIndex(x => x.id === id);
+      if (idx >= 0) technicians[idx] = { ...technicians[idx], name, role, phone };
+    } else {
+      technicians.push({ id: 't_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7), name, role, phone });
+    }
+
+    const saveBtn = document.getElementById('tech-save');
+    saveBtn.disabled = true;
+    saveBtn.textContent = 'Saving…';
+    const ok = await saveTechnicians();
+    saveBtn.disabled = false;
+    saveBtn.textContent = 'Save';
+    if (ok) {
+      closeTechModal();
+      renderDispatchView();
+    }
+  });
+
+  document.getElementById('add-tech-btn').addEventListener('click', () => openTechModal(null));
+  document.getElementById('tech-cancel').addEventListener('click', closeTechModal);
+
+  // ── Per-call dispatch modal ──
+  function openDispatchModal(call) {
+    pendingDispatchCall = call;
+    const list = document.getElementById('dispatch-tech-list');
+    if (!technicians.length) {
+      list.innerHTML = '<div style="color:var(--gray-500);font-size:0.88rem;padding:1rem;">No technicians yet. Add one in the Dispatch tab first.</div>';
+    } else {
+      const body = buildDispatchSms(call);
+      list.innerHTML = technicians.map(t => {
+        const smsHref = 'sms:' + (t.phone || '').replace(/[^\d+]/g, '') + '?&body=' + encodeURIComponent(body);
+        return `<div class="dispatch-tech-row">
+          <div class="who">
+            <div class="who-name">${esc(t.name)}</div>
+            <div class="who-role">${esc(t.role || 'Technician')} · ${esc(t.phone || '')}</div>
+          </div>
+          <a href="${smsHref}">Send SMS</a>
+        </div>`;
+      }).join('');
+    }
+    document.getElementById('dispatch-modal-backdrop').classList.add('show');
+  }
+  function closeDispatchModal() {
+    document.getElementById('dispatch-modal-backdrop').classList.remove('show');
+    pendingDispatchCall = null;
+  }
+  function buildDispatchSms(call) {
+    const lines = [
+      'New job from voice agent:',
+      `Customer: ${call.customerName}`,
+      call.phoneNumber ? `Phone: ${call.phoneNumber}` : '',
+      call.location ? `Location: ${call.location}` : '',
+      `Reason: ${call.reasonForCalling}`,
+      call.booked && call.appointmentDate ? `Appt: ${call.appointmentDate}` : ''
+    ].filter(Boolean);
+    return lines.join('\n');
+  }
+  document.getElementById('dispatch-cancel').addEventListener('click', closeDispatchModal);
+  // Close modals when clicking the backdrop itself
+  document.querySelectorAll('.modal-backdrop').forEach(b => {
+    b.addEventListener('click', e => { if (e.target === b) b.classList.remove('show'); });
+  });
+
+  // ── View switching ──
+  function switchView(view) {
+    activeView = view;
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.toggle('active', b.dataset.view === view));
+    document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === 'view-' + view));
+
+    // Hide filter chips on views that don't use them
+    const showFilters = (view === 'agent' || view === 'analytics');
+    document.getElementById('filter-chips').style.display = showFilters ? 'flex' : 'none';
+
+    const titles = {
+      agent:     ['Your Voice Agent', 'Live calls and recent activity.'],
+      analytics: ['Analytics', 'Call quality, booking rates, and trends.'],
+      calendar:  ['Calendar', 'Booked appointments by day.'],
+      dispatch:  ['Dispatch', 'Your technicians and per-job dispatch.']
+    };
+    document.getElementById('topbar-title').textContent = titles[view][0];
+    document.getElementById('topbar-sub').textContent = titles[view][1];
+
+    renderActiveView();
+  }
+
+  function renderActiveView() {
+    if (activeView === 'agent') renderAgentView();
+    else if (activeView === 'analytics') renderAnalyticsView();
+    else if (activeView === 'calendar') renderCalendarView();
+    else if (activeView === 'dispatch') renderDispatchView();
+  }
+
+  document.querySelectorAll('.nav-item').forEach(btn => {
+    btn.addEventListener('click', () => switchView(btn.dataset.view));
+  });
+
+  // ── Filter chips ──
+  document.querySelectorAll('.filter-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      activePeriod = chip.dataset.period;
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.toggle('active', c === chip));
+      renderActiveView();
+    });
+  });
+
+  // ── Calendar nav ──
+  document.getElementById('cal-prev').addEventListener('click', () => {
+    calMonthAnchor = new Date(calMonthAnchor.getFullYear(), calMonthAnchor.getMonth() - 1, 1);
+    calSelectedDate = null;
+    document.getElementById('cal-detail-pane').style.display = 'none';
+    renderCalendarView();
+  });
+  document.getElementById('cal-next').addEventListener('click', () => {
+    calMonthAnchor = new Date(calMonthAnchor.getFullYear(), calMonthAnchor.getMonth() + 1, 1);
+    calSelectedDate = null;
+    document.getElementById('cal-detail-pane').style.display = 'none';
+    renderCalendarView();
+  });
+  document.getElementById('cal-today').addEventListener('click', () => {
+    calMonthAnchor = new Date();
+    calSelectedDate = ymd(new Date());
+    renderCalendarView();
+  });
+
+  // ── Logout ──
   document.getElementById('logout-btn').addEventListener('click', async () => {
     await SSCAuth.logOut();
     window.location.href = 'index.html';
   });
+
+  // ── Boot ──
+  (async () => {
+    const ok = await bootAuth();
+    if (!ok) return;
+    await loadTechnicians();
+    await fetchData();
+  })();
 </script>
 
 </body>

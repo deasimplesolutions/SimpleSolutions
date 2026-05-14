@@ -188,6 +188,31 @@
     };
   }
 
+  // Merge a patch into the current user's user_metadata (user-writable).
+  // Use for things like the technician list — NOT for the Vapi agent ID
+  // (which lives in app_metadata and can only be set by the server).
+  async function updateUserMetadata(patch) {
+    const { data: userData, error: getErr } = await sb.auth.getUser();
+    if (getErr || !userData?.user) {
+      return { ok: false, error: 'Not logged in.' };
+    }
+    const merged = Object.assign({}, userData.user.user_metadata || {}, patch);
+    const { data, error } = await sb.auth.updateUser({ data: merged });
+    if (error) {
+      return { ok: false, error: friendlyAuthError(error) };
+    }
+    cachedUser = publicUser(data.user);
+    return { ok: true, metadata: data.user.user_metadata };
+  }
+
+  // Reads the full current user object including user_metadata. Used by the
+  // dashboard for fields not exposed via publicUser() (e.g., technicians).
+  async function getRawUser() {
+    const { data, error } = await sb.auth.getUser();
+    if (error || !data?.user) return null;
+    return data.user;
+  }
+
   async function updatePassword(newPassword) {
     const pwIssues = passwordIssues(newPassword);
     if (pwIssues.length) {
@@ -217,9 +242,11 @@
       logOut:               async () => {},
       getCurrentUser:       () => null,
       getCurrentUserAsync:  async () => null,
+      getRawUser:           async () => null,
       requireAuth:          async (r) => { global.location.href = r || 'login.html'; return false; },
       requestPasswordReset: async () => err,
       updatePassword:       async () => err,
+      updateUserMetadata:   async () => err,
       passwordIssues
     };
   }
@@ -232,9 +259,11 @@
     logOut,
     getCurrentUser,
     getCurrentUserAsync,
+    getRawUser,
     requireAuth,
     requestPasswordReset,
     updatePassword,
+    updateUserMetadata,
     passwordIssues,
     init,
     _supabase: sb
