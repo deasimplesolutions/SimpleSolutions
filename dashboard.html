@@ -249,17 +249,22 @@
   <div class="calls-list" id="calls-list"></div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="auth.js"></script>
 <script>
   const SERVER_URL = 'https://simplesolutions-server.onrender.com';
   const AGENT_PHONE = '+1 (866) 660-2921';
 
-  /* ── Auth check ── */
-  SSCAuth.requireAuth('login.html');
-  const user = SSCAuth.getCurrentUser();
-  if (user) {
-    document.getElementById('welcome-name').textContent = user.firstName;
-    document.getElementById('nav-username').textContent = user.username;
+  /* ── Auth check (async — waits for Supabase session to resolve) ── */
+  async function bootAuth() {
+    const ok = await SSCAuth.requireAuth('login.html');
+    if (!ok) return false;
+    const user = SSCAuth.getCurrentUser();
+    if (user) {
+      document.getElementById('welcome-name').textContent = user.firstName || user.username || 'there';
+      document.getElementById('nav-username').textContent = user.username || user.email;
+    }
+    return true;
   }
 
   /* ── Render agent ── */
@@ -413,11 +418,12 @@
     }
   }
 
-  loadDashboard();
+  /* ── Boot ── */
+  bootAuth().then(ok => { if (ok) loadDashboard(); });
 
   /* ── Logout ── */
-  document.getElementById('logout-btn').addEventListener('click', () => {
-    SSCAuth.logOut();
+  document.getElementById('logout-btn').addEventListener('click', async () => {
+    await SSCAuth.logOut();
     window.location.href = 'index.html';
   });
 </script>

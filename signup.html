@@ -246,6 +246,7 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="auth.js"></script>
 <script>
   const form = document.getElementById('signup-form');
@@ -333,9 +334,16 @@
         submitBtn.textContent = 'Create account';
         return;
       }
+      if (result.needsEmailConfirm) {
+        showAlert(result.message || 'Check your email to confirm your account.', 'success');
+        submitBtn.textContent = 'Check your inbox';
+        // Leave button disabled — user must confirm via email link before logging in.
+        return;
+      }
       showAlert('Account created! Redirecting…', 'success');
       setTimeout(() => { window.location.href = 'dashboard.html'; }, 600);
     } catch (err) {
+      console.error('Signup error:', err);
       showAlert('Something went wrong. Please try again.', 'error');
       submitBtn.disabled = false;
       submitBtn.textContent = 'Create account';

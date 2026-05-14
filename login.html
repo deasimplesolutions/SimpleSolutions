@@ -186,8 +186,8 @@
 
     <form id="login-form" novalidate>
       <div class="field">
-        <label for="identifier">Username or email</label>
-        <input type="text" id="identifier" name="identifier" autocomplete="username" required>
+        <label for="identifier">Email</label>
+        <input type="email" id="identifier" name="identifier" autocomplete="email" placeholder="you@company.com" required>
       </div>
 
       <div class="field">
@@ -207,6 +207,7 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="auth.js"></script>
 <script>
   const form = document.getElementById('login-form');
@@ -231,8 +232,16 @@
     alertEl.className = 'alert show ' + type;
   }
 
-  if (SSCAuth.getCurrentUser()) {
-    window.location.href = 'dashboard.html';
+  // If already logged in (or arriving back from an email confirmation link
+  // with a session token in the URL), bounce straight to the dashboard.
+  SSCAuth.init().then(user => {
+    if (user) window.location.href = 'dashboard.html';
+  });
+
+  // Email confirmation friendly banner — Supabase appends ?type=signup or
+  // a similar query param after a successful confirmation redirect.
+  if (/[?&]type=signup/.test(window.location.search) || /access_token=/.test(window.location.hash)) {
+    showAlert('Email confirmed! Log in below.', 'success');
   }
 
   form.addEventListener('submit', async (e) => {
@@ -257,6 +266,7 @@
       showAlert('Logged in! Redirecting…', 'success');
       setTimeout(() => { window.location.href = 'dashboard.html'; }, 500);
     } catch (err) {
+      console.error('Login error:', err);
       showAlert('Something went wrong. Please try again.', 'error');
       submitBtn.disabled = false;
       submitBtn.textContent = 'Login';
