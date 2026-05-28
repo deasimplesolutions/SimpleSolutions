@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>24/7 Answering — Simple Solutions</title>
-  <meta name="description" content="Missed call receptionist, website chat bot, and 24/7 texting — AI-built answering that books jobs while you sleep.">
+  <meta name="description" content="Missed call receptionist, website chat bot, 24/7 texting, and automated follow-up — every inquiry answered in seconds, then booked.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://simplesolutions-c.com/service-247-answering.html">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -46,6 +46,18 @@
     .anim-sms .t2 { animation: bubbleIn 5.5s ease-in-out infinite 1.4s; }
     .anim-sms .t3 { animation: bubbleIn 5.5s ease-in-out infinite 2.4s; }
     .anim-sms .t4 { animation: bubbleIn 5.5s ease-in-out infinite 3.4s; }
+
+    /* Feature 4 — Follow-up timeline */
+    .anim-follow .follow { opacity: 0; }
+    .anim-follow .f1 { animation: followIn 6s ease-in-out infinite 0.3s; }
+    .anim-follow .f2 { animation: followIn 6s ease-in-out infinite 1.8s; }
+    .anim-follow .f3 { animation: followIn 6s ease-in-out infinite 3.3s; }
+    .anim-follow .dot { transform-origin: center; transform-box: fill-box; opacity: 0.3; }
+    .anim-follow .d1 { animation: dotActive 6s ease-in-out infinite 0.3s; }
+    .anim-follow .d2 { animation: dotActive 6s ease-in-out infinite 1.8s; }
+    .anim-follow .d3 { animation: dotActive 6s ease-in-out infinite 3.3s; }
+    @keyframes followIn { 0%, 5% { opacity: 0; transform: translateY(-6px); } 10%, 90% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; } }
+    @keyframes dotActive { 0%, 5% { opacity: 0.3; transform: scale(1); } 10%, 90% { opacity: 1; transform: scale(1.4); } 100% { opacity: 0.3; transform: scale(1); } }
   </style>
 </head>
 <body>
@@ -61,7 +73,8 @@
         <a href="index.html#services">Services</a>
         <div class="nav-dropdown-menu" role="menu">
           <a href="service-247-answering.html" role="menuitem">24/7 Answering <svg class="ind-icon" viewBox="0 0 16 16"><path fill="#16a34a" d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328z"/></svg></a>
-          <a href="service-quick-response.html" role="menuitem">Quick Response <svg class="ind-icon" viewBox="0 0 16 16"><path d="M 9 1 L 3 9 L 7 9 L 5 15 L 13 7 L 9 7 Z" fill="#f59e0b" stroke="#d97706" stroke-width="0.5" stroke-linejoin="round"/><path d="M 9 1 L 4.5 7.5 L 6.5 7.5" stroke="#fde088" stroke-width="0.6" fill="none" stroke-linejoin="round"/></svg></a>
+          <a href="service-website-buildout.html" role="menuitem">Website Build Out <svg class="ind-icon" viewBox="0 0 16 16"><rect x="1.5" y="2.5" width="13" height="10" rx="1.2" fill="#fff" stroke="#0f1a2e" stroke-width="1.1"/><rect x="1.5" y="2.5" width="13" height="2.4" rx="1.2" fill="#0f1a2e"/><circle cx="3" cy="3.7" r="0.45" fill="#fff"/><circle cx="4.3" cy="3.7" r="0.45" fill="#fff"/><circle cx="5.6" cy="3.7" r="0.45" fill="#fff"/><rect x="3" y="6.2" width="6" height="1" rx="0.3" fill="#3b82f6"/><rect x="3" y="8" width="9" height="0.7" fill="#d1d5db"/><rect x="3" y="9.2" width="7" height="0.7" fill="#d1d5db"/><rect x="3" y="10.4" width="3.2" height="1.4" rx="0.3" fill="#22c55e"/></svg></a>
+          <a href="service-google-business-profile.html" role="menuitem">Google Business Profile <svg class="ind-icon" viewBox="0 0 16 16"><path d="M 8 1.5 C 5.5 1.5, 3.5 3.5, 3.5 6 C 3.5 9.5, 8 14.5, 8 14.5 C 8 14.5, 12.5 9.5, 12.5 6 C 12.5 3.5, 10.5 1.5, 8 1.5 Z" fill="#ea4335"/><circle cx="8" cy="6" r="2" fill="#fff"/><text x="8" y="7.4" font-family="Arial,sans-serif" font-size="3" font-weight="700" text-anchor="middle" fill="#4285f4">G</text></svg></a>
           <a href="service-real-time-analytics.html" role="menuitem">Real Time Analytics <svg class="ind-icon" viewBox="0 0 16 16"><line x1="1.5" y1="14.2" x2="14.5" y2="14.2" stroke="#9ca3af" stroke-width="0.5"/><rect x="2" y="9" width="2.5" height="5.2" fill="#0f1a2e" rx="0.3"/><rect x="6" y="6" width="2.5" height="8.2" fill="#3b82f6" rx="0.3"/><rect x="10" y="3" width="2.5" height="11.2" fill="#22c55e" rx="0.3"/><path d="M 3 9 L 7 6 L 11 3" stroke="#374151" stroke-width="0.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M 9 3.5 L 11 3 L 11.5 5" stroke="#374151" stroke-width="0.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         </div>
       </div>
@@ -94,7 +107,8 @@
   <div class="mobile-menu-section">
     <div class="mobile-menu-label">Services</div>
     <a href="service-247-answering.html">24/7 Answering <svg class="ind-icon" viewBox="0 0 16 16"><path fill="#16a34a" d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328z"/></svg></a>
-    <a href="service-quick-response.html">Quick Response <svg class="ind-icon" viewBox="0 0 16 16"><path d="M 9 1 L 3 9 L 7 9 L 5 15 L 13 7 L 9 7 Z" fill="#f59e0b" stroke="#d97706" stroke-width="0.5" stroke-linejoin="round"/><path d="M 9 1 L 4.5 7.5 L 6.5 7.5" stroke="#fde088" stroke-width="0.6" fill="none" stroke-linejoin="round"/></svg></a>
+    <a href="service-website-buildout.html">Website Build Out <svg class="ind-icon" viewBox="0 0 16 16"><rect x="1.5" y="2.5" width="13" height="10" rx="1.2" fill="#fff" stroke="#0f1a2e" stroke-width="1.1"/><rect x="1.5" y="2.5" width="13" height="2.4" rx="1.2" fill="#0f1a2e"/><circle cx="3" cy="3.7" r="0.45" fill="#fff"/><circle cx="4.3" cy="3.7" r="0.45" fill="#fff"/><circle cx="5.6" cy="3.7" r="0.45" fill="#fff"/><rect x="3" y="6.2" width="6" height="1" rx="0.3" fill="#3b82f6"/><rect x="3" y="8" width="9" height="0.7" fill="#d1d5db"/><rect x="3" y="9.2" width="7" height="0.7" fill="#d1d5db"/><rect x="3" y="10.4" width="3.2" height="1.4" rx="0.3" fill="#22c55e"/></svg></a>
+    <a href="service-google-business-profile.html">Google Business Profile <svg class="ind-icon" viewBox="0 0 16 16"><path d="M 8 1.5 C 5.5 1.5, 3.5 3.5, 3.5 6 C 3.5 9.5, 8 14.5, 8 14.5 C 8 14.5, 12.5 9.5, 12.5 6 C 12.5 3.5, 10.5 1.5, 8 1.5 Z" fill="#ea4335"/><circle cx="8" cy="6" r="2" fill="#fff"/><text x="8" y="7.4" font-family="Arial,sans-serif" font-size="3" font-weight="700" text-anchor="middle" fill="#4285f4">G</text></svg></a>
     <a href="service-real-time-analytics.html">Real Time Analytics <svg class="ind-icon" viewBox="0 0 16 16"><line x1="1.5" y1="14.2" x2="14.5" y2="14.2" stroke="#9ca3af" stroke-width="0.5"/><rect x="2" y="9" width="2.5" height="5.2" fill="#0f1a2e" rx="0.3"/><rect x="6" y="6" width="2.5" height="8.2" fill="#3b82f6" rx="0.3"/><rect x="10" y="3" width="2.5" height="11.2" fill="#22c55e" rx="0.3"/><path d="M 3 9 L 7 6 L 11 3" stroke="#374151" stroke-width="0.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M 9 3.5 L 11 3 L 11.5 5" stroke="#374151" stroke-width="0.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
   </div>
   <div class="mobile-menu-section">
@@ -116,8 +130,8 @@
   <div class="ip-hero-inner">
     <div>
       <div class="ip-label">24/7 Answering</div>
-      <h1>Three ways customers reach you. All answered.</h1>
-      <p class="lede">Missed call receptionist. Website chat bot. 24/7 texting. Three doors customers can knock on — all answered the moment they hit send.</p>
+      <h1>Three channels. One answer — in seconds.</h1>
+      <p class="lede">Missed call receptionist. Website chat bot. 24/7 texting. Every inquiry answered in under 15 seconds — then followed up until it's booked.</p>
       <a href="contact.html" class="ip-cta">Book a free audit
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
       </a>
@@ -204,7 +218,7 @@
         </g>
         <g class="bubble b2">
           <rect x="146" y="132" width="80" height="14" rx="7" fill="#3b82f6"/>
-          <text x="151" y="141" font-family="Inter,sans-serif" font-size="6.5" fill="#fff">Need a roof quote</text>
+          <text x="151" y="141" font-family="Inter,sans-serif" font-size="6.5" fill="#fff">Need a panel quote</text>
         </g>
         <g class="bubble b3">
           <rect x="128" y="150" width="88" height="22" rx="7" fill="#22c55e"/>
@@ -260,6 +274,43 @@
   </div>
 </section>
 
+<section class="feature-section alt">
+  <div class="feature-row flip">
+    <div class="feature-anim anim-follow" aria-hidden="true">
+      <svg viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg">
+        <line x1="20" y1="100" x2="220" y2="100" stroke="#d1d5db" stroke-width="1.5"/>
+        <circle class="dot d1" cx="30" cy="100" r="7" fill="#3b82f6"/>
+        <text x="30" y="120" font-family="Inter,sans-serif" font-size="7" font-weight="700" text-anchor="middle" fill="#374151">Day 1</text>
+        <circle class="dot d2" cx="120" cy="100" r="7" fill="#0f1a2e"/>
+        <text x="120" y="120" font-family="Inter,sans-serif" font-size="7" font-weight="700" text-anchor="middle" fill="#374151">Day 3</text>
+        <circle class="dot d3" cx="210" cy="100" r="7" fill="#22c55e"/>
+        <text x="210" y="120" font-family="Inter,sans-serif" font-size="7" font-weight="700" text-anchor="middle" fill="#374151">Week 1</text>
+        <g class="follow f1">
+          <path d="M 8 40 Q 8 36, 12 36 L 78 36 Q 82 36, 82 40 L 82 68 Q 82 72, 78 72 L 36 72 L 30 78 L 32 72 L 12 72 Q 8 72, 8 68 Z" fill="#3b82f6"/>
+          <text x="14" y="52" font-family="Inter,sans-serif" font-size="6.5" fill="#fff">Reply + quote</text>
+          <text x="14" y="61" font-family="Inter,sans-serif" font-size="6.5" fill="#fff">sent · 11s</text>
+        </g>
+        <g class="follow f2">
+          <path d="M 78 40 Q 78 36, 82 36 L 162 36 Q 166 36, 166 40 L 166 68 Q 166 72, 162 72 L 126 72 L 120 78 L 122 72 L 82 72 Q 78 72, 78 68 Z" fill="#0f1a2e"/>
+          <text x="86" y="52" font-family="Inter,sans-serif" font-size="6.5" fill="#fff">"Still interested?</text>
+          <text x="86" y="61" font-family="Inter,sans-serif" font-size="6.5" fill="#fff">Slot open Friday."</text>
+        </g>
+        <g class="follow f3">
+          <path d="M 154 132 Q 154 128, 158 128 L 232 128 Q 236 128, 236 132 L 236 160 Q 236 164, 232 164 L 218 164 L 212 170 L 214 164 L 158 164 Q 154 164, 154 160 Z" fill="#22c55e"/>
+          <text x="160" y="144" font-family="Inter,sans-serif" font-size="6.5" fill="#fff">"Last chance —</text>
+          <text x="160" y="153" font-family="Inter,sans-serif" font-size="6.5" fill="#fff">20% off if you</text>
+          <text x="160" y="162" font-family="Inter,sans-serif" font-size="6.5" fill="#fff">book today!"</text>
+        </g>
+      </svg>
+    </div>
+    <div class="feature-body">
+      <div class="feature-meta">Feature 04</div>
+      <h2>Follow-up on Autopilot</h2>
+      <p>One reply isn't enough. We follow up at the perfect intervals — day 1, day 3, week 1 — with smart messaging that adapts to whether they replied, ghosted, or booked. Leads don't fall through the cracks while you're on a job.</p>
+    </div>
+  </div>
+</section>
+
 <section class="ip-cta-section">
   <h2>Ready to never miss a lead?</h2>
   <p>30 minutes. We map your workflows, identify the wins, and give you a plain-English plan.</p>
@@ -274,7 +325,7 @@
       <svg style="height:28px" viewBox="0 0 180 80" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="8" width="50" height="64" rx="8" fill="#ffffff"/><text x="25" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#0f1a2e">S</text><rect x="58" y="0" width="50" height="64" rx="8" fill="rgba(255,255,255,0.5)"/><text x="83" y="44" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#0f1a2e">S</text><rect x="116" y="8" width="50" height="64" rx="8" fill="#ffffff"/><text x="141" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#0f1a2e">C</text></svg>
       <div class="footer-logo-text">Simple <span>Solutions</span></div>
     </a>
-    <p>&copy; 2026 Simple Solutions &middot; <a href="mailto:dea@simplesolutions-c.com">dea@simplesolutions-c.com</a></p>
+    <p>&copy; 2026 Simple Solutions &middot; <a href="mailto:info@simplesolutionscompany.com">info@simplesolutionscompany.com</a></p>
   </div>
 </footer>
 
