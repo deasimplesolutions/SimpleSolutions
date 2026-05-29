@@ -392,10 +392,18 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         <span>Calendar</span>
       </button>
+      <button class="nav-item" data-view="leads">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12A10 10 0 1 1 12 2"/><path d="M22 4 12 14.01l-3-3"/></svg>
+        <span>Leads</span>
+      </button>
       <button class="nav-item" data-view="dispatch">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18l-2 13H5L3 3z"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg>
         <span>Dispatch</span>
       </button>
+      <a class="nav-item" href="free-audit.html" target="_blank" rel="noopener" style="text-decoration:none">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5a2 2 0 0 1 2-2h2.6a1 1 0 0 1 1 .75l1 3.6a1 1 0 0 1-.5 1.1L9 9.5a12 12 0 0 0 5.5 5.5l1.05-1.7a1 1 0 0 1 1.1-.5l3.6 1a1 1 0 0 1 .75 1V19a2 2 0 0 1-2 2A16 16 0 0 1 3 5z"/></svg>
+        <span>Free Audit</span>
+      </a>
     </nav>
 
     <div class="sidebar-foot">
@@ -520,6 +528,18 @@
         </div>
       </section>
 
+      <!-- ─── VIEW: LEADS ─── -->
+      <section class="view" id="view-leads">
+        <div class="section-title">Potential Leads — <span id="leads-period-label">This Week</span></div>
+        <p style="color:var(--gray-500);font-size:0.88rem;margin-bottom:1.2rem;">Calls that haven't booked yet. Follow up by phone or text — or dismiss the ones not worth chasing. Dismissed leads disappear from every view.</p>
+        <div class="calls-list" id="leads-list"></div>
+        <div id="hidden-toggle" style="margin-top:1.5rem;text-align:center;display:none;">
+          <button id="show-hidden-btn" style="background:transparent;border:none;color:var(--gray-500);font-size:0.82rem;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:underline;">
+            Show <span id="hidden-count">0</span> dismissed lead(s)
+          </button>
+        </div>
+      </section>
+
       <!-- ─── VIEW: DISPATCH ─── -->
       <section class="view" id="view-dispatch">
         <div class="dispatch-head">
@@ -582,10 +602,12 @@
   const SERVER_URL = 'https://simplesolutions-server.onrender.com';
 
   // ── State ──
-  let allCalls = [];           // full list, all time
+  let allCalls = [];           // full list, all time, including hidden
   let activePeriod = 'week';   // current filter
   let activeView = 'agent';    // current sidebar tab
   let technicians = [];        // user_metadata.technicians
+  let hiddenCalls = [];        // user_metadata.hiddenCalls — call IDs to suppress
+  let leadsShowHidden = false; // toggle on the Leads view
   let calMonthAnchor = new Date();   // first of currently shown month
   let calSelectedDate = null;        // YYYY-MM-DD string
   let pendingDispatchCall = null;    // call object passed when opening dispatch modal
@@ -629,9 +651,43 @@
   function periodLabel(period) {
     return ({today:'Today', week:'This Week', month:'This Month', quarter:'This Quarter', year:'This Year', all:'All Time'})[period] || period;
   }
-  function callsInPeriod(period) {
+  function callsInPeriod(period, includeHidden = false) {
     const start = periodStart(period).getTime();
-    return allCalls.filter(c => (c._startedAt || 0) >= start);
+    return allCalls.filter(c => {
+      if ((c._startedAt || 0) < start) return false;
+      if (!includeHidden && hiddenCalls.includes(c.id)) return false;
+      return true;
+    });
+  }
+
+  function gcalUrlForCall(c) {
+    let start = null;
+    if (c.appointmentDate) {
+      const d = new Date(c.appointmentDate);
+      if (!isNaN(d)) start = d;
+    }
+    if (!start) {
+      start = new Date();
+      start.setDate(start.getDate() + 1);
+      start.setHours(9, 0, 0, 0);
+    }
+    const end = new Date(start.getTime() + 60 * 60 * 1000);
+    const fmt = d => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+    const title = `Job: ${c.customerName || 'New customer'}`;
+    const details = [
+      c.customerName ? `Customer: ${c.customerName}` : '',
+      c.phoneNumber ? `Phone: ${c.phoneNumber}` : '',
+      c.email ? `Email: ${c.email}` : '',
+      c.reasonForCalling ? `Reason: ${c.reasonForCalling}` : ''
+    ].filter(Boolean).join('\n');
+    const params = new URLSearchParams({
+      action: 'TEMPLATE',
+      text: title,
+      dates: `${fmt(start)}/${fmt(end)}`,
+      details
+    });
+    if (c.location) params.set('location', c.location);
+    return `https://calendar.google.com/calendar/render?${params.toString()}`;
   }
 
   // ── Auth boot ──
@@ -749,14 +805,19 @@
     renderCallsList(calls);
   }
 
-  function renderCallsList(calls) {
-    const list = document.getElementById('calls-list');
+  function renderCallsList(calls, opts = {}) {
+    const targetId = opts.targetId || 'calls-list';
+    const showRestore = !!opts.showRestore;
+    const list = document.getElementById(targetId);
     if (!calls.length) {
-      list.innerHTML = '<div class="empty-state">No calls in this period yet.</div>';
+      list.innerHTML = `<div class="empty-state">${esc(opts.emptyMsg || 'No calls in this period yet.')}</div>`;
       return;
     }
-    list.innerHTML = calls.map(c => `
-      <details class="call-item" data-call-id="${esc(c.id)}">
+    list.innerHTML = calls.map(c => {
+      const isHidden = hiddenCalls.includes(c.id);
+      const gcalLink = c.booked ? gcalUrlForCall(c) : null;
+      return `
+      <details class="call-item${isHidden ? ' dismissed' : ''}" data-call-id="${esc(c.id)}" style="${isHidden ? 'opacity:0.6;' : ''}">
         <summary class="call-header">
           <span class="call-chevron"></span>
           <span class="call-name">${esc(c.customerName)}</span>
@@ -781,13 +842,16 @@
           </div>
           <div class="call-actions">
             <button class="dispatch-btn" data-call-id="${esc(c.id)}">Dispatch a technician</button>
-            ${c.phoneNumber ? `<a class="secondary" style="text-decoration:none;display:inline-block;line-height:1.4;padding:0.45rem 0.9rem;background:transparent;color:var(--navy);border:1.5px solid var(--gray-200);border-radius:8px;font-size:0.82rem;font-weight:600;" href="tel:${esc(c.phoneNumber)}">Call back</a>` : ''}
+            ${gcalLink ? `<a class="secondary" style="text-decoration:none;line-height:1.4;padding:0.45rem 0.9rem;background:transparent;color:var(--navy);border:1.5px solid var(--gray-200);border-radius:8px;font-size:0.82rem;font-weight:600;" href="${esc(gcalLink)}" target="_blank" rel="noopener">+ Google Calendar</a>` : ''}
+            ${c.phoneNumber ? `<a class="secondary" style="text-decoration:none;line-height:1.4;padding:0.45rem 0.9rem;background:transparent;color:var(--navy);border:1.5px solid var(--gray-200);border-radius:8px;font-size:0.82rem;font-weight:600;" href="tel:${esc(c.phoneNumber)}">Call back</a>` : ''}
+            ${showRestore && isHidden
+              ? `<button class="restore-btn secondary" data-restore-id="${esc(c.id)}" style="background:transparent;color:var(--green);border:1.5px solid var(--green);">Restore</button>`
+              : `<button class="dismiss-btn secondary" data-dismiss-id="${esc(c.id)}" style="background:transparent;color:var(--red);border:1.5px solid var(--gray-200);">Dismiss</button>`}
           </div>
         </div>
       </details>
-    `).join('');
+    `;}).join('');
 
-    // Wire dispatch buttons
     list.querySelectorAll('.dispatch-btn').forEach(btn => {
       btn.addEventListener('click', e => {
         e.preventDefault(); e.stopPropagation();
@@ -796,7 +860,69 @@
         if (call) openDispatchModal(call);
       });
     });
+    list.querySelectorAll('.dismiss-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault(); e.stopPropagation();
+        dismissCall(btn.dataset.dismissId);
+      });
+    });
+    list.querySelectorAll('.restore-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault(); e.stopPropagation();
+        restoreCall(btn.dataset.restoreId);
+      });
+    });
   }
+
+  // ── Hidden / dismissed call management ──
+  async function dismissCall(callId) {
+    if (!callId) return;
+    if (!confirm('Dismiss this lead? It will be hidden from every view.')) return;
+    if (!hiddenCalls.includes(callId)) hiddenCalls.push(callId);
+    const ok = await SSCAuth.updateUserMetadata({ hiddenCalls });
+    if (!ok.ok) {
+      alert('Could not save: ' + ok.error);
+      hiddenCalls = hiddenCalls.filter(id => id !== callId);
+      return;
+    }
+    renderActiveView();
+  }
+
+  async function restoreCall(callId) {
+    hiddenCalls = hiddenCalls.filter(id => id !== callId);
+    const ok = await SSCAuth.updateUserMetadata({ hiddenCalls });
+    if (!ok.ok) { alert('Could not save: ' + ok.error); return; }
+    renderActiveView();
+  }
+
+  // ── Render: leads (unbooked calls in selected period) ──
+  function renderLeadsView() {
+    document.getElementById('leads-period-label').textContent = periodLabel(activePeriod);
+    const visible = callsInPeriod(activePeriod, false).filter(c => !c.booked);
+    const hiddenInPeriod = callsInPeriod(activePeriod, true).filter(c => !c.booked && hiddenCalls.includes(c.id));
+
+    const list = leadsShowHidden ? [...visible, ...hiddenInPeriod] : visible;
+    renderCallsList(list, {
+      targetId: 'leads-list',
+      showRestore: leadsShowHidden,
+      emptyMsg: 'No potential leads in this period — every call booked, or there were no calls.'
+    });
+
+    const toggle = document.getElementById('hidden-toggle');
+    const btn = document.getElementById('show-hidden-btn');
+    if (hiddenInPeriod.length) {
+      toggle.style.display = 'block';
+      document.getElementById('hidden-count').textContent = hiddenInPeriod.length;
+      btn.textContent = leadsShowHidden ? 'Hide dismissed leads' : 'Show ' + hiddenInPeriod.length + ' dismissed lead(s)';
+    } else {
+      toggle.style.display = 'none';
+    }
+  }
+
+  document.getElementById('show-hidden-btn').addEventListener('click', () => {
+    leadsShowHidden = !leadsShowHidden;
+    renderLeadsView();
+  });
 
   // ── Render: analytics ──
   function renderAnalyticsView() {
@@ -1000,12 +1126,14 @@
     document.getElementById('cal-detail-title').textContent = `${niceDate} — ${list.length} appointment${list.length === 1 ? '' : 's'}`;
     document.getElementById('cal-detail-list').innerHTML = list.map(b => {
       const t = b._apptDate ? b._apptDate.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) : '';
+      const gcalLink = gcalUrlForCall(b);
       return `<div class="cal-detail-item">
-        <div>
+        <div style="flex:1;min-width:0;">
           <div class="who">${esc(b.customerName)}</div>
           <div style="font-size:0.8rem;color:var(--gray-500);">${esc(b.reasonForCalling || '')}</div>
         </div>
         <div class="when">${esc(t || 'Time TBD')}</div>
+        <a href="${esc(gcalLink)}" target="_blank" rel="noopener" style="padding:0.4rem 0.8rem;background:var(--navy);color:#fff;border-radius:6px;text-decoration:none;font-size:0.78rem;font-weight:600;">+ Calendar</a>
       </div>`;
     }).join('');
   }
@@ -1050,10 +1178,11 @@
   }
 
   // ── Tech CRUD ──
-  async function loadTechnicians() {
+  async function loadUserState() {
     const raw = await SSCAuth.getRawUser();
-    technicians = (raw && raw.user_metadata && Array.isArray(raw.user_metadata.technicians))
-      ? raw.user_metadata.technicians : [];
+    const m = (raw && raw.user_metadata) || {};
+    technicians = Array.isArray(m.technicians) ? m.technicians : [];
+    hiddenCalls = Array.isArray(m.hiddenCalls) ? m.hiddenCalls : [];
   }
 
   async function saveTechnicians() {
@@ -1189,13 +1318,14 @@
     document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === 'view-' + view));
 
     // Hide filter chips on views that don't use them
-    const showFilters = (view === 'agent' || view === 'analytics');
+    const showFilters = (view === 'agent' || view === 'analytics' || view === 'leads');
     document.getElementById('filter-chips').style.display = showFilters ? 'flex' : 'none';
 
     const titles = {
       agent:     ['Your Voice Agent', 'Live calls and recent activity.'],
       analytics: ['Analytics', 'Call quality, booking rates, and trends.'],
       calendar:  ['Calendar', 'Booked appointments by day.'],
+      leads:     ['Potential Leads', 'Unbooked calls worth following up on.'],
       dispatch:  ['Dispatch', 'Your technicians and per-job dispatch.']
     };
     document.getElementById('topbar-title').textContent = titles[view][0];
@@ -1208,6 +1338,7 @@
     if (activeView === 'agent') renderAgentView();
     else if (activeView === 'analytics') renderAnalyticsView();
     else if (activeView === 'calendar') renderCalendarView();
+    else if (activeView === 'leads') renderLeadsView();
     else if (activeView === 'dispatch') renderDispatchView();
   }
 
@@ -1253,7 +1384,7 @@
   (async () => {
     const ok = await bootAuth();
     if (!ok) return;
-    await loadTechnicians();
+    await loadUserState();
     await fetchData();
   })();
 </script>
