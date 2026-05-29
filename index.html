@@ -219,10 +219,12 @@
       font-weight: 500;
       color: var(--gray-500);
       max-width: 520px;
-      margin: -0.75rem auto 1.5rem;
+      margin: -0.75rem auto 0.9rem;
       line-height: 1.5;
       letter-spacing: 0.01em;
     }
+    .hero-logos { display: flex; align-items: center; gap: 0.9rem; flex-wrap: wrap; margin: 0 0 1.75rem; }
+    .hero-logos img { height: 38px; width: auto; background: #fff; border: 1px solid var(--bg-alt); border-radius: 8px; padding: 6px 12px; box-shadow: 0 2px 8px rgba(15,26,46,0.05); }
     .hero-ctas {
       display: flex;
       align-items: center;
@@ -1057,7 +1059,12 @@
       <h1>Simple Solutions</h1>
       <p class="hero-tagline">The Build is ours. The Results are yours.</p>
       <p class="hero-desc">AI workflows built inside your business — 24/7 answering, instant-reply bots, and live analytics that turn missed calls into booked jobs. Plugged into the tools you already run on.</p>
-      <p class="hero-integrated">Integrated with Jobber, FieldRoutes, and Housecall Pro</p>
+      <p class="hero-integrated">Integrated with the tools you already run on</p>
+      <div class="hero-logos">
+        <img src="images/jobber.jpg" alt="Jobber">
+        <img src="images/fieldroutes.png" alt="FieldRoutes">
+        <img src="images/housecall-pro.png" alt="Housecall Pro">
+      </div>
       <div class="hero-ctas">
         <a href="free-audit.html" class="hero-cta">
           Get your free audit
