@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Missed-Call Audit — Simple Solutions</title>
+  <meta name="description" content="We'll call your business 5 times over the next few days and send you a report showing how many calls you missed — and what they were worth. Free, no pitch.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://simplesolutionscompany.com/free-audit.html">
+  <meta property="og:title" content="Free Missed-Call Audit — Simple Solutions">
+  <meta property="og:description" content="See how many calls you're missing. We call your business 5 times and send you the report. Free.">
+  <meta property="og:url" content="https://simplesolutionscompany.com/free-audit.html">
+  <meta property="og:type" content="website">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --navy: #0f1a2e; --navy-light: #1a2744;
+      --gray-900: #111827; --gray-700: #374151; --gray-500: #6b7280; --gray-300: #d1d5db;
+      --white: #ffffff; --accent: #3b82f6; --bg: #faf9f7; --bg-alt: #f0eee9;
+      --green: #16a34a;
+    }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; color: var(--gray-900); background: var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    /* NAV (slim — landing page) */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(250,249,247,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--bg-alt); padding: 0 2rem; }
+    .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .logo { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; }
+    .logo-icon { height: 34px; width: auto; }
+    .logo-text { font-size: 1.2rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; }
+    .logo-text span { color: var(--gray-500); }
+    .btn-nav { background: var(--navy); color: #fff !important; padding: 0.6rem 1.3rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+    .btn-nav:hover { background: var(--navy-light); transform: translateY(-1px); }
+
+    /* HERO + FORM */
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 9rem 2rem 4rem; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 3.5rem; align-items: center; }
+    .section-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 0.85rem; }
+    .hero h1 { font-size: clamp(2.1rem, 4.6vw, 3.1rem); font-weight: 800; line-height: 1.12; color: var(--navy); letter-spacing: -0.03em; margin-bottom: 1.1rem; }
+    .hero p.lede { font-size: 1.12rem; color: var(--gray-700); line-height: 1.7; margin-bottom: 1.75rem; }
+    .checks { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+    .checks li { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.98rem; color: var(--gray-700); }
+    .checks svg { flex: none; width: 20px; height: 20px; margin-top: 2px; color: var(--green); }
+
+    .form-card { background: var(--white); border: 1px solid var(--bg-alt); border-radius: 16px; padding: 2.2rem; box-shadow: 0 12px 40px rgba(15,26,46,0.08); }
+    .form-card h2 { font-size: 1.3rem; font-weight: 800; color: var(--navy); margin-bottom: 0.3rem; }
+    .form-card .sub { font-size: 0.9rem; color: var(--gray-500); margin-bottom: 1.6rem; }
+    .form-group { margin-bottom: 1.05rem; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--gray-700); margin-bottom: 0.4rem; }
+    .req { color: var(--accent); }
+    .form-group input, .form-group select { width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--gray-300); border-radius: 10px; font-size: 0.95rem; font-family: inherit; color: var(--gray-900); background: var(--white); outline: none; transition: border-color 0.2s; }
+    .form-group input:focus, .form-group select:focus { border-color: var(--navy); }
+    .form-group input::placeholder { color: var(--gray-500); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .btn-submit { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.95rem; border: none; border-radius: 10px; background: var(--navy); color: var(--white); font-size: 1rem; font-weight: 700; font-family: inherit; cursor: pointer; transition: background 0.2s, transform 0.15s; margin-top: 0.4rem; }
+    .btn-submit:hover { background: var(--navy-light); transform: translateY(-1px); }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .btn-submit svg { width: 16px; height: 16px; }
+    .microcopy { font-size: 0.8rem; color: var(--gray-500); text-align: center; margin-top: 0.85rem; }
+    .err { color: #dc2626; font-size: 0.82rem; margin-top: 0.3rem; display: none; }
+
+    /* SUCCESS STATE */
+    .success { display: none; text-align: center; padding: 1rem 0.5rem; }
+    .success .badge { width: 64px; height: 64px; border-radius: 50%; background: rgba(22,163,74,0.12); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; }
+    .success .badge svg { width: 32px; height: 32px; color: var(--green); }
+    .success h2 { font-size: 1.4rem; color: var(--navy); margin-bottom: 0.6rem; }
+    .success p { color: var(--gray-700); font-size: 0.98rem; }
+
+    /* HOW IT WORKS */
+    .how { background: var(--bg-alt); padding: 4rem 2rem; }
+    .how-inner { max-width: 1000px; margin: 0 auto; text-align: center; }
+    .how h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 800; color: var(--navy); letter-spacing: -0.02em; margin-bottom: 2.5rem; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; text-align: left; }
+    .step { background: var(--white); border: 1px solid var(--bg-alt); border-radius: 16px; padding: 1.8rem; }
+    .step .num { width: 38px; height: 38px; border-radius: 10px; background: var(--navy); color: #fff; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+    .step h3 { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 0.4rem; }
+    .step p { font-size: 0.9rem; color: var(--gray-500); line-height: 1.6; }
+
+    /* STAT STRIP */
+    .stats { background: var(--navy); padding: 3rem 2rem; }
+    .stats-inner { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; text-align: center; }
+    .stat .big { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; color: #fff; letter-spacing: -0.02em; }
+    .stat .lbl { font-size: 0.9rem; color: rgba(255,255,255,0.7); margin-top: 0.3rem; }
+
+    /* FOOTER */
+    footer { padding: 2.5rem 2rem; background: var(--navy); border-top: 1px solid rgba(255,255,255,0.08); }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .footer-logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+    .footer-logo-text { font-size: 1.1rem; font-weight: 800; color: #fff; }
+    .footer-logo-text span { color: rgba(255,255,255,0.5); }
+    footer p { color: rgba(255,255,255,0.5); font-size: 0.85rem; }
+    footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+    footer a:hover { color: #fff; }
+
+    @media (max-width: 900px) {
+      .wrap { grid-template-columns: 1fr; gap: 2.5rem; padding-top: 7rem; }
+      .steps, .stats-inner { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+    @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 180 80" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="8" width="50" height="64" rx="8" fill="#0f1a2e"/>
+        <text x="25" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">S</text>
+        <rect x="58" y="0" width="50" height="64" rx="8" fill="#374151"/>
+        <text x="83" y="44" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">S</text>
+        <rect x="116" y="8" width="50" height="64" rx="8" fill="#0f1a2e"/>
+        <text x="141" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">C</text>
+      </svg>
+      <div class="logo-text">Simple <span>Solutions</span></div>
+    </a>
+    <a href="https://calendly.com/davisabrams0703/30min" target="_blank" rel="noopener" class="btn-nav">Book a call</a>
+  </div>
+</nav>
+
+<!-- HERO + FORM -->
+<section class="wrap">
+  <div class="hero">
+    <div class="section-label">Free Missed-Call Audit</div>
+    <h1>See how many calls you're missing.</h1>
+    <p class="lede">We'll call your business 5 times over the next few days — at different hours — then send you a report showing how many got answered and what the missed ones were worth. Free. No pitch.</p>
+    <ul class="checks">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Takes 30 seconds to request.</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Real calls to your line — not a guess.</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> You keep the report whether or not we work together.</li>
+    </ul>
+  </div>
+
+  <div class="form-card">
+    <form id="audit-form">
+      <h2>Get your free audit</h2>
+      <p class="sub">Two fields. We'll handle the rest.</p>
+
+      <div class="form-group">
+        <label for="business">Business name <span class="req">*</span></label>
+        <input type="text" id="business" name="business" placeholder="Acme Plumbing" required>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Business phone <span class="req">*</span></label>
+        <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" required>
+        <div class="err" id="err-phone">Please enter the number we should call.</div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="trade">Trade</label>
+          <select id="trade" name="trade">
+            <option value="" disabled selected>Select</option>
+            <option>Plumbing</option>
+            <option>Electrical</option>
+            <option>Landscaping</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="city">City</label>
+          <input type="text" id="city" name="city" placeholder="Austin, TX">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email (to send your report)</label>
+        <input type="email" id="email" name="email" placeholder="you@company.com">
+      </div>
+
+      <button type="submit" class="btn-submit" id="submit-btn">
+        Send my free audit
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+      </button>
+      <p class="microcopy">We call from a local number. You'll get your report within a few days.</p>
+    </form>
+
+    <div class="success" id="success">
+      <div class="badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+      </div>
+      <h2>You're in.</h2>
+      <p id="success-msg">We'll call your business 5 times over the next few days and send your Missed-Call Report Card.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="how-inner">
+    <h2>How the audit works</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <h3>You sign up</h3>
+        <p>Drop your business name and number. That's it — 30 seconds.</p>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <h3>We call you 5 times</h3>
+        <p>Different days, different hours — including evenings. We log every call: answered, voicemail, or no answer.</p>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <h3>You get the report</h3>
+        <p>A one-page Report Card with your answer rate, the dollars those missed calls were worth, and a clip of how our AI would've answered all 5.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STAT STRIP -->
+<section class="stats">
+  <div class="stats-inner">
+    <div class="stat"><div class="big">74%</div><div class="lbl">of calls go unanswered in peak season</div></div>
+    <div class="stat"><div class="big">78%</div><div class="lbl">of callers hire whoever answers first</div></div>
+    <div class="stat"><div class="big">$5k–$20k</div><div class="lbl">lost per month to missed calls</div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo">
+      <svg class="logo-icon" viewBox="0 0 180 80" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="8" width="50" height="64" rx="8" fill="#fff"/>
+        <text x="25" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#0f1a2e">S</text>
+        <rect x="58" y="0" width="50" height="64" rx="8" fill="rgba(255,255,255,0.5)"/>
+        <text x="83" y="44" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#0f1a2e">S</text>
+        <rect x="116" y="8" width="50" height="64" rx="8" fill="#fff"/>
+        <text x="141" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#0f1a2e">C</text>
+      </svg>
+      <div class="footer-logo-text">Simple <span>Solutions</span></div>
+    </a>
+    <p>&copy; 2026 Simple Solutions &middot; <a href="mailto:info@simplesolutionscompany.com">info@simplesolutionscompany.com</a></p>
+  </div>
+</footer>
+
+<script>
+  // ── PASTE YOUR APPS SCRIPT WEB APP URL HERE (ends in /exec) ──
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwVrMx4fPC5J5hwxV0XyIeOFGt_0s71ldbv5L-neqAT9TuNizsnhCzVKMNhYY25vWS55w/exec';
+
+  const form = document.getElementById('audit-form');
+  const btn = document.getElementById('submit-btn');
+  const errPhone = document.getElementById('err-phone');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const business = document.getElementById('business').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const digits = phone.replace(/\D/g, '');
+    if (digits.length < 10) { errPhone.style.display = 'block'; return; }
+    errPhone.style.display = 'none';
+
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    const data = new URLSearchParams({
+      business: business,
+      phone: phone,
+      email: document.getElementById('email').value.trim(),
+      trade: document.getElementById('trade').value,
+      city: document.getElementById('city').value.trim(),
+      source: 'free-audit'
+    });
+
+    const finish = function () {
+      form.style.display = 'none';
+      const msg = document.getElementById('success-msg');
+      msg.textContent = 'We’ll call ' + business + ' 5 times over the next few days and send your Missed-Call Report Card.';
+      document.getElementById('success').style.display = 'block';
+    };
+
+    if (!SCRIPT_URL || SCRIPT_URL.indexOf('PASTE_') === 0) {
+      // URL not wired yet — still show success so you can preview the page
+      finish();
+      return;
+    }
+
+    fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: data })
+      .then(finish)
+      .catch(finish); // optimistic: lead still lands via no-cors
+  });
+</script>
+</body>
+</html>
