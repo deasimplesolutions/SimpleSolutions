@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Missed-Call Report Card — Simple Solutions (internal tool)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --navy: #0f1a2e; --navy-light: #1a2744; --gray-900: #111827; --gray-700: #374151;
+      --gray-500: #6b7280; --gray-300: #d1d5db; --white: #fff; --accent: #3b82f6;
+      --bg: #faf9f7; --bg-alt: #f0eee9; --green: #16a34a; --red: #dc2626; --amber: #d97706;
+    }
+    body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); background: var(--bg-alt); line-height: 1.6; padding: 2rem; }
+    .layout { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 360px 1fr; gap: 2rem; align-items: start; }
+
+    /* EDITOR PANEL */
+    .editor { background: var(--white); border: 1px solid var(--bg-alt); border-radius: 16px; padding: 1.5rem; position: sticky; top: 2rem; }
+    .editor h2 { font-size: 1rem; font-weight: 800; color: var(--navy); margin-bottom: 0.25rem; }
+    .editor .hint { font-size: 0.8rem; color: var(--gray-500); margin-bottom: 1.25rem; }
+    .fg { margin-bottom: 0.9rem; }
+    .fg label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--gray-700); margin-bottom: 0.3rem; }
+    .fg input, .fg select { width: 100%; padding: 0.6rem 0.7rem; border: 1px solid var(--gray-300); border-radius: 8px; font-size: 0.9rem; font-family: inherit; outline: none; }
+    .fg input:focus, .fg select:focus { border-color: var(--navy); }
+    .calls-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 0.5rem; align-items: center; margin-bottom: 0.4rem; }
+    .calls-grid span { font-size: 0.8rem; font-weight: 600; color: var(--gray-700); }
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+    .print-btn { width: 100%; margin-top: 0.8rem; padding: 0.85rem; border: none; border-radius: 10px; background: var(--navy); color: #fff; font-weight: 700; font-size: 0.95rem; cursor: pointer; font-family: inherit; }
+    .print-btn:hover { background: var(--navy-light); }
+
+    /* REPORT CARD (printable) */
+    .card { background: var(--white); border: 1px solid var(--bg-alt); border-radius: 16px; padding: 2.5rem; }
+    .card-head { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid var(--bg-alt); padding-bottom: 1.25rem; margin-bottom: 1.5rem; }
+    .card-logo { display: flex; align-items: center; gap: 0.6rem; }
+    .card-logo svg { height: 32px; }
+    .card-logo .lt { font-size: 1.1rem; font-weight: 800; color: var(--navy); }
+    .card-logo .lt span { color: var(--gray-500); }
+    .card-head .meta { text-align: right; font-size: 0.8rem; color: var(--gray-500); }
+    .card h1 { font-size: 1.7rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 0.25rem; }
+    .card .for { font-size: 1rem; color: var(--gray-700); margin-bottom: 1.5rem; }
+    .card .for b { color: var(--navy); }
+
+    .scoreboard { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.75rem; }
+    .score { border: 1px solid var(--bg-alt); border-radius: 12px; padding: 1.1rem; text-align: center; }
+    .score .v { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1; }
+    .score .k { font-size: 0.72rem; color: var(--gray-500); margin-top: 0.45rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .score.answered .v { color: var(--green); }
+    .score.missed .v { color: var(--red); }
+    .score.rate .v { color: var(--navy); }
+    .score.lost .v { color: var(--amber); }
+
+    .calltable { width: 100%; border-collapse: collapse; margin-bottom: 1.75rem; font-size: 0.9rem; }
+    .calltable th { text-align: left; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gray-500); padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-alt); }
+    .calltable td { padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--bg-alt); }
+    .pill { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 999px; font-size: 0.78rem; font-weight: 600; }
+    .pill.ans { background: rgba(22,163,74,0.12); color: var(--green); }
+    .pill.vm { background: rgba(217,119,6,0.12); color: var(--amber); }
+    .pill.no { background: rgba(220,38,38,0.12); color: var(--red); }
+
+    .lost-line { background: var(--bg); border: 1px solid var(--bg-alt); border-radius: 12px; padding: 1.25rem 1.4rem; margin-bottom: 1.5rem; }
+    .lost-line .head { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gray-500); margin-bottom: 0.4rem; }
+    .lost-line .annual { font-size: 1.5rem; font-weight: 800; color: var(--amber); }
+    .lost-line .detail { font-size: 0.85rem; color: var(--gray-700); margin-top: 0.3rem; }
+
+    .cta { background: var(--navy); border-radius: 12px; padding: 1.5rem 1.6rem; color: #fff; }
+    .cta h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: 0.4rem; }
+    .cta p { font-size: 0.92rem; color: rgba(255,255,255,0.8); margin-bottom: 1rem; }
+    .cta .book { display: inline-block; background: #fff; color: var(--navy); padding: 0.7rem 1.4rem; border-radius: 10px; font-weight: 700; font-size: 0.9rem; text-decoration: none; }
+    .footnote { font-size: 0.72rem; color: var(--gray-500); margin-top: 1.25rem; text-align: center; }
+
+    /* PRINT → clean PDF */
+    @media print {
+      body { background: #fff; padding: 0; }
+      .layout { display: block; max-width: none; }
+      .editor { display: none; }
+      .card { border: none; border-radius: 0; padding: 0.4in; box-shadow: none; }
+      .cta { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .score, .pill, .lost-line { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+    @media (max-width: 820px) { .layout { grid-template-columns: 1fr; } .editor { position: static; } .scoreboard { grid-template-columns: 1fr 1fr; } }
+  </style>
+  <!-- Google Analytics 4 (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QGR2CP21RR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QGR2CP21RR');
+  </script>
+</head>
+<body>
+<div class="layout">
+
+  <!-- EDITOR (hidden when printing) -->
+  <aside class="editor">
+    <h2>Report Card Builder</h2>
+    <p class="hint">Fill this in after the 5 calls. The card updates live. Then click <b>Save as PDF</b>.</p>
+
+    <div class="fg"><label>Business name</label><input id="i-business" value="Acme Plumbing"></div>
+    <div class="row2">
+      <div class="fg"><label>Trade</label>
+        <select id="i-trade">
+          <option value="375">Plumbing</option>
+          <option value="750">Electrical</option>
+          <option value="2400">Landscaping</option>
+          <option value="500">Other</option>
+        </select>
+      </div>
+      <div class="fg"><label>Value / job ($)</label><input id="i-value" type="number" value="375"></div>
+    </div>
+    <div class="row2">
+      <div class="fg"><label>Audit dates</label><input id="i-dates" value="May 26–28"></div>
+      <div class="fg"><label>Calls / week (est.)</label><input id="i-cpw" type="number" value="25"></div>
+    </div>
+
+    <div class="fg"><label style="margin-bottom:0.5rem">The 5 calls</label>
+      <div id="calls"></div>
+    </div>
+
+    <button class="print-btn" onclick="window.print()">Save as PDF →</button>
+  </aside>
+
+  <!-- THE CARD -->
+  <main class="card" id="card">
+    <div class="card-head">
+      <div class="card-logo">
+        <svg viewBox="0 0 180 80" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="8" width="50" height="64" rx="8" fill="#0f1a2e"/><text x="25" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">S</text>
+          <rect x="58" y="0" width="50" height="64" rx="8" fill="#374151"/><text x="83" y="44" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">S</text>
+          <rect x="116" y="8" width="50" height="64" rx="8" fill="#0f1a2e"/><text x="141" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">C</text>
+        </svg>
+        <div class="lt">Simple <span>Solutions</span></div>
+      </div>
+      <div class="meta">Missed-Call Report Card<br><span id="o-dates">May 26–28</span></div>
+    </div>
+
+    <h1>Your phone is leaving money on the table.</h1>
+    <p class="for">Prepared for <b id="o-business">Acme Plumbing</b></p>
+
+    <div class="scoreboard">
+      <div class="score answered"><div class="v" id="o-answered">2</div><div class="k">Answered</div></div>
+      <div class="score missed"><div class="v" id="o-missed">3</div><div class="k">Missed</div></div>
+      <div class="score rate"><div class="v" id="o-rate">40%</div><div class="k">Answer rate</div></div>
+      <div class="score lost"><div class="v" id="o-snapshot">$1,125</div><div class="k">Missed in this test</div></div>
+    </div>
+
+    <table class="calltable">
+      <thead><tr><th>Call</th><th>When</th><th>Result</th></tr></thead>
+      <tbody id="o-calls"></tbody>
+    </table>
+
+    <div class="lost-line">
+      <div class="head">What this is costing you (annualized estimate)</div>
+      <div class="annual" id="o-annual">$58,500 / year</div>
+      <div class="detail" id="o-detail">At ~25 calls/week and your current 60% miss rate, that's ~780 missed calls a year × $375.</div>
+    </div>
+
+    <div class="cta">
+      <h3>Hear how we'd have answered all 5.</h3>
+      <p>Our AI receptionist picks up every call 24/7, sounds like a real person, and books the job straight into your calendar. We'll set it up free for 14 days — keep it only if it pays for itself.</p>
+      <a class="book" href="https://calendly.com/davisabrams0703/30min" target="_blank" rel="noopener">Book your results call →</a>
+    </div>
+
+    <p class="footnote">Job values from industry benchmarks; annualized figure is an estimate based on the call volume you provided. Simple Solutions · info@simplesolutionscompany.com</p>
+  </main>
+</div>
+
+<script>
+  const OUTCOMES = ['No answer', 'Voicemail', 'Answered'];
+  const defaults = ['No answer', 'Voicemail', 'Answered', 'No answer', 'Answered'];
+  const callsWrap = document.getElementById('calls');
+
+  // build the 5 call inputs
+  defaults.forEach((d, i) => {
+    const g = document.createElement('div');
+    g.className = 'calls-grid';
+    g.innerHTML =
+      '<input id="t-' + i + '" placeholder="' + (['Tue 9:12a','Wed 1:40p','Wed 6:05p','Thu 8:30a','Sat 11:15a'][i]) + '" value="' + (['Tue 9:12a','Wed 1:40p','Wed 6:05p','Thu 8:30a','Sat 11:15a'][i]) + '">' +
+      '<select id="r-' + i + '">' + OUTCOMES.map(o => '<option' + (o===d?' selected':'') + '>' + o + '</option>').join('') + '</select>';
+    callsWrap.appendChild(g);
+  });
+
+  const $ = id => document.getElementById(id);
+  const money = n => '$' + Math.round(n).toLocaleString('en-US');
+
+  function pill(o) {
+    if (o === 'Answered') return '<span class="pill ans">Answered</span>';
+    if (o === 'Voicemail') return '<span class="pill vm">Voicemail</span>';
+    return '<span class="pill no">No answer</span>';
+  }
+
+  function render() {
+    const business = $('i-business').value || 'your business';
+    const value = parseFloat($('i-value').value) || 0;
+    const dates = $('i-dates').value;
+    const cpw = parseFloat($('i-cpw').value) || 0;
+
+    let answered = 0;
+    let rows = '';
+    for (let i = 0; i < 5; i++) {
+      const o = $('r-' + i).value;
+      if (o === 'Answered') answered++;
+      rows += '<tr><td>Call ' + (i+1) + '</td><td>' + ($('t-' + i).value || '—') + '</td><td>' + pill(o) + '</td></tr>';
+    }
+    const missed = 5 - answered;
+    const rate = Math.round((answered / 5) * 100);
+    const snapshot = missed * value;
+    const missRate = missed / 5;
+    const annualMissed = Math.round(missRate * cpw * 52);
+    const annual = annualMissed * value;
+
+    $('o-business').textContent = business;
+    $('o-dates').textContent = dates;
+    $('o-answered').textContent = answered;
+    $('o-missed').textContent = missed;
+    $('o-rate').textContent = rate + '%';
+    $('o-snapshot').textContent = money(snapshot);
+    $('o-calls').innerHTML = rows;
+    $('o-annual').textContent = money(annual) + ' / year';
+    $('o-detail').textContent = 'At ~' + cpw + ' calls/week and your current ' + Math.round(missRate*100) +
+      '% miss rate, that’s ~' + annualMissed.toLocaleString('en-US') + ' missed calls a year × ' + money(value) + '.';
+  }
+
+  // trade select auto-fills the value field
+  $('i-trade').addEventListener('change', e => { $('i-value').value = e.target.value; render(); });
+  document.querySelectorAll('.editor input, .editor select').forEach(el => el.addEventListener('input', render));
+  render();
+</script>
+</body>
+</html>
