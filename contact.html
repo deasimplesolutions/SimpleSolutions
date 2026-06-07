@@ -4,12 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact — Simple Solutions</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="favicon-16.png" sizes="16x16" type="image/png">
+  <link rel="apple-touch-icon" href="favicon-180.png">
+  <meta property="og:image" content="https://simplesolutionscompany.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Simple Solutions — AI workflows for service businesses">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Contact — Simple Solutions">
+  <meta name="twitter:description" content="Get in touch with Simple Solutions to learn how AI workflows can streamline your business operations.">
+  <meta name="twitter:image" content="https://simplesolutionscompany.com/og-image.png">
   <meta name="description" content="Get in touch with Simple Solutions to learn how AI workflows can streamline your business operations and boost your response times.">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://simplesolutions-c.com/contact.html">
+  <link rel="canonical" href="https://simplesolutionscompany.com/contact.html">
   <meta property="og:title" content="Contact — Simple Solutions">
   <meta property="og:description" content="Get in touch with Simple Solutions to learn how AI workflows can streamline your business operations.">
-  <meta property="og:url" content="https://simplesolutions-c.com/contact.html">
+  <meta property="og:url" content="https://simplesolutionscompany.com/contact.html">
   <meta property="og:type" content="website">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -289,7 +301,35 @@
       margin-top: 0.5rem;
     }
     .btn-submit:hover { background: var(--navy-light); transform: translateY(-1px); }
+    .btn-submit:disabled { opacity: 0.6; cursor: default; transform: none; }
     .btn-submit svg { width: 16px; height: 16px; }
+
+    /* ── FORM VALIDATION + SUCCESS ── */
+    .form-err {
+      display: none;
+      color: #dc2626;
+      font-size: 0.82rem;
+      margin-top: 0.4rem;
+    }
+    .contact-success {
+      display: none;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+    .contact-success-badge {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 1rem;
+      border-radius: 50%;
+      background: #dcfce7;
+      color: #16a34a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .contact-success-badge svg { width: 28px; height: 28px; }
+    .contact-success h2 { margin: 0 0 0.5rem; }
+    .contact-success p { color: var(--gray, #64748b); }
 
     /* ── FOOTER ── */
     footer {
@@ -367,11 +407,14 @@
       </a>
       <div class="nav-dropdown">
         <a href="index.html#services">Services</a>
-        <div class="nav-dropdown-menu" role="menu">
+        <div class="nav-dropdown-menu is-wide" role="menu">
           <a href="service-247-answering.html" role="menuitem">24/7 Answering <svg class="ind-icon" viewBox="0 0 16 16"><path fill="#16a34a" d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328z"/></svg></a>
           <a href="service-website-buildout.html" role="menuitem">Website Build Out <svg class="ind-icon" viewBox="0 0 16 16"><rect x="1.5" y="2.5" width="13" height="10" rx="1.2" fill="#fff" stroke="#0f1a2e" stroke-width="1.1"/><rect x="1.5" y="2.5" width="13" height="2.4" rx="1.2" fill="#0f1a2e"/><circle cx="3" cy="3.7" r="0.45" fill="#fff"/><circle cx="4.3" cy="3.7" r="0.45" fill="#fff"/><circle cx="5.6" cy="3.7" r="0.45" fill="#fff"/><rect x="3" y="6.2" width="6" height="1" rx="0.3" fill="#3b82f6"/><rect x="3" y="8" width="9" height="0.7" fill="#d1d5db"/><rect x="3" y="9.2" width="7" height="0.7" fill="#d1d5db"/><rect x="3" y="10.4" width="3.2" height="1.4" rx="0.3" fill="#22c55e"/></svg></a>
           <a href="service-google-business-profile.html" role="menuitem">Google Business Profile <svg class="ind-icon" viewBox="0 0 16 16"><path d="M 8 1.5 C 5.5 1.5, 3.5 3.5, 3.5 6 C 3.5 9.5, 8 14.5, 8 14.5 C 8 14.5, 12.5 9.5, 12.5 6 C 12.5 3.5, 10.5 1.5, 8 1.5 Z" fill="#ea4335"/><circle cx="8" cy="6" r="2" fill="#fff"/><text x="8" y="7.4" font-family="Arial,sans-serif" font-size="3" font-weight="700" text-anchor="middle" fill="#4285f4">G</text></svg></a>
           <a href="service-real-time-analytics.html" role="menuitem">Real Time Analytics <svg class="ind-icon" viewBox="0 0 16 16"><line x1="1.5" y1="14.2" x2="14.5" y2="14.2" stroke="#9ca3af" stroke-width="0.5"/><rect x="2" y="9" width="2.5" height="5.2" fill="#0f1a2e" rx="0.3"/><rect x="6" y="6" width="2.5" height="8.2" fill="#3b82f6" rx="0.3"/><rect x="10" y="3" width="2.5" height="11.2" fill="#22c55e" rx="0.3"/><path d="M 3 9 L 7 6 L 11 3" stroke="#374151" stroke-width="0.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M 9 3.5 L 11 3 L 11.5 5" stroke="#374151" stroke-width="0.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a href="service-speed-to-lead.html" role="menuitem">Speed to Lead 🚀</a>
+          <a href="service-appointment-setting.html" role="menuitem">Appointment Setting 📅</a>
+          <a href="service-website-chatbot.html" role="menuitem">Website Chat Bot 💬</a>
         </div>
       </div>
       <div class="nav-dropdown">
@@ -407,6 +450,9 @@
     <a href="service-website-buildout.html">Website Build Out <svg class="ind-icon" viewBox="0 0 16 16"><rect x="1.5" y="2.5" width="13" height="10" rx="1.2" fill="#fff" stroke="#0f1a2e" stroke-width="1.1"/><rect x="1.5" y="2.5" width="13" height="2.4" rx="1.2" fill="#0f1a2e"/><circle cx="3" cy="3.7" r="0.45" fill="#fff"/><circle cx="4.3" cy="3.7" r="0.45" fill="#fff"/><circle cx="5.6" cy="3.7" r="0.45" fill="#fff"/><rect x="3" y="6.2" width="6" height="1" rx="0.3" fill="#3b82f6"/><rect x="3" y="8" width="9" height="0.7" fill="#d1d5db"/><rect x="3" y="9.2" width="7" height="0.7" fill="#d1d5db"/><rect x="3" y="10.4" width="3.2" height="1.4" rx="0.3" fill="#22c55e"/></svg></a>
     <a href="service-google-business-profile.html">Google Business Profile <svg class="ind-icon" viewBox="0 0 16 16"><path d="M 8 1.5 C 5.5 1.5, 3.5 3.5, 3.5 6 C 3.5 9.5, 8 14.5, 8 14.5 C 8 14.5, 12.5 9.5, 12.5 6 C 12.5 3.5, 10.5 1.5, 8 1.5 Z" fill="#ea4335"/><circle cx="8" cy="6" r="2" fill="#fff"/><text x="8" y="7.4" font-family="Arial,sans-serif" font-size="3" font-weight="700" text-anchor="middle" fill="#4285f4">G</text></svg></a>
     <a href="service-real-time-analytics.html">Real Time Analytics <svg class="ind-icon" viewBox="0 0 16 16"><line x1="1.5" y1="14.2" x2="14.5" y2="14.2" stroke="#9ca3af" stroke-width="0.5"/><rect x="2" y="9" width="2.5" height="5.2" fill="#0f1a2e" rx="0.3"/><rect x="6" y="6" width="2.5" height="8.2" fill="#3b82f6" rx="0.3"/><rect x="10" y="3" width="2.5" height="11.2" fill="#22c55e" rx="0.3"/><path d="M 3 9 L 7 6 L 11 3" stroke="#374151" stroke-width="0.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M 9 3.5 L 11 3 L 11.5 5" stroke="#374151" stroke-width="0.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a href="service-speed-to-lead.html">Speed to Lead 🚀</a>
+    <a href="service-appointment-setting.html">Appointment Setting 📅</a>
+    <a href="service-website-chatbot.html">Website Chat Bot 💬</a>
   </div>
   <div class="mobile-menu-section">
     <div class="mobile-menu-label">Industries</div>
@@ -476,31 +522,32 @@
       <h2>Send us a message</h2>
       <p class="form-subtitle">Tell us about your business and we'll figure out where AI fits in.</p>
 
-      <form>
+      <form id="contact-form">
         <div class="form-row">
           <div class="form-group">
             <label for="first-name">First name</label>
-            <input type="text" id="first-name" placeholder="John">
+            <input type="text" id="first-name" name="firstName" placeholder="John" required>
           </div>
           <div class="form-group">
             <label for="last-name">Last name</label>
-            <input type="text" id="last-name" placeholder="Smith">
+            <input type="text" id="last-name" name="lastName" placeholder="Smith">
           </div>
         </div>
 
         <div class="form-group">
           <label for="email">Work email</label>
-          <input type="email" id="email" placeholder="you@company.com">
+          <input type="email" id="email" name="email" placeholder="you@company.com" required>
+          <div class="form-err" id="err-email">Please enter a valid email address.</div>
         </div>
 
         <div class="form-group">
           <label for="company">Company name</label>
-          <input type="text" id="company" placeholder="Acme Inc.">
+          <input type="text" id="company" name="company" placeholder="Acme Inc.">
         </div>
 
         <div class="form-group">
           <label for="service">What are you interested in?</label>
-          <select id="service">
+          <select id="service" name="service">
             <option value="" disabled selected>Select a service</option>
             <option>Speed to Lead Workflow</option>
             <option>Appointment Setting</option>
@@ -512,14 +559,22 @@
 
         <div class="form-group">
           <label for="message">Tell us about your business</label>
-          <textarea id="message" placeholder="What tools do you use? What processes feel repetitive? What would you automate first?"></textarea>
+          <textarea id="message" name="message" placeholder="What tools do you use? What processes feel repetitive? What would you automate first?"></textarea>
         </div>
 
-        <button type="submit" class="btn-submit">
+        <button type="submit" class="btn-submit" id="contact-submit">
           Send message
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
         </button>
       </form>
+
+      <div class="contact-success" id="contact-success">
+        <div class="contact-success-badge">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+        </div>
+        <h2>Message sent.</h2>
+        <p id="contact-success-msg">Thanks for reaching out — we'll get back to you within 24 hours.</p>
+      </div>
     </div>
 
   </div>
@@ -539,10 +594,63 @@
       </svg>
       <div class="footer-logo-text">Simple <span>Solutions</span></div>
     </a>
-    <p>&copy; 2026 Simple Solutions &middot; <a href="mailto:info@simplesolutionscompany.com">info@simplesolutionscompany.com</a></p>
+    <p>&copy; 2026 Simple Solutions &middot; <a href="mailto:info@simplesolutionscompany.com">info@simplesolutionscompany.com</a> &middot; <a href="privacy.html">Privacy</a> &middot; <a href="terms.html">Terms</a></p>
   </div>
 </footer>
 
+<script>
+  // ── Contact form → same Apps Script endpoint as the free-audit form ──
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwVrMx4fPC5J5hwxV0XyIeOFGt_0s71ldbv5L-neqAT9TuNizsnhCzVKMNhYY25vWS55w/exec';
+
+  const cForm = document.getElementById('contact-form');
+  const cBtn = document.getElementById('contact-submit');
+  const errEmail = document.getElementById('err-email');
+
+  cForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const firstName = document.getElementById('first-name').value.trim();
+    const lastName = document.getElementById('last-name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const company = document.getElementById('company').value.trim();
+    const service = document.getElementById('service').value;
+    const message = document.getElementById('message').value.trim();
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errEmail.style.display = 'block';
+      return;
+    }
+    errEmail.style.display = 'none';
+
+    cBtn.disabled = true;
+    cBtn.textContent = 'Sending…';
+
+    // Map onto the Leads-sheet fields the Apps Script understands,
+    // plus name + message for the email alert.
+    const data = new URLSearchParams({
+      firstName: firstName,
+      lastName: lastName,
+      business: company,
+      company: company,
+      email: email,
+      trade: service,
+      service: service,
+      message: message,
+      source: 'contact'
+    });
+
+    const finish = function () {
+      cForm.style.display = 'none';
+      document.getElementById('contact-success-msg').textContent =
+        'Thanks' + (firstName ? ', ' + firstName : '') + ' — we’ll get back to you within 24 hours.';
+      document.getElementById('contact-success').style.display = 'block';
+    };
+
+    fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: data })
+      .then(finish)
+      .catch(finish); // optimistic: lead still lands via no-cors
+  });
+</script>
 <script src="chatbot.js"></script>
 </body>
 </html>

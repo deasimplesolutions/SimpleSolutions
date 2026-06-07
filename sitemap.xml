@@ -3,7 +3,7 @@
 
   <!-- Homepage -->
   <url>
-    <loc>https://simplesolutions-c.com/</loc>
+    <loc>https://simplesolutionscompany.com/</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -11,7 +11,7 @@
 
   <!-- Free Audit (lead magnet) -->
   <url>
-    <loc>https://simplesolutions-c.com/free-audit.html</loc>
+    <loc>https://simplesolutionscompany.com/free-audit.html</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -19,7 +19,7 @@
 
   <!-- Contact -->
   <url>
-    <loc>https://simplesolutions-c.com/contact.html</loc>
+    <loc>https://simplesolutionscompany.com/contact.html</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -27,7 +27,7 @@
 
   <!-- Case Studies -->
   <url>
-    <loc>https://simplesolutions-c.com/case-studies.html</loc>
+    <loc>https://simplesolutionscompany.com/case-studies.html</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -35,7 +35,7 @@
 
   <!-- Industries: hub -->
   <url>
-    <loc>https://simplesolutions-c.com/industries.html</loc>
+    <loc>https://simplesolutionscompany.com/industries.html</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -43,7 +43,7 @@
 
   <!-- Industries: Plumbing -->
   <url>
-    <loc>https://simplesolutions-c.com/industry-plumbing.html</loc>
+    <loc>https://simplesolutionscompany.com/industry-plumbing.html</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -51,7 +51,7 @@
 
   <!-- Industries: Electrical -->
   <url>
-    <loc>https://simplesolutions-c.com/industry-electrical.html</loc>
+    <loc>https://simplesolutionscompany.com/industry-electrical.html</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -59,7 +59,7 @@
 
   <!-- Industries: Landscaping -->
   <url>
-    <loc>https://simplesolutions-c.com/industry-landscaping.html</loc>
+    <loc>https://simplesolutionscompany.com/industry-landscaping.html</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -67,7 +67,7 @@
 
   <!-- Service: Speed to Lead -->
   <url>
-    <loc>https://simplesolutions-c.com/service-speed-to-lead.html</loc>
+    <loc>https://simplesolutionscompany.com/service-speed-to-lead.html</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -75,7 +75,7 @@
 
   <!-- Service: 24/7 Answering -->
   <url>
-    <loc>https://simplesolutions-c.com/service-247-answering.html</loc>
+    <loc>https://simplesolutionscompany.com/service-247-answering.html</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -83,7 +83,7 @@
 
   <!-- Service: Appointment Setting -->
   <url>
-    <loc>https://simplesolutions-c.com/service-appointment-setting.html</loc>
+    <loc>https://simplesolutionscompany.com/service-appointment-setting.html</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -91,7 +91,7 @@
 
   <!-- Service: Website Chatbot -->
   <url>
-    <loc>https://simplesolutions-c.com/service-website-chatbot.html</loc>
+    <loc>https://simplesolutionscompany.com/service-website-chatbot.html</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -99,7 +99,7 @@
 
   <!-- Service: Website Buildout -->
   <url>
-    <loc>https://simplesolutions-c.com/service-website-buildout.html</loc>
+    <loc>https://simplesolutionscompany.com/service-website-buildout.html</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -107,7 +107,7 @@
 
   <!-- Service: Google Business Profile -->
   <url>
-    <loc>https://simplesolutions-c.com/service-google-business-profile.html</loc>
+    <loc>https://simplesolutionscompany.com/service-google-business-profile.html</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -115,10 +115,26 @@
 
   <!-- Service: Real-Time Analytics -->
   <url>
-    <loc>https://simplesolutions-c.com/service-real-time-analytics.html</loc>
+    <loc>https://simplesolutionscompany.com/service-real-time-analytics.html</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+
+  <!-- Privacy Policy -->
+  <url>
+    <loc>https://simplesolutionscompany.com/privacy.html</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- Terms of Service -->
+  <url>
+    <loc>https://simplesolutionscompany.com/terms.html</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
 
 </urlset>
