@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found — Simple Solutions</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
+  <link rel="apple-touch-icon" href="/favicon-180.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#0f1a2e">
+  <meta name="robots" content="noindex, follow">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --navy: #0f1a2e; --navy-light: #1a2744; --gray-900: #111827; --gray-700: #374151;
+      --gray-500: #6b7280; --white: #fff; --accent: #3b82f6; --bg: #faf9f7; --bg-alt: #f0eee9;
+    }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--gray-900); background: var(--bg); line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100%; display: flex; flex-direction: column;
+    }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(250,249,247,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--bg-alt); padding: 0 2rem; }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .logo { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; }
+    .logo-icon { height: 36px; width: auto; }
+    .logo-text { font-size: 1.2rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; }
+    .logo-text span { color: var(--gray-500); }
+    .btn-nav { background: var(--navy); color: #fff !important; padding: 0.6rem 1.4rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+    .btn-nav:hover { background: var(--navy-light); transform: translateY(-1px); }
+
+    /* MAIN */
+    main { flex: 1; display: flex; align-items: center; justify-content: center; text-align: center; padding: 4rem 2rem; }
+    .err-inner { max-width: 560px; }
+    .err-code { font-size: clamp(5rem, 16vw, 9rem); font-weight: 800; line-height: 1; letter-spacing: -0.04em; color: var(--navy); }
+    .err-code span { color: var(--accent); }
+    .err-inner h1 { font-size: clamp(1.5rem, 3.5vw, 2.1rem); font-weight: 800; color: var(--navy); letter-spacing: -0.02em; margin: 1rem 0 0.75rem; }
+    .err-inner p { font-size: 1.05rem; color: var(--gray-500); margin-bottom: 2rem; }
+    .err-actions { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: var(--navy); color: #fff; padding: 0.8rem 1.6rem; border-radius: 10px; font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+    .btn-primary:hover { background: var(--navy-light); transform: translateY(-1px); }
+    .btn-ghost { background: var(--white); color: var(--navy); border: 1px solid var(--bg-alt); padding: 0.8rem 1.6rem; border-radius: 10px; font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: border-color 0.2s, transform 0.15s; }
+    .btn-ghost:hover { border-color: var(--gray-500); transform: translateY(-1px); }
+    .err-links { margin-top: 2.5rem; font-size: 0.9rem; color: var(--gray-500); }
+    .err-links a { color: var(--accent); text-decoration: none; margin: 0 0.5rem; }
+    .err-links a:hover { text-decoration: underline; }
+
+    /* FOOTER */
+    footer { padding: 2.5rem 2rem; background: var(--navy); }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .footer-logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+    .footer-logo .logo-icon-footer { height: 28px; width: auto; }
+    .footer-logo-text { font-size: 1.1rem; font-weight: 800; color: var(--white); }
+    .footer-logo-text span { color: rgba(255,255,255,0.5); }
+    footer p { color: rgba(255,255,255,0.5); font-size: 0.85rem; }
+    footer a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.85rem; }
+    footer a:hover { color: var(--white); }
+    @media (max-width: 600px) { .footer-inner { flex-direction: column; text-align: center; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 180 80" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="8" width="50" height="64" rx="8" fill="#0f1a2e"/>
+        <text x="25" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">S</text>
+        <rect x="58" y="0" width="50" height="64" rx="8" fill="#374151"/>
+        <text x="83" y="44" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">S</text>
+        <rect x="116" y="8" width="50" height="64" rx="8" fill="#0f1a2e"/>
+        <text x="141" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#fff">C</text>
+      </svg>
+      <div class="logo-text">Simple <span>Solutions</span></div>
+    </a>
+    <a href="https://calendly.com/davisabrams0703/30min" target="_blank" rel="noopener" class="btn-nav">Book a call</a>
+  </div>
+</nav>
+
+<main>
+  <div class="err-inner">
+    <div class="err-code">4<span>0</span>4</div>
+    <h1>This page took a wrong turn.</h1>
+    <p>The page you're looking for doesn't exist or may have moved. Let's get you back on track.</p>
+    <div class="err-actions">
+      <a href="/index.html" class="btn-primary">Back to home</a>
+      <a href="/free-audit.html" class="btn-ghost">Get a free audit</a>
+    </div>
+    <div class="err-links">
+      <a href="/index.html">Home</a> ·
+      <a href="/industries.html">Industries</a> ·
+      <a href="/case-studies.html">Case Studies</a> ·
+      <a href="/contact.html">Contact</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <a href="/index.html" class="footer-logo">
+      <svg class="logo-icon-footer" viewBox="0 0 180 80" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="8" width="50" height="64" rx="8" fill="#fff"/>
+        <text x="25" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#0f1a2e">S</text>
+        <rect x="58" y="0" width="50" height="64" rx="8" fill="rgba(255,255,255,0.5)"/>
+        <text x="83" y="44" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#0f1a2e">S</text>
+        <rect x="116" y="8" width="50" height="64" rx="8" fill="#fff"/>
+        <text x="141" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="38" fill="#0f1a2e">C</text>
+      </svg>
+      <div class="footer-logo-text">Simple <span>Solutions</span></div>
+    </a>
+    <p>&copy; 2026 Simple Solutions &middot; <a href="mailto:info@simplesolutionscompany.com">info@simplesolutionscompany.com</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
