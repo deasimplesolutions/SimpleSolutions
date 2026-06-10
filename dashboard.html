@@ -718,6 +718,27 @@
     return true;
   }
 
+  // Normalize Vapi structured data across the legacy (name-keyed) and newer
+  // "Structured Outputs" (id-keyed {name, result}) shapes into one flat object.
+  function normalizeStructured(call) {
+    const a = (call && call.analysis) || {};
+    const out = {};
+    const collect = (c) => {
+      if (!c) return;
+      if (Array.isArray(c)) { c.forEach((v) => { if (v && v.name) out[v.name] = v.result; }); return; }
+      if (typeof c === 'object') {
+        Object.keys(c).forEach((k) => {
+          const v = c[k];
+          if (v && typeof v === 'object' && 'name' in v) out[v.name] = v.result;
+          else out[k] = v;
+        });
+      }
+    };
+    collect(a.structuredData);
+    collect(a.structuredOutputs);
+    return out;
+  }
+
   // ── Data fetch ──
   async function fetchData() {
     const { data: sessionData } = await SSCAuth._supabase.auth.getSession();
@@ -757,7 +778,7 @@
 
       const now = Date.now();
       allCalls = callsList.map(call => {
-        const s = call.analysis?.structuredData || {};
+        const s = normalizeStructured(call);
         const startedAt = call.startedAt ? new Date(call.startedAt).getTime() : null;
         const endedAt = call.endedAt ? new Date(call.endedAt).getTime() : null;
         const durSec = startedAt && endedAt ? Math.floor((endedAt - startedAt) / 1000) : null;
