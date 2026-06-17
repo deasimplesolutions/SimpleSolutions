@@ -794,9 +794,13 @@
           duration: durSec != null ? fmtDuration(durSec) : '—',
           durationSec: durSec,
           minutesAgo: startedAt ? Math.floor((now - startedAt) / 60000) : 0,
-          _startedAt: startedAt
+          _startedAt: startedAt,
+          businessRelated: s.businessRelated !== false
         };
-      }).sort((a, b) => (b._startedAt || 0) - (a._startedAt || 0));
+      }).sort((a, b) => {
+        if (a.businessRelated !== b.businessRelated) return a.businessRelated ? -1 : 1; // non-business sinks to bottom
+        return (b._startedAt || 0) - (a._startedAt || 0);
+      });
 
       renderAgent({
         name: (assistant.name || 'Voice Agent').trim(),
@@ -852,21 +856,21 @@
       const isHidden = hiddenCalls.includes(c.id);
       const gcalLink = c.booked ? gcalUrlForCall(c) : null;
       return `
-      <details class="call-item${isHidden ? ' dismissed' : ''}" data-call-id="${esc(c.id)}" style="${isHidden ? 'opacity:0.6;' : ''}">
+      <details class="call-item${isHidden ? ' dismissed' : ''}" data-call-id="${esc(c.id)}" style="${isHidden ? 'opacity:0.6;' : ''}${!c.businessRelated ? 'border-left:3px solid var(--red);' : ''}">
         <summary class="call-header">
           <span class="call-chevron"></span>
           <span class="call-name">${esc(c.customerName)}</span>
           <span class="call-summary">${esc(c.reasonForCalling)}</span>
           <span class="call-time">${fmtAgo(c.minutesAgo)}</span>
-          <span class="call-status ${c.booked ? 'booked' : 'pending'}">
-            ${c.booked ? '✓ Booked' : '○ No booking'}
-          </span>
+          ${c.businessRelated
+            ? `<span class="call-status ${c.booked ? 'booked' : 'pending'}">${c.booked ? '✓ Booked' : '○ No booking'}</span>`
+            : `<span class="call-status" style="background:var(--red);color:#fff;border-color:var(--red);">Non-business</span>`}
         </summary>
         <div class="call-details">
           <div class="detail-grid">
             <div class="detail"><span class="detail-label">Phone</span><span class="detail-value">${esc(c.phoneNumber)}</span></div>
             <div class="detail"><span class="detail-label">Email</span><span class="detail-value">${esc(c.email || '—')}</span></div>
-            <div class="detail"><span class="detail-label">Location</span><span class="detail-value">${esc(c.location || '—')}</span></div>
+            <div class="detail"><span class="detail-label">Address</span><span class="detail-value">${esc(c.location || '—')}</span></div>
             <div class="detail"><span class="detail-label">Call Duration</span><span class="detail-value">${esc(c.duration)}</span></div>
             <div class="detail full"><span class="detail-label">Reason for Calling</span><span class="detail-value">${esc(c.reasonForCalling)}</span></div>
             <div class="detail full"><span class="detail-label">Appointment</span>
