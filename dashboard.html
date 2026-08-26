@@ -171,6 +171,17 @@
     .detail-value.appt-yes { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--green); font-weight: 600; }
     .detail-value.appt-no { color: var(--amber); font-weight: 600; }
     .call-actions { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
+    .call-media { margin-top: 1rem; border-top: 1px solid var(--bg-alt); padding-top: 0.9rem; display: grid; gap: 0.7rem; }
+    .media-row { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+    .media-btn { padding: 0.4rem 0.85rem; background: transparent; color: var(--navy); border: 1.5px solid var(--gray-200); border-radius: 8px; font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: inherit; }
+    .media-btn:hover { border-color: var(--navy); }
+    .media-btn[disabled] { opacity: 0.55; cursor: default; }
+    .media-note { font-size: 0.78rem; color: var(--gray-500, #6b7280); }
+    .call-media audio { width: 100%; max-width: 460px; height: 36px; }
+    .transcript-box { max-height: 260px; overflow-y: auto; background: var(--bg-alt); border-radius: 8px; padding: 0.8rem 0.9rem; font-size: 0.83rem; line-height: 1.55; white-space: pre-wrap; }
+    .transcript-line { margin-bottom: 0.45rem; }
+    .transcript-line .who { font-weight: 700; color: var(--navy); }
+    .transcript-line.bot .who { color: var(--gray-500, #6b7280); }
     .call-actions button {
       padding: 0.45rem 0.9rem; background: var(--navy); color: var(--white);
       border: none; border-radius: 8px; font-size: 0.82rem; font-weight: 600; font-family: inherit;
@@ -769,7 +780,24 @@
         return;
       }
       if (!agentRes.ok || !callsRes.ok) {
-        throw new Error(`Server returned ${agentRes.status} / ${callsRes.status}`);
+        // Surface what actually failed. The generic "server is waking up"
+        // message used to swallow real causes (bad assistant id, expired
+        // session), which made these very slow to diagnose.
+        const bad = !agentRes.ok ? agentRes : callsRes;
+        const body = await bad.json().catch(() => ({}));
+        const detail = body.message || body.error || '';
+
+        if (bad.status === 401) {
+          showAgentError('Your session has expired. Redirecting you to log in…');
+          setTimeout(() => { window.location.href = 'login.html'; }, 1800);
+          return;
+        }
+        if (bad.status === 404) {
+          showAgentError('Vapi does not recognize this account\'s assistant ID. Check vapi_assistant_id in Supabase against the assistant in Vapi.' + (detail ? ' (' + detail + ')' : ''));
+          return;
+        }
+        showAgentError(`Could not load your agent — the server returned ${bad.status}.` + (detail ? ' ' + detail : ''));
+        return;
       }
 
       const assistant = await agentRes.json();
@@ -784,7 +812,7 @@
         const durSec = startedAt && endedAt ? Math.floor((endedAt - startedAt) / 1000) : null;
         return {
           id: call.id,
-          customerName: s.customerName || call.customer?.name || 'Unknown caller',
+          customerName: s.customerName || call.customer?.name || call.customer?.number || 'Unknown caller',
           phoneNumber: call.customer?.number || '',
           email: s.email || '',
           location: s.location || '',
@@ -795,7 +823,10 @@
           durationSec: durSec,
           minutesAgo: startedAt ? Math.floor((now - startedAt) / 60000) : 0,
           _startedAt: startedAt,
-          businessRelated: s.businessRelated !== false
+          businessRelated: s.businessRelated !== false,
+          transcript: call.artifact?.transcript || call.transcript || '',
+          messages: call.artifact?.messages || call.messages || [],
+          hasRecording: !!(call.artifact?.recordingUrl || call.artifact?.recording || call.recordingUrl)
         };
       }).sort((a, b) => {
         if (a.businessRelated !== b.businessRelated) return a.businessRelated ? -1 : 1; // non-business sinks to bottom
@@ -810,7 +841,9 @@
       renderActiveView();
     } catch (err) {
       console.error('Dashboard load failed:', err);
-      showAgentError('Could not load Vapi data. The server may be waking up — try refreshing in 30 seconds.');
+      // Only a genuine network failure reaches here now — a fetch that never
+      // got a response. That IS the cold-start case worth retrying.
+      showAgentError('Could not reach the server. It may be waking up — try refreshing in 30 seconds. (' + err.message + ')');
     }
   }
 
@@ -887,6 +920,16 @@
               ? `<button class="restore-btn secondary" data-restore-id="${esc(c.id)}" style="background:transparent;color:var(--green);border:1.5px solid var(--green);">Restore</button>`
               : `<button class="dismiss-btn secondary" data-dismiss-id="${esc(c.id)}" style="background:transparent;color:var(--red);border:1.5px solid var(--gray-200);">Dismiss</button>`}
           </div>
+          <div class="call-media" data-media-for="${esc(c.id)}">
+            <div class="media-row">
+              <button class="media-btn play-btn" data-play-id="${esc(c.id)}">▶ Load recording</button>
+              <button class="media-btn transcript-btn" data-transcript-id="${esc(c.id)}">View transcript</button>
+              <a class="media-btn" style="text-decoration:none;line-height:1.4;" href="#" data-download-id="${esc(c.id)}">Download</a>
+              <span class="media-note" data-media-note="${esc(c.id)}"></span>
+            </div>
+            <div class="audio-slot" data-audio-slot="${esc(c.id)}"></div>
+            <div class="transcript-slot" data-transcript-slot="${esc(c.id)}" style="display:none;"></div>
+          </div>
         </div>
       </details>
     `;}).join('');
@@ -911,6 +954,153 @@
         restoreCall(btn.dataset.restoreId);
       });
     });
+
+    list.querySelectorAll('.play-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault(); e.stopPropagation();
+        loadRecording(btn.dataset.playId, btn);
+      });
+    });
+    list.querySelectorAll('.transcript-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault(); e.stopPropagation();
+        toggleTranscript(btn.dataset.transcriptId, btn);
+      });
+    });
+    list.querySelectorAll('[data-download-id]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault(); e.stopPropagation();
+        downloadRecording(a.dataset.downloadId, a);
+      });
+    });
+  }
+
+  // ── Call artifacts (recording + transcript) ──
+  //
+  // Vapi moved recordings into a private bucket, so the raw recordingUrl on a
+  // call is no longer fetchable. Our server exchanges the call id for a
+  // short-lived signed URL (it holds the Vapi private key), and we point the
+  // <audio> element at that. URLs are fetched on demand, never cached, because
+  // they expire.
+
+  async function authHeaders() {
+    const { data } = await SSCAuth._supabase.auth.getSession();
+    const token = data?.session?.access_token;
+    if (!token) {
+      window.location.href = 'login.html';
+      return null;
+    }
+    return { Authorization: 'Bearer ' + token };
+  }
+
+  function mediaNote(callId, msg, isError) {
+    document.querySelectorAll(`[data-media-note="${CSS.escape(callId)}"]`).forEach(el => {
+      el.textContent = msg || '';
+      el.style.color = isError ? 'var(--red)' : '';
+    });
+  }
+
+  async function loadRecording(callId, btn) {
+    const slot = btn.closest('.call-media').querySelector('[data-audio-slot]');
+    btn.disabled = true;
+    btn.textContent = 'Loading…';
+    mediaNote(callId, '');
+    try {
+      const headers = await authHeaders();
+      if (!headers) return;
+      const r = await fetch(`${SERVER_URL}/api/vapi/calls/${encodeURIComponent(callId)}/artifact-url?kind=mono-recording`, { headers });
+      const body = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(body.message || body.error || `Server returned ${r.status}`);
+
+      slot.innerHTML = `<audio controls autoplay preload="metadata" src="${esc(body.url)}"></audio>`;
+      btn.textContent = '▶ Reload recording';
+      btn.disabled = false;
+      mediaNote(callId, 'Playback link expires in about an hour — reload if it stops working.');
+    } catch (err) {
+      console.error('Recording load failed:', err);
+      btn.textContent = '▶ Load recording';
+      btn.disabled = false;
+      mediaNote(callId, err.message === 'no_artifact'
+        ? 'No recording saved for this call.'
+        : 'Could not load recording: ' + err.message, true);
+    }
+  }
+
+  async function downloadRecording(callId, link) {
+    const original = link.textContent;
+    link.textContent = 'Preparing…';
+    try {
+      const headers = await authHeaders();
+      if (!headers) return;
+      const r = await fetch(`${SERVER_URL}/api/vapi/calls/${encodeURIComponent(callId)}/artifact?kind=mono-recording`, { headers });
+      if (!r.ok) {
+        const body = await r.json().catch(() => ({}));
+        throw new Error(body.message || body.error || `Server returned ${r.status}`);
+      }
+      const blob = await r.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `call-${callId}.wav`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 30000);
+    } catch (err) {
+      console.error('Recording download failed:', err);
+      mediaNote(callId, 'Download failed: ' + err.message, true);
+    } finally {
+      link.textContent = original;
+    }
+  }
+
+  function renderTranscript(messages, transcript) {
+    const useful = (messages || []).filter(m => m.role !== 'system' && (m.message || m.content));
+    if (useful.length) {
+      return useful.map(m => {
+        const isBot = m.role === 'bot' || m.role === 'assistant';
+        const who = isBot ? 'Agent' : 'Caller';
+        return `<div class="transcript-line${isBot ? ' bot' : ''}"><span class="who">${who}:</span> ${esc(m.message || m.content)}</div>`;
+      }).join('');
+    }
+    if (transcript) return `<div class="transcript-line">${esc(transcript)}</div>`;
+    return '<div class="transcript-line">No transcript available for this call.</div>';
+  }
+
+  async function toggleTranscript(callId, btn) {
+    const slot = btn.closest('.call-media').querySelector('[data-transcript-slot]');
+    if (slot.style.display !== 'none') {
+      slot.style.display = 'none';
+      btn.textContent = 'View transcript';
+      return;
+    }
+    slot.style.display = 'block';
+    btn.textContent = 'Hide transcript';
+
+    if (slot.dataset.loaded === '1') return;
+
+    const call = allCalls.find(c => c.id === callId);
+    if (call && (call.transcript || (call.messages && call.messages.length))) {
+      slot.innerHTML = `<div class="transcript-box">${renderTranscript(call.messages, call.transcript)}</div>`;
+      slot.dataset.loaded = '1';
+      return;
+    }
+
+    // The list response did not carry the transcript — pull the full call.
+    slot.innerHTML = '<div class="transcript-box">Loading transcript…</div>';
+    try {
+      const headers = await authHeaders();
+      if (!headers) return;
+      const r = await fetch(`${SERVER_URL}/api/vapi/calls/${encodeURIComponent(callId)}`, { headers });
+      const body = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(body.message || body.error || `Server returned ${r.status}`);
+      if (call) { call.transcript = body.transcript; call.messages = body.messages; }
+      slot.innerHTML = `<div class="transcript-box">${renderTranscript(body.messages, body.transcript)}</div>`;
+      slot.dataset.loaded = '1';
+    } catch (err) {
+      console.error('Transcript load failed:', err);
+      slot.innerHTML = `<div class="transcript-box" style="color:var(--red);">Could not load transcript: ${esc(err.message)}</div>`;
+    }
   }
 
   // ── Hidden / dismissed call management ──
